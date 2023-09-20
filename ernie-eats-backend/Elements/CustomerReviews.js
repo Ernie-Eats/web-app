@@ -1,6 +1,7 @@
-class CustomerReviews extends HTMLElement {
-
-    constructor() {
+class CustomerReviews extends HTMLElement
+{
+    constructor()
+    {
         super();
 
         const shadow = this.attachShadow({ mode: "open" });
@@ -8,11 +9,22 @@ class CustomerReviews extends HTMLElement {
         const wrapper = document.createElement("div");
         wrapper.setAttribute("class", "customerReviews-wrapper");
 
-        const customerReviews = wrapper.appendChild(document.createElement("a"));
-        customerReviews.href = this.hasAttribute("customerReviews") ? this.getAttribute("customerReviews") : "index.html";
-        customerReviews.text = "Customer Reviews";
+        const titleBar = wrapper.appendChild(document.createElement("div"));
+
+        const profilePicture = titleBar.appendChild(document.createElement("img"));
+        profilePicture.href = this.hasAccount() ? "" : "./Images/default_profile.svg";
         
-        var h1 = document.createElement("H1");
+        const title = titleBar.appendChild(document.createElement("h4"));
+
+        wrapper.appendChild(document.createElement("hr"));
+
+        const reviewer = wrapper.appendChild(document.createElement("h5"));
+
+        const reviewDate = wrapper.appendChild(document.createElement("h5"));
+
+        const review = wrapper.appendChild(document.createElement("p"));
+
+
         var r1header = document.createTextNode("The Cracked Pillar");
         h1.appendChild(r1header);
         let name1 = "Eric M.";
@@ -44,7 +56,7 @@ class CustomerReviews extends HTMLElement {
         let rating3 = "1 out of 5 stars";
         document.innerHTML = name3 + ", " + time3 + "<br>" + "Rating: " + rating3;
         const review3 = document.createElement("R3");
-        const node3 = document.createTextNode("I brought my girlfriend here for dinner last week and was not very impressed. Service was slow (even though the place was not very busy) and our queso was COLD. The margaritas are so overpriced, they aren’t even worth it. The portions weren’t big enough and I was still hungry when I left after paying a hefty bill. Probably will not be coming back for date night again."); 
+        const node3 = document.createTextNode("I brought my girlfriend here for dinner last week and was not very impressed. Service was slow (even though the place was not very busy) and our queso was COLD. The margaritas are so overpriced, they aren’t even worth it. The portions weren’t big enough and I was still hungry when I left after paying a hefty bill. Probably will not be coming back for date night again.");
         review3.appendChild(node3);
         document.body.appendChild(review3);
 
@@ -72,8 +84,64 @@ class CustomerReviews extends HTMLElement {
         review5.appendChild(node5);
         document.body.appendChild(review5);
 
+        document.addEventListener("DOMContentLoaded", (e) => {
+            title.innerText = this.hasAttribute("data-reviewer-title")
+                ? this.getAttribute("data-reviewer-title")
+                : "Unknown Title";
+
+            reviewer.innerHTML = this.hasAttribute("data-reviewer")
+                ? this.getAttribute("data-reviewer")
+                : "Unknown Reviewer"; 
+
+            reviewDate.innerHTML = this.hasAttribute("data-reviewer-date")
+                ? this.getAttribute("data-reviewer-date")
+                : "Unknown Review Date";
+
+            if (this.hasAttribute("data-reviewer-review")) {
+                let reviewText = this.getAttribute("data-reviewer-review");
+
+                if (reviewText.length >= 97) {
+                    do {
+                        reviewText = reviewText.slice(0, reviewText.lastIndexOf(" "));
+                    } while (reviewText.length > 97 || review.lastIndexOf(" ") !== -1);
+
+                    reviewText += "...";
+                }
+
+                review.innerText = reviewText;
+            } else {
+                review.innerHTML = "Unknown Review";
+            }
+
+            if (this.hasAttribute("data-reviewer-rating")) {
+                const rating = +(this.getAttribute("data-reviewer-rating"));
+                const starWrapper = titleBar.appendChild(document.createElement("div"));
+
+                if (rating >= 1 || rating <= 5) {
+                    for (let i = 0; i < rating; i++) {
+                        let star = starWrapper.appendChild(document.createElement("img"));
+                        star.href = "./Images/Review/filled_star.svg";
+                    }
+
+                    for (let i = 0; i < 5 - rating; i++) {
+                        let star = starWrapper.appendChild(document.createElement("img"));
+                        star.href = "./Images/Review/unfilled_star.svg";
+                    }
+                } else {
+                    const warning = starWrapper.appendChild(document.createElement("p"));
+                    warning.innerText = "Unknown Review";
+                }
+
+            }
+        });
+
         shadow.appendChild(wrapper);
 
+    }
+
+    hasAccount()
+    {
+        return false;
     }
 }
 
