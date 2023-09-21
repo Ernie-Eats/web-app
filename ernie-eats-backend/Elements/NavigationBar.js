@@ -6,7 +6,7 @@ class NavigationBar extends HTMLElement
 
         const shadow = this.attachShadow({ mode: "open" });
 
-        const wrapper = document.createElement("div");
+        const wrapper = document.createElement("nav");
         wrapper.setAttribute("class", "navigation-wrapper");
 
         const homePage = wrapper.appendChild(document.createElement("a"));
