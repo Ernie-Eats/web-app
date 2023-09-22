@@ -14,10 +14,12 @@ class CustomerReview extends HTMLElement {
         profilePicture.src = this.hasAccount() ? "" : "./Images/default_profile.svg";
         
         const title = titleBar.appendChild(document.createElement("h3"));
+        title.innerText = this.hasAttribute("data-reviewer-title") ? this.getAttribute("data-reviewer-title") : "";
 
         wrapper.appendChild(document.createElement("hr"));
 
         const review = wrapper.appendChild(document.createElement("p"));
+        review.innerText = this.hasAttribute("data-reviewer-review") ? this.getAttribute("data-reviewer-review") : "";
 
         document.addEventListener("DOMContentLoaded", (e) => {
             title.innerText = this.hasAttribute("data-reviewer-title")
@@ -61,7 +63,7 @@ class CustomerReview extends HTMLElement {
                 titleBar.appendChild(starWrapper);
             }
         });
-
+        
         shadow.appendChild(wrapper);
     }
 
