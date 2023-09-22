@@ -25,14 +25,12 @@ class CustomQuestion extends HTMLElement
                 : "Unknown Response";
               
             responseList = this.getAttribute("data-response-list");
-            console.log(responseList);
 
             if (responseList !== null && responseList.length > 0) 
             {
                 let phrase = ""
                 for(const r of responseList)
                 {
-                    console.log(r)
                     if (r !== '[') 
                     {
                         phrase += r;
@@ -40,7 +38,6 @@ class CustomQuestion extends HTMLElement
                         {
                             phrase.trimEnd();
                             phrase = phrase.slice(0, -1);
-                            console.log(phrase)
                             wrapper.appendChild(document.createElement("ul")).innerText = phrase;
                             phrase = ""
                         }
