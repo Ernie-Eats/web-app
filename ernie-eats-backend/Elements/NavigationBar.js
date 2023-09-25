@@ -14,7 +14,7 @@ class NavigationBar extends HTMLElement
         homePage.text = "Home";
         
         const homeLogo = homePage.appendChild(document.createElement("img"));
-        homeLogo.src = this.hasAttribute("homeSrc") ? this.getAttribute("homeSrc") : "./Images/home.svg";
+        homeLogo.src = this.hasAttribute("homeSrc") ? this.getAttribute("homeSrc") : "./Images/ErnieLogo.jpg";
 
         const searchBar = wrapper.appendChild(document.createElement("input"));
         searchBar.setAttribute("type", "text");
@@ -24,7 +24,7 @@ class NavigationBar extends HTMLElement
         accountLogin.href = hasAccount() ? "" : "./Pages/accountLogin.html";
 
         const accountPhoto = accountLogin.appendChild(document.createElement("img"));
-        accountPhoto.src = hasAccount() ? "" : "./Images/unknown_account.svg";
+        accountPhoto.src = hasAccount() ? "" : "./Images/defaultLogin.png";
 
         shadow.appendChild(wrapper);
     }
