@@ -5,6 +5,10 @@ class CustomerReview extends HTMLElement {
 
         const shadow = this.attachShadow({ mode: "open" });
 
+        const css = document.createElement("link");
+        css.rel = "stylesheet";
+        css.href = "./CSS/review.css";
+
         const wrapper = document.createElement("div");
         wrapper.setAttribute("class", "customerReviews-wrapper");
 
@@ -66,6 +70,7 @@ class CustomerReview extends HTMLElement {
             if (this.hasAttribute("data-reviewer-rating")) {
                 const rating = +(this.getAttribute("data-reviewer-rating"));
                 const starWrapper = titleBar.appendChild(document.createElement("div"));
+                starWrapper.setAttribute("class", "star-wrapper");
 
                 if (rating >= 1 || rating <= 5) {
                     for (let i = 0; i < rating; i++) {
@@ -84,12 +89,12 @@ class CustomerReview extends HTMLElement {
                 titleBar.appendChild(starWrapper);
             }
         });
-        
+
+        shadow.appendChild(css);
         shadow.appendChild(wrapper);
     }
 
-    hasAccount()
-    {
+    hasAccount() {
         return false;
     }
 }

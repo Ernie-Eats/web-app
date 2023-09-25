@@ -3,6 +3,11 @@ class CustomReviewSlider extends HTMLElement {
         super();
 
         const shadow = this.attachShadow({ mode: "open" });
+
+        const css = document.createElement("link");
+        css.rel = "stylesheet";
+        css.href = "./CSS/review-slider.css";
+
         const wrapper = document.createElement("div");
         wrapper.setAttribute("id", "customer-review-slider-wrapper");
 
@@ -35,8 +40,7 @@ class CustomReviewSlider extends HTMLElement {
             wrapper.appendChild(forwardArrow);
         });
 
-
-
+        shadow.appendChild(css);
         shadow.appendChild(wrapper);
     }
 
