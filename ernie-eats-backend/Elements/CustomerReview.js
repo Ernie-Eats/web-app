@@ -19,7 +19,28 @@ class CustomerReview extends HTMLElement {
         wrapper.appendChild(document.createElement("hr"));
 
         const review = wrapper.appendChild(document.createElement("p"));
-        review.innerText = this.hasAttribute("data-reviewer-review") ? this.getAttribute("data-reviewer-review") : "";
+        review.innerText = this.hasAttribute("data-reviewer-review") ? this.getAttribute("data-reviewer-review") : "1";
+
+        if (this.hasAttribute("data-reviewer-rating")) {
+            const rating = +(this.getAttribute("data-reviewer-rating"));
+            const starWrapper = titleBar.appendChild(document.createElement("div"));
+
+            if (rating >= 1 || rating <= 5) {
+                for (let i = 0; i < rating; i++) {
+                    let star = starWrapper.appendChild(document.createElement("img"));
+                    star.src = "./Images/Review/filled_star.png";
+                }
+
+                for (let i = 0; i < 5 - rating; i++) {
+                    let star = starWrapper.appendChild(document.createElement("img"));
+                    star.src = "./Images/Review/unfilled_star.jpg";
+                }
+            } else {
+                const warning = starWrapper.appendChild(document.createElement("p"));
+                warning.innerText = "Unknown Review";
+            }
+            titleBar.appendChild(starWrapper);
+        }
 
         document.addEventListener("DOMContentLoaded", (e) => {
             title.innerText = this.hasAttribute("data-reviewer-title")
