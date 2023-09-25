@@ -11,7 +11,6 @@ class NavigationBar extends HTMLElement
 
         const homePage = wrapper.appendChild(document.createElement("a"));
         homePage.href = this.hasAttribute("homePage") ? this.getAttribute("homePage") : "index.html";
-        homePage.text = "Home";
         
         const homeLogo = homePage.appendChild(document.createElement("img"));
         homeLogo.src = this.hasAttribute("homeSrc") ? this.getAttribute("homeSrc") : "./Images/ErnieLogo.jpg";

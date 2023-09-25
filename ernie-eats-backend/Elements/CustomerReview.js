@@ -11,7 +11,7 @@ class CustomerReview extends HTMLElement {
         const titleBar = wrapper.appendChild(document.createElement("div"));
 
         const profilePicture = titleBar.appendChild(document.createElement("img"));
-        profilePicture.src = this.hasAccount() ? "" : "./Images/default_profile.svg";
+        profilePicture.src = this.hasAccount() ? "" : "./Images/defaultLogin.png";
         
         const title = titleBar.appendChild(document.createElement("h3"));
         title.innerText = this.hasAttribute("data-reviewer-title") ? this.getAttribute("data-reviewer-title") : "";
@@ -28,12 +28,12 @@ class CustomerReview extends HTMLElement {
             if (rating >= 1 || rating <= 5) {
                 for (let i = 0; i < rating; i++) {
                     let star = starWrapper.appendChild(document.createElement("img"));
-                    star.src = "./Images/Review/filled_star.png";
+                    star.src = "./Images/filledStar.jpg";
                 }
 
                 for (let i = 0; i < 5 - rating; i++) {
                     let star = starWrapper.appendChild(document.createElement("img"));
-                    star.src = "./Images/Review/unfilled_star.jpg";
+                    star.src = "./Images/unfilledStar.jpg";
                 }
             } else {
                 const warning = starWrapper.appendChild(document.createElement("p"));
