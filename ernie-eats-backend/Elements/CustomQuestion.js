@@ -1,10 +1,12 @@
-class CustomQuestion extends HTMLElement 
-{
-    constructor()
-    {
+class CustomQuestion extends HTMLElement {
+    constructor() {
         super();
 
         const shadow = this.attachShadow({ mode: "open" });
+
+        const css = document.createElement("link");
+        css.rel = "stylesheet";
+        css.href = "./CSS/question.css";
 
         const wrapper = document.createElement("div");
         wrapper.setAttribute("class", "question-wrapper");
@@ -46,6 +48,7 @@ class CustomQuestion extends HTMLElement
             } 
         })
 
+        shadow.appendChild(css);
         shadow.appendChild(wrapper);
     }
 }
