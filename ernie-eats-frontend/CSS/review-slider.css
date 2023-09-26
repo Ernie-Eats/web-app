@@ -9,4 +9,14 @@
 
 #customer-review-slider-wrapper .previous-arrow {
     background-color:#bf1f3b;
+    position: relative;
+    top: 175px;
+    margin-left: 275px;
+}
+
+#customer-review-slider-wrapper .next-arrow {
+    background-color: #bf1f3b;
+    position: relative;
+    margin-left: 590px;
+
 }
