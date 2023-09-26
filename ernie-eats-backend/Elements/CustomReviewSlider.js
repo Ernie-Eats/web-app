@@ -12,12 +12,14 @@ class CustomReviewSlider extends HTMLElement {
         wrapper.setAttribute("id", "customer-review-slider-wrapper");
 
         const backArrow = document.createElement("button");
+        backArrow.classList.add("back-arrow");
         const forwardArrow = document.createElement("button");
+        forwardArrow.classList.add("forward-arrow");
         let currentReview = document.createElement("customer-review");
 
         document.addEventListener("DOMContentLoaded", (e) => {
             backArrow.addEventListener("click", this.previousReview);
-            backArrow.innerText = "<";
+            backArrow.innerText = "<Previous";
             wrapper.appendChild(backArrow);
 
             const reviews = [...document.getElementsByClassName("review")]
@@ -36,7 +38,7 @@ class CustomReviewSlider extends HTMLElement {
             wrapper.appendChild(currentReview);
 
             forwardArrow.addEventListener("click", this.nextReview);
-            forwardArrow.innerText = ">";
+            forwardArrow.innerText = "Next>";
             wrapper.appendChild(forwardArrow);
         });
 

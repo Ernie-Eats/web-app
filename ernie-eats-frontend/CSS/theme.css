@@ -43,7 +43,13 @@ nav {
             background-color: #d03f4b;
             color: white;
         }
-
+#about-section,
+#faq-section {
+    border: 2px solid #bf1f3b;
+    padding: 20px;
+    margin-bottom: 10px;
+    margin: 10px;
+}
      
 
        
