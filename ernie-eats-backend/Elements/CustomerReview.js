@@ -16,7 +16,8 @@ class CustomerReview extends HTMLElement {
 
         const profilePicture = titleBar.appendChild(document.createElement("img"));
         profilePicture.src = this.hasAccount() ? "" : "./Images/defaultLogin.png";
-        
+        profilePicture.classList.add("profile-picture");
+
         const title = titleBar.appendChild(document.createElement("h3"));
         title.innerText = this.hasAttribute("data-reviewer-title") ? this.getAttribute("data-reviewer-title") : "";
 
@@ -33,11 +34,13 @@ class CustomerReview extends HTMLElement {
                 for (let i = 0; i < rating; i++) {
                     let star = starWrapper.appendChild(document.createElement("img"));
                     star.src = "./Images/filledStar.jpg";
+                    star.classList.add("filled-star");
                 }
 
                 for (let i = 0; i < 5 - rating; i++) {
                     let star = starWrapper.appendChild(document.createElement("img"));
                     star.src = "./Images/unfilledStar.jpg";
+                    star.classList.add("unfilled-star");
                 }
             } else {
                 const warning = starWrapper.appendChild(document.createElement("p"));
@@ -49,7 +52,7 @@ class CustomerReview extends HTMLElement {
         document.addEventListener("DOMContentLoaded", (e) => {
             title.innerText = this.hasAttribute("data-reviewer-title")
                 ? this.getAttribute("data-reviewer-title")
-                : "Unknown Title";
+                : "Unknown Title"; 
 
             if (this.hasAttribute("data-reviewer-review")) {
                 let reviewText = this.getAttribute("data-reviewer-review");
