@@ -1,9 +1,8 @@
 #customer-review-slider-wrapper {
     position: relative;
-    top: 33px;
+    /*top: 10px; */
     border: 2px solid #bf1f3b;
     padding: 20px;
-    margin-bottom: 20px;
     margin: 10px;
 }
 
