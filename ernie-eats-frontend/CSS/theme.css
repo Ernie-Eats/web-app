@@ -1,14 +1,18 @@
-p {
-    font-size: 18px;
-    color: black;
-}
+
+h2 {
+    color: rgb(61, 40, 40);
+    text-align: center;
+  }
+
+
 
 body {
     margin: 0;
-    background-color: #fff6ea;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background-color: #c8a5a5;
+    font: Helvetica;
     
 }
+
 
 nav {
     float: left;
@@ -28,14 +32,14 @@ nav {
 
     .topnav a {
         float: left;
-        color: #f2f2f2;
+        color: #9d9c9c;
         text-align: center;
         padding: 14px 16px;
         font-size: 17px;
     }
 
         .topnav a:hover {
-            background-color: #ddd;
+            background-color: #9d9c9c;
             color: black;
         }
 
@@ -44,6 +48,26 @@ nav {
             color: white;
         }
 
-     
+        .homelogo{
+            width:150px;
+            padding:5px;
+            border-radius:4px;
+            border:1px solid #ddd;
+           }
 
-       
+       .accountphoto{
+        width:150px;
+        padding:5px;
+        border-radius:4px;
+        border:1px solid #ddd;
+       }
+
+       .defaultLogin{
+        width:150px;
+        height:50px;
+        padding:5px;
+        border-radius:4px;
+        border:1px solid #ddd;
+       }
+  
+   
