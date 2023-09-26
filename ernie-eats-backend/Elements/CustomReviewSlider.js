@@ -12,9 +12,9 @@ class CustomReviewSlider extends HTMLElement {
         wrapper.setAttribute("id", "customer-review-slider-wrapper");
 
         const backArrow = document.createElement("button");
-        backArrow.classList.add("back-arrow");
+        backArrow.setAttribute("class", "previous-arrow");
         const forwardArrow = document.createElement("button");
-        forwardArrow.classList.add("forward-arrow");
+        forwardArrow.setAttribute("class", "next-arrow");
         let currentReview = document.createElement("customer-review");
 
         document.addEventListener("DOMContentLoaded", (e) => {
