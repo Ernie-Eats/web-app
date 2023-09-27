@@ -10,7 +10,7 @@ class CustomerReview extends HTMLElement {
         css.href = "./CSS/review.css";
 
         const wrapper = document.createElement("div");
-        wrapper.setAttribute("class", "customerReviews-wrapper");
+        wrapper.setAttribute("class", "customer-reviews-wrapper");
 
         const titleBar = wrapper.appendChild(document.createElement("div"));
 
@@ -25,29 +25,6 @@ class CustomerReview extends HTMLElement {
 
         const review = wrapper.appendChild(document.createElement("p"));
         review.innerText = this.hasAttribute("data-reviewer-review") ? this.getAttribute("data-reviewer-review") : "1";
-
-        if (this.hasAttribute("data-reviewer-rating")) {
-            const rating = +(this.getAttribute("data-reviewer-rating"));
-            const starWrapper = titleBar.appendChild(document.createElement("div"));
-
-            if (rating >= 1 || rating <= 5) {
-                for (let i = 0; i < rating; i++) {
-                    let star = starWrapper.appendChild(document.createElement("img"));
-                    star.src = "./Images/filledStar.jpg";
-                    star.classList.add("filled-star");
-                }
-
-                for (let i = 0; i < 5 - rating; i++) {
-                    let star = starWrapper.appendChild(document.createElement("img"));
-                    star.src = "./Images/unfilledStar.jpg";
-                    star.classList.add("unfilled-star");
-                }
-            } else {
-                const warning = starWrapper.appendChild(document.createElement("p"));
-                warning.innerText = "Unknown Review";
-            }
-            titleBar.appendChild(starWrapper);
-        }
 
         document.addEventListener("DOMContentLoaded", (e) => {
             title.innerText = this.hasAttribute("data-reviewer-title")
@@ -79,11 +56,13 @@ class CustomerReview extends HTMLElement {
                     for (let i = 0; i < rating; i++) {
                         let star = starWrapper.appendChild(document.createElement("img"));
                         star.src = "./Images/filledStar.jpg";
+                        star.setAttribute("class", "filled-star");
                     }
 
                     for (let i = 0; i < 5 - rating; i++) {
                         let star = starWrapper.appendChild(document.createElement("img"));
                         star.src = "./Images/unfilledStar.jpg";
+                        star.setAttribute("class", "unfilled-star");
                     }
                 } else {
                     const warning = starWrapper.appendChild(document.createElement("p"));

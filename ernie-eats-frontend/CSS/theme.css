@@ -2,9 +2,7 @@
 h2 {
     color: rgb(61, 40, 40);
     text-align: center;
-  }
-
-
+}
 
 body {
     margin: 0;
@@ -12,42 +10,3 @@ body {
     font: Helvetica;
     
 }
-
-
-nav {
-    float: left;
-    margin: 0;
-    padding: 0;
-}
-
-    nav li {
-        display: incline-block;
-        margin-left: 70px;
-    }
-
-.topnav {
-    overflow: hidden;
-    background-color: black;
-}
-
-    .topnav a {
-        float: left;
-        color: #9d9c9c;
-        text-align: center;
-        padding: 14px 16px;
-        font-size: 17px;
-    }
-
-        .topnav a:hover {
-            background-color: #9d9c9c;
-            color: black;
-        }
-
-        .topnav a.active {
-            background-color: #d03f4b;
-            color: white;
-        }
-
-     
-
-       

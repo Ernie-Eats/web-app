@@ -1,7 +1,8 @@
 h3 {
     margin-left: 50px;
     position: relative;
-    top: 10px; 
+    top: 10px;
+    transform: translateY(20px); 
 }
 
 img.profile-picture {
@@ -10,6 +11,13 @@ img.profile-picture {
     border-radius: 50%; 
     float: left;
     margin-left: 3px;
+}
+
+.star-wrapper {
+    width: 200px;
+    height: 20px;
+    position: relative;
+    transform: translate(575px, -7px);
 }
 
 img.filled-star {
