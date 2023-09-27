@@ -9,3 +9,10 @@ body {
     background-color: #c8a5a5;
     font: Helvetica;
 }
+
+#about-us {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: center;
+}
