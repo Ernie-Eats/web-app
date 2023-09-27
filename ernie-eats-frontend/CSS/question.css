@@ -1,4 +1,7 @@
-h3{
-    font-family: 
-    padding-left: ;
+* {
+    margin: 30px;
+}
+
+.bordered {
+    border: 3px #bf1f3b solid;
 }

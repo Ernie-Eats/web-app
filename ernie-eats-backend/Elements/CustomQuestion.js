@@ -25,6 +25,11 @@ class CustomQuestion extends HTMLElement {
             response.innerText = this.hasAttribute("data-response")
                 ? this.getAttribute("data-response")
                 : "Unknown Response";
+
+            if (this.hasAttribute("data-bordered") 
+                && this.getAttribute("data-bordered").toLowerCase() === "true") {
+                    wrapper.classList.add("bordered");
+            }
               
             responseList = this.getAttribute("data-response-list");
 
