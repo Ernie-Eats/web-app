@@ -19,7 +19,7 @@ class NavigationBar extends HTMLElement {
 
         const searchBar = wrapper.appendChild(document.createElement("input"));
         searchBar.setAttribute("type", "text");
-        searchBar.setAttribute("placeholder", "Search..");
+        searchBar.setAttribute("placeholder", "Search...");
 
         const accountLogin = wrapper.appendChild(document.createElement("a"));
         accountLogin.href = this.hasAccount() ? "" : "./Pages/accountLogin.html";

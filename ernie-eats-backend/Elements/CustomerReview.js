@@ -26,7 +26,7 @@ class CustomerReview extends HTMLElement {
         const review = wrapper.appendChild(document.createElement("p"));
         review.innerText = this.hasAttribute("data-reviewer-review") ? this.getAttribute("data-reviewer-review") : "1";
 
-        document.addEventListener("DOMContentLoaded", (e) => {
+        document.addEventListener("DOMContentLoaded", () => {
             title.innerText = this.hasAttribute("data-reviewer-title")
                 ? this.getAttribute("data-reviewer-title")
                 : "Unknown Title"; 
