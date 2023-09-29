@@ -11,7 +11,7 @@ class CustomReviewSlider extends HTMLElement {
 
         const wrapper = document.createElement("div");
         let reviews = [];
-        wrapper.setAttribute("id", "slider");
+        wrapper.setAttribute("id", "slider"); 
 
         document.addEventListener("DOMContentLoaded", () => {
             const slideDiv = document.createElement("div");
