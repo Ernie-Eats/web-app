@@ -6,7 +6,7 @@ class NavigationBar extends HTMLElement {
 
         const css = document.createElement("link");
         css.rel = "stylesheet";
-        css.href = "./CSS/navbar.css";
+        css.href = "../ernie-eats-frontend/CSS/navbar.css";
 
         const wrapper = document.createElement("nav");
         wrapper.setAttribute("class", "navigation-wrapper");
@@ -15,7 +15,7 @@ class NavigationBar extends HTMLElement {
         homePage.href = this.hasAttribute("homePage") ? this.getAttribute("homePage") : "index.html";
         
         const homeLogo = homePage.appendChild(document.createElement("img"));
-        homeLogo.src = this.hasAttribute("homeSrc") ? this.getAttribute("homeSrc") : "./Images/ErnieLogo.jpg";
+        homeLogo.src = this.hasAttribute("homeSrc") ? this.getAttribute("homeSrc") : "./ernie-eats-frontend/Images/ErnieLogo.jpg";
 
         const searchBar = wrapper.appendChild(document.createElement("input"));
         searchBar.setAttribute("type", "text");
@@ -25,7 +25,7 @@ class NavigationBar extends HTMLElement {
         accountLogin.href = this.hasAccount() ? "" : "./Pages/accountLogin.html";
 
         const accountPhoto = accountLogin.appendChild(document.createElement("img"));
-        accountPhoto.src = this.hasAccount() ? "" : "./Images/defaultLogin.png";
+        accountPhoto.src = this.hasAccount() ? "" : "./ernie-eats-frontend/Images/defaultLogin.png";
 
         shadow.appendChild(css);
         shadow.appendChild(wrapper);
