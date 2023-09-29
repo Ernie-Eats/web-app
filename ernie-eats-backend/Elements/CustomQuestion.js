@@ -6,7 +6,7 @@ class CustomQuestion extends HTMLElement {
 
         const css = document.createElement("link");
         css.rel = "stylesheet";
-        css.href = "./CSS/question.css";
+        css.href = "./ernie-eats-frontend/CSS/question.css";
 
         const wrapper = document.createElement("div");
         wrapper.setAttribute("class", "question-wrapper");

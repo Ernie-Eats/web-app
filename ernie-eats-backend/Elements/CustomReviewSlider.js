@@ -7,11 +7,11 @@ class CustomReviewSlider extends HTMLElement {
 
         const css = document.createElement("link");
         css.rel = "stylesheet";
-        css.href = "./CSS/review-slider.css";
+        css.href = "./ernie-eats-frontend/CSS/review-slider.css";
 
         const wrapper = document.createElement("div");
         let reviews = [];
-        wrapper.setAttribute("id", "slider");
+        wrapper.setAttribute("id", "slider"); 
 
         document.addEventListener("DOMContentLoaded", () => {
             const slideDiv = document.createElement("div");

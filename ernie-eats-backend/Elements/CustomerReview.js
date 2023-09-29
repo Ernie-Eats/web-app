@@ -7,7 +7,7 @@ class CustomerReview extends HTMLElement {
 
         const css = document.createElement("link");
         css.rel = "stylesheet";
-        css.href = "./CSS/review.css";
+        css.href = "./ernie-eats-frontend/CSS/review.css";
 
         const wrapper = document.createElement("div");
         wrapper.setAttribute("class", "customer-reviews-wrapper");
@@ -15,7 +15,7 @@ class CustomerReview extends HTMLElement {
         const titleBar = wrapper.appendChild(document.createElement("div"));
 
         const profilePicture = titleBar.appendChild(document.createElement("img"));
-        profilePicture.src = this.hasAccount() ? "" : "./Images/defaultLogin.png";
+        profilePicture.src = this.hasAccount() ? "" : "./ernie-eats-frontend/Images/defaultLogin.png";
         profilePicture.classList.add("profile-picture");
 
         const title = titleBar.appendChild(document.createElement("h3"));
@@ -55,13 +55,13 @@ class CustomerReview extends HTMLElement {
                 if (rating >= 1 || rating <= 5) {
                     for (let i = 0; i < rating; i++) {
                         let star = starWrapper.appendChild(document.createElement("img"));
-                        star.src = "./Images/filledStar.jpg";
+                        star.src = "./ernie-eats-frontend/Images/filledStar.jpg";
                         star.setAttribute("class", "filled-star");
                     }
 
                     for (let i = 0; i < 5 - rating; i++) {
                         let star = starWrapper.appendChild(document.createElement("img"));
-                        star.src = "./Images/unfilledStar.jpg";
+                        star.src = "./ernie-eats-frontend/Images/unfilledStar.jpg";
                         star.setAttribute("class", "unfilled-star");
                     }
                 } else {
