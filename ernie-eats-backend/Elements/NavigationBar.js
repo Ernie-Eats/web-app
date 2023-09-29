@@ -6,7 +6,7 @@ class NavigationBar extends HTMLElement {
 
         const css = document.createElement("link");
         css.rel = "stylesheet";
-        css.href = "../ernie-eats-frontend/CSS/navbar.css";
+        css.href = "./ernie-eats-frontend/CSS/navbar.css";
 
         const wrapper = document.createElement("nav");
         wrapper.setAttribute("class", "navigation-wrapper");
