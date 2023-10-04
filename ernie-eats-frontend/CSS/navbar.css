@@ -26,3 +26,21 @@ img {
     border-radius: 30%;
     vertical-align: middle;
 }
+
+#hamburger-wrapper {
+    position: relative;
+}
+
+#content-wrapper {
+    display: flex;
+    position: absolute;
+    width: 150px;
+    flex-wrap: wrap;
+    background-color: #bf1f3b;
+    border: 3px #94270c solid; 
+}
+
+#content-wrapper a {
+    position: relative;
+    font-size: large; 
+}

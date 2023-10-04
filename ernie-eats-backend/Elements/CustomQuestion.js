@@ -43,7 +43,6 @@ class CustomQuestion extends HTMLElement {
                         phrase += r;
                         if (r === ',' || r === ']') 
                         {
-                            phrase.trimEnd();
                             phrase = phrase.slice(0, -1);
                             wrapper.appendChild(document.createElement("ul")).innerText = phrase;
                             phrase = ""
