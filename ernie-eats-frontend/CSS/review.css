@@ -2,7 +2,11 @@ h3 {
     margin-left: 50px;
     position: relative;
     top: 10px;
-    transform: translateY(20px); 
+    transform: translateY(15px); 
+}
+
+#resturant-name {
+    transform: translate(-265px, 5px);
 }
 
 img.profile-picture {
@@ -17,7 +21,7 @@ img.profile-picture {
     width: 200px;
     height: 20px;
     position: relative;
-    transform: translate(575px, -7px);
+    transform: translate(575px, -25px);
 }
 
 img.filled-star {
