@@ -11,7 +11,7 @@ body {
 
 hr {
     width: 500px;
-    border: 1px #de2a4a solid;
+    border: 1px #DE2A4A solid;
 }
 
 #about-us {
@@ -20,3 +20,20 @@ hr {
     align-items: baseline;
     justify-content: center;
 }
+
+.event-section-title {
+    font: 50px 'Open Sans', sans-serif;
+    text-align: center;
+    color: white;
+    background-color: #94270c;
+    border: 4px solid #94270c;
+    width: 940px;
+    margin: 40px;
+    margin-bottom: 0%;
+}
+
+    .event-section-title:after {
+        content: "Upcoming Events";
+        display: inline-block;
+        width: 100%;
+    }
