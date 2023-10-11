@@ -1,0 +1,21 @@
+﻿div {
+    margin: 30px 40px 0 40px;
+    background-color: #fff6ea;
+    width: 500px;
+    border: 3px #de2a4a solid
+}
+
+div:hover {
+    background-color: #ffffff;
+    transform: scale(1.2);
+}
+
+h3 {
+    margin: 0 40px 0 40px;
+    color: #94270c;
+    font-size: 24px;
+}
+
+p {
+    margin: 10px 40px 10px 40px
+}
