@@ -21,18 +21,27 @@ class CustomerReview extends HTMLElement {
         const title = titleBar.appendChild(document.createElement("h3"));
         title.innerText = this.hasAttribute("data-reviewer-title") ? this.getAttribute("data-reviewer-title") : "";
 
+        const resturantName = titleBar.appendChild(document.createElement("p"));
+        resturantName.setAttribute("id", "resturant-name");
+
         wrapper.appendChild(document.createElement("hr"));
 
         const review = wrapper.appendChild(document.createElement("p"));
         review.innerText = this.hasAttribute("data-reviewer-review") ? this.getAttribute("data-reviewer-review") : "1";
 
         document.addEventListener("DOMContentLoaded", () => {
+            resturantName.innerText = this.hasAttribute("data-resturant-name")
+                ? this.getAttribute("data-resturant-name")
+                : "Unknown Resturant"; 
+
             title.innerText = this.hasAttribute("data-reviewer-title")
                 ? this.getAttribute("data-reviewer-title")
                 : "Unknown Title"; 
 
             if (this.hasAttribute("data-reviewer-review")) {
                 let reviewText = this.getAttribute("data-reviewer-review");
+
+                console.log(reviewText);
 
                 if (reviewText.length >= 97) {
                     do {
