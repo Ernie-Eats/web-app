@@ -1,0 +1,22 @@
+h2 {
+    color: rgb(61, 40, 40);
+    text-align: center;
+}
+
+body {
+    margin: 0;
+    background-color: #c8a5a5;
+    font-family: Helvetica Arial sans-serif;
+}
+
+hr {
+    width: 500px;
+    border: 1px #DE2A4A solid;
+}
+
+#about-us {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: center;
+}
