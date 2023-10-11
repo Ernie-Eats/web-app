@@ -12,20 +12,33 @@ class NavigationBar extends HTMLElement {
         wrapper.setAttribute("class", "navigation-wrapper");
 
         const homePage = wrapper.appendChild(document.createElement("a"));
-        homePage.href = this.hasAttribute("homePage") ? this.getAttribute("homePage") : "index.html";
+        homePage.href = "index.html";
         
         const homeLogo = homePage.appendChild(document.createElement("img"));
-        homeLogo.src = this.hasAttribute("homeSrc") ? this.getAttribute("homeSrc") : "./ernie-eats-frontend/Images/ErnieLogo.jpg";
+        homeLogo.src = "./ernie-eats-frontend/Images/ErnieLogo.jpg";
 
         const searchBar = wrapper.appendChild(document.createElement("input"));
         searchBar.setAttribute("type", "text");
         searchBar.setAttribute("placeholder", "Search...");
 
         const accountLogin = wrapper.appendChild(document.createElement("a"));
-        accountLogin.href = this.hasAccount() ? "" : "./Pages/accountLogin.html";
+        accountLogin.href = "accountLogin.html";
 
         const accountPhoto = accountLogin.appendChild(document.createElement("img"));
-        accountPhoto.src = this.hasAccount() ? "" : "./ernie-eats-frontend/Images/defaultLogin.png";
+        accountPhoto.src = "./ernie-eats-frontend/Images/defaultLogin.png";
+
+        const hamburgerWrapper = wrapper.appendChild(document.createElement("div"));
+        hamburgerWrapper.setAttribute("id", "hamburger-wrapper");
+
+        const hamburger = hamburgerWrapper.appendChild(document.createElement("button"));
+
+        const hamburgerImg = hamburger.appendChild(document.createElement("img"));
+        hamburgerImg.src = "./ernie-eats-frontend/Images/hamburger-menu.jpg";
+        hamburgerImg.id = "hamburger-img";
+
+        document.addEventListener("DOMContentLoaded", () => {
+            hamburger.addEventListener("click", () => this.hamburgerMenu(hamburgerWrapper, hamburgerImg));
+        });
 
         shadow.appendChild(css);
         shadow.appendChild(wrapper);
@@ -33,6 +46,37 @@ class NavigationBar extends HTMLElement {
 
     hasAccount() {
         return false;
+    }
+
+    hamburgerMenu(wrapper, img) {
+        if (!wrapper.getAttribute("data-isContentDisplayed")) {
+            wrapper.setAttribute("data-isContentDisplayed", "true");
+        }
+
+        const isContentDisplayed = wrapper.getAttribute("data-isContentDisplayed") === "true";
+
+        let content;
+
+        if (isContentDisplayed) {
+            content = wrapper.appendChild(document.createElement("div"));
+            content.setAttribute("id", "content-wrapper");
+
+            const aboutPage = content.appendChild(document.createElement("a"));
+            aboutPage.href = "about.html";
+            aboutPage.innerHTML = "About Page";
+
+            const faqPage = content.appendChild(document.createElement("a"));
+            faqPage.href = "faqpage.html";
+            faqPage.innerHTML = "FAQ Page";
+
+            img.src = "./ernie-eats-frontend/Images/hamburger-menu-selected.png";
+
+        } else {
+            wrapper.removeChild(wrapper.lastChild);
+            img.src = "./ernie-eats-frontend/Images/hamburger-menu.jpg";
+        }
+
+        wrapper.setAttribute("data-isContentDisplayed", !isContentDisplayed);
     }
 } 
 
