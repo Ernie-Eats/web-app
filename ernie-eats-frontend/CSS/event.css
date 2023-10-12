@@ -1,21 +1,23 @@
 ﻿div {
     margin: 30px 40px 0 40px;
-    background-color: #fff6ea;
+    background-color: #ffffff;
     width: 500px;
-    border: 3px #de2a4a solid
 }
 
-div:hover {
-    background-color: #ffffff;
-    transform: scale(1.2);
-}
+    div:hover {
+        background-color: #ffffff;
+        transform: scale(1.2);
+    }
 
 h3 {
+    font: 600 18px 'Open Sans', sans-serif;
     margin: 0 40px 0 40px;
-    color: #94270c;
-    font-size: 24px;
+    color: #4d4a4a;
+    font-size: 18px;
 }
 
 p {
-    margin: 10px 40px 10px 40px
+    margin: 10px 40px 10px 40px;
+    font: 600 14px 'Open Sans', sans-serif;
+    color: #4d4a4a
 }
