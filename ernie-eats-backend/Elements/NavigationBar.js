@@ -1,3 +1,6 @@
+import * as Userdatabase from '../Database/UserDatabase.js';
+import * as Models from '../Database/models.js';
+
 class NavigationBar extends HTMLElement {
     constructor() {
         super();
@@ -21,8 +24,7 @@ class NavigationBar extends HTMLElement {
         searchBar.setAttribute("type", "text");
         searchBar.setAttribute("placeholder", "Search...");
 
-        const accountLogin = wrapper.appendChild(document.createElement("a"));
-        accountLogin.href = "accountLogin.html";
+        const accountLogin = wrapper.appendChild(document.createElement("button"));
 
         const accountPhoto = accountLogin.appendChild(document.createElement("img"));
         accountPhoto.src = "./ernie-eats-frontend/Images/defaultLogin.png";
@@ -33,19 +35,30 @@ class NavigationBar extends HTMLElement {
         const hamburger = hamburgerWrapper.appendChild(document.createElement("button"));
 
         const hamburgerImg = hamburger.appendChild(document.createElement("img"));
-        hamburgerImg.src = "./ernie-eats-frontend/Images/hamburger-menu.jpg";
+        hamburgerImg.src = "./ernie-eats-frontend/Images/cake.jpg";
         hamburgerImg.id = "hamburger-img";
 
-        document.addEventListener("DOMContentLoaded", () => {
-            hamburger.addEventListener("click", () => this.hamburgerMenu(hamburgerWrapper, hamburgerImg));
+        hamburger.addEventListener("click", () => this.hamburgerMenu(hamburgerWrapper, hamburgerImg));
+
+        accountLogin.addEventListener("click", async () => {
+            await Userdatabase.findAllUsers().then(result => {
+                if (result.success) {
+                    this.getAddress().then(address => {
+                        let found = result.model.find((value) => value.address == address) !== undefined;
+                        found ? console.log("Found the Account") : window.open('login-Signup.html');
+                    })
+                }
+            });
         });
 
         shadow.appendChild(css);
         shadow.appendChild(wrapper);
     }
 
-    hasAccount() {
-        return false;
+    async getAddress() {
+        return await fetch('https://api.ipify.org?format=json')
+                        .then(async response => await response.json())
+                        .then(data => { return data.ip });
     }
 
     hamburgerMenu(wrapper, img) {
@@ -73,7 +86,7 @@ class NavigationBar extends HTMLElement {
 
         } else {
             wrapper.removeChild(wrapper.lastChild);
-            img.src = "./ernie-eats-frontend/Images/hamburger-menu.jpg";
+            img.src = "./ernie-eats-frontend/Images/cake.jpg";
         }
 
         wrapper.setAttribute("data-isContentDisplayed", !isContentDisplayed);

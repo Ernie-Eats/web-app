@@ -17,6 +17,26 @@ img.profile-picture {
     margin-left: 3px;
 }
 
+div.profile-name {
+    position: absolute;
+    z-index: 10;
+    display: none;
+    top: 35px;
+    left: 25px;
+}
+
+img.profile-picture:hover {
+    transform: scale(1.2);
+}
+
+img.profile-picture:hover + div.profile-name {
+    position: absolute;
+    z-index: 10;
+    display: block;
+    top: 35px;
+    left: 22.5px;
+}
+
 .star-wrapper {
     width: 200px;
     height: 20px;

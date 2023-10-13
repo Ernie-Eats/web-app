@@ -1,10 +1,16 @@
 class User {
-    constructor(id, name, username, email, password) {
-        this.id = id;
+    constructor(name, username, email, password, isBuisness, resturantId, address) {
         this.name = name;
         this.username = username;
         this.email = email;
-        this.password = password
+        this.password = password;
+        this.isBuisness = isBuisness;
+        this.resturantId = resturantId;
+        this.address = address;
+    }
+
+    setId(id) {
+        this.id = id;
     }
 
     getId() {
@@ -23,17 +29,25 @@ class User {
         return this.email;
     }
 
+    getAddress() {
+        this.address = fetch('https://api.ipify.org?format=json')
+            .then(response => response.json())
+            .then(data => this.address = data.ip);
+        return this.address;
+    }
+
+    isBuisnessOwner() {
+        return this.isBuisness && this.resturantId !== undefined;
+    }
+
     isValidUser() {
-        return this.id !== undefined &&
-                this.name !== undefined &&
-                this.username !== undefined &&
+        return this.username !== undefined &&
                 this.email !== undefined &&
                 this.password !== undefined;
     }
 
     equals(user) {
         return user !== undefined &&
-                this.id === user.id &&
                 this.name === user.name &&
                 this.username === user.username &&
                 this.email === user.email &&
@@ -41,28 +55,13 @@ class User {
     }
 }
 
-class BuisnessUser extends User {
-    constructor(id, FName, LName, Username, Email, Password, resturant) {
-        super(id, FName, LName, Username, Email, Password);
-        this.resturant = (resturant instanceof Resturant) ? resturant : undefined;
-    }
-
-    getResturantName() {
-        return this.ResturantName;
-    }
-
-    isValidBuisnessUser() {
-        return this.isValidUser() && this.resturant !== undefined;
-    }
-}
-
 class Resturant {
-    constructor(id, name, menu, owner, reviews) {
+    constructor(id, name, menu, ownerId, reviews) {
         this.id = id;
         this.name = name;
         this.menu = menu;
-        this.owner = (owner instanceof User) ? owner : undefined;
-        this.reviews = (Array.isArray(reviews) && reviews.every((r) => r instanceof Review)) 
+        this.ownerId = ownerId;
+        this.reviews = (Array.isArray(reviews) && reviews.every((r) => r instanceof string)) 
             ? reviews 
             : undefined;
     }
@@ -79,8 +78,8 @@ class Resturant {
         return this.menu;
     }
 
-    getOwner() {
-        return this.owner;
+    getOwnerId() {
+        return this.ownerId;
     }
 
     getReviews() {
@@ -107,13 +106,13 @@ class Resturant {
 }
 
 class Review {
-    constructor(id, title, text, rating, resturant, user) {
+    constructor(id, title, text, rating, resturantId, userId) {
         this.id = id;
         this.title = title;
         this.text = text;
         this.rating = rating;
-        this.resturant = (resturant instanceof Resturant) ? resturant : undefined;
-        this.user = (user instanceof User) ? user : undefined;
+        this.resturantId = resturantId;
+        this.user = user;
     }
 
     getId() {
@@ -132,8 +131,8 @@ class Review {
         return this.rating;
     }
 
-    getResturantName() {
-        return this.resturant.getName();
+    getResturantId() {
+        return this.resturantId;
     }
 
     isValidReview() {
@@ -156,4 +155,4 @@ class Review {
     }
 }
 
-export { User, BuisnessUser, Resturant, Review };
+export { User, Resturant, Review };
