@@ -1,3 +1,5 @@
+import * as Userdatabase from '../Database/UserDatabase.js';
+
 class CustomerReview extends HTMLElement {
     constructor() {
 
@@ -15,8 +17,11 @@ class CustomerReview extends HTMLElement {
         const titleBar = wrapper.appendChild(document.createElement("div"));
 
         const profilePicture = titleBar.appendChild(document.createElement("img"));
-        profilePicture.src = this.hasAccount() ? "" : "./ernie-eats-frontend/Images/defaultLogin.png";
         profilePicture.classList.add("profile-picture");
+
+        const name = titleBar.appendChild(document.createElement("div"));
+        name.classList.add("profile-name");
+        name.innerText = this.getAttribute('data-reviewer');
 
         const title = titleBar.appendChild(document.createElement("h3"));
         title.innerText = this.hasAttribute("data-reviewer-title") ? this.getAttribute("data-reviewer-title") : "";
@@ -29,8 +34,7 @@ class CustomerReview extends HTMLElement {
         const review = wrapper.appendChild(document.createElement("p"));
         review.innerText = this.hasAttribute("data-reviewer-review") ? this.getAttribute("data-reviewer-review") : "1";
 
-        document.addEventListener("DOMContentLoaded", () => {
-            resturantName.innerText = this.hasAttribute("data-resturant-name")
+        resturantName.innerText = this.hasAttribute("data-resturant-name")
                 ? this.getAttribute("data-resturant-name")
                 : "Unknown Resturant"; 
 
@@ -40,8 +44,6 @@ class CustomerReview extends HTMLElement {
 
             if (this.hasAttribute("data-reviewer-review")) {
                 let reviewText = this.getAttribute("data-reviewer-review");
-
-                console.log(reviewText);
 
                 if (reviewText.length >= 97) {
                     do {
@@ -79,14 +81,25 @@ class CustomerReview extends HTMLElement {
                 }
                 titleBar.appendChild(starWrapper);
             }
-        });
+            this.hasAccount().then(result => {
+                if (result.success) {
+                    profilePicture.src = "./ernie-eats-frontend/Images/ErnieLogo.jpg";   
+                } else {
+                    profilePicture.src = "./ernie-eats-frontend/Images/defaultLogin.png";
+                }
+            });
 
         shadow.appendChild(css);
         shadow.appendChild(wrapper);
     }
 
-    hasAccount() {
-        return false;
+    async hasAccount() {
+        if (this.hasAttribute("data-reviewer") && this.getAttribute("data-reviewer").length !== 0) {
+                await Userdatabase.findUserByUsername(this.getAttribute('data-reviewer')).then(result => {
+                    return result
+                });
+        }
+        return { success: false, model: undefined };
     }
 }
 
