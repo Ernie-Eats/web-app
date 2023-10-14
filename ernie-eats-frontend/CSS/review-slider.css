@@ -1,6 +1,6 @@
 #slider {
     margin: 0 auto;
-    width: 800px;
+    width: 892px;
     max-width: 100%;
     text-align: center;
     padding-top: 100px;
@@ -17,9 +17,11 @@
 
 #slides {
     padding: 10px;
-    background: #bf1f3b;
+    background: #94270c;
+    border-radius: 10px;
     position: relative;
     z-index: 1;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 #overflow {
@@ -57,14 +59,15 @@
     justify-content: center;
     align-items: center;
     height: 100%;
-    color: #fff6ea;
+    color: black;
 }
 
-#slides .slide_1, 
+#slides .slide_1,
 #slides .slide_2,
 #slides .slide_3,
 #slides .slide_4 {
-    background: #94270c;
+    background: white;
+    border-radius: 10px;
 }
 
 .slide_content {
@@ -87,6 +90,7 @@
     width: 50px;
     height: 50px;
     opacity: 0.4;
+    border-radius: 50%;
 }
 
 #controls label:hover {
@@ -101,6 +105,7 @@
     float: left;
     margin: 0 -50px 0 0;
     display: block;
+    border: 4px solid #94270c;
 }
 
 #bullets {
@@ -108,14 +113,14 @@
     text-align: center;
 }
 
-#bullets label {
-    display: inline-block;
-    width: 10px;
-    height: 10px;
-    border-radius: 100%;
-    background-color: #fff6ea;
-    margin: 0 10px;
-}
+    #bullets label {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        border-radius: 100%;
+        background-color: white;
+        margin: 0 10px;
+    }
 
 #slide1:checked ~ #slides #bullets label:first-child,
 #slide2:checked ~ #slides #bullets label:nth-child(2),

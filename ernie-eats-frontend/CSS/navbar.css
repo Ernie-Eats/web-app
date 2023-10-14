@@ -1,9 +1,10 @@
 .navigation-wrapper {
-    background-color: #bf1f3b; 
+    background-color: #94270c;
     display: flex;
-    justify-content: center; 
-    align-items: center; 
-    height: 60px; 
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 a {
@@ -29,6 +30,7 @@ img {
 
 #hamburger-wrapper {
     position: relative;
+    background-color: #94270c;
 }
 
 #content-wrapper {
@@ -36,8 +38,8 @@ img {
     position: absolute;
     width: 150px;
     flex-wrap: wrap;
-    background-color: #bf1f3b;
-    border: 3px #94270c solid; 
+    background-color: #94270c;
+    border: 3px #94270c solid;
 }
 
 #content-wrapper a {
