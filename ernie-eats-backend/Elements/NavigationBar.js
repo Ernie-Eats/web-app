@@ -25,6 +25,7 @@ class NavigationBar extends HTMLElement {
         searchBar.setAttribute("placeholder", "Search...");
 
         const accountLogin = wrapper.appendChild(document.createElement("button"));
+        accountLogin.setAttribute("class", "button");
 
         const accountPhoto = accountLogin.appendChild(document.createElement("img"));
         accountPhoto.src = "./ernie-eats-frontend/Images/defaultLogin.png";
@@ -33,6 +34,7 @@ class NavigationBar extends HTMLElement {
         hamburgerWrapper.setAttribute("id", "hamburger-wrapper");
 
         const hamburger = hamburgerWrapper.appendChild(document.createElement("button"));
+        hamburger.setAttribute("class", "hamburger-button");
 
         const hamburgerImg = hamburger.appendChild(document.createElement("img"));
         hamburgerImg.src = "./ernie-eats-frontend/Images/cake.jpg";
