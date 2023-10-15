@@ -63,6 +63,7 @@ img {
     flex-wrap: wrap;
     background-color: #94270c;
     left: -60px;
+    z-index: 6;
 }
 
     #content-wrapper a {
