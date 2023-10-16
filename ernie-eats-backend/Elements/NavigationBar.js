@@ -36,7 +36,7 @@ class NavigationBar extends HTMLElement {
         const hamburger = hamburgerWrapper.appendChild(document.createElement("button"));
         hamburger.setAttribute("class", "hamburger-button");
 
-        const hamburgerImg = hamburger.appendChild(document.createElement("img"));
+        const hamburgerImg = hamburger.appendChild(document.createElement("img")); 
         hamburgerImg.src = "./ernie-eats-frontend/Images/cake.jpg";
         hamburgerImg.id = "hamburger-img";
 
