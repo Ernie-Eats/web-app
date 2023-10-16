@@ -40,6 +40,17 @@ class NavigationBar extends HTMLElement {
         hamburgerImg.src = "./ernie-eats-frontend/Images/cake.jpg";
         hamburgerImg.id = "hamburger-img";
 
+        let searchResult = ""; 
+
+        searchBar.oninput = (e) => searchResult = e.target.value;
+
+        document.addEventListener("keypress", (e) => {
+            console.log(e.key);
+            if (searchResult.length !== 0 && e.key === "Enter") {
+                window.open('business-page.html');
+            }
+        });
+
         hamburger.addEventListener("click", () => this.hamburgerMenu(hamburgerWrapper, hamburgerImg));
 
         accountLogin.addEventListener("click", async () => {
@@ -47,7 +58,7 @@ class NavigationBar extends HTMLElement {
                 if (result.success) {
                     this.getAddress().then(address => {
                         let found = result.model.find((value) => value.address == address) !== undefined;
-                        found ? console.log("Found the Account") : window.open('login-Signup.html');
+                        found ? window.open('user-page.html') : window.open('login-Signup.html');
                     })
                 }
             });
@@ -67,11 +78,8 @@ class NavigationBar extends HTMLElement {
         if (!wrapper.getAttribute("data-isContentDisplayed")) {
             wrapper.setAttribute("data-isContentDisplayed", "true");
         }
-
         const isContentDisplayed = wrapper.getAttribute("data-isContentDisplayed") === "true";
-
         let content;
-
         if (isContentDisplayed) {
             content = wrapper.appendChild(document.createElement("div"));
             content.setAttribute("id", "content-wrapper");
@@ -81,7 +89,7 @@ class NavigationBar extends HTMLElement {
             aboutPage.innerHTML = "About Page";
 
             const faqPage = content.appendChild(document.createElement("a"));
-            faqPage.href = "faqpage.html";
+            faqPage.href = "FAQ.html";
             faqPage.innerHTML = "FAQ Page";
 
             img.src = "./ernie-eats-frontend/Images/hamburger-menu-selected.png";

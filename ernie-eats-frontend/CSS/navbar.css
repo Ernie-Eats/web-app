@@ -59,15 +59,15 @@ img {
 #content-wrapper {
     display: flex;
     position: absolute;
-    width: 150px;
+    width: 125px;
     flex-wrap: wrap;
     background-color: #94270c;
     left: -60px;
     z-index: 6;
 }
 
-    #content-wrapper a {
-        position: relative;
-        font: 'Open Sans', sans-serif;
-        font-size: large;
-    }
+#content-wrapper a {
+    position: relative;
+    font: 'Open Sans', sans-serif;
+    font-size: large;
+}

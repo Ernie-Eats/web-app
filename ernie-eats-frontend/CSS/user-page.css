@@ -27,29 +27,28 @@
     line-height: 1.6;
 }
 
-    .scroll-content hr {
-        border: none;
-        height: 1px;
-        background-color: #bf1f3b;
-        margin: 15px 0;
-    }
+.scroll-content hr {
+    border: none;
+    height: 1px;
+    background-color: #bf1f3b;
+    margin: 15px 0;
+}
 
-    .scroll-content h3 {
-        font-size: 24px;
-        font-weight: bold;
-        margin-bottom: 10px;
-        color: #bf1f3b;
-    }
+.scroll-content h3 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #bf1f3b;
+}
 
 img.profile-picture {
     display: block;
     margin-left: auto;
     margin-right: auto;
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: calc(20vh - 10px);
+    left: calc(50vw - 100px);
     border: 2px solid #fff;
-    transform: translate(-50%, -50%);
     width: 200px;
     height: 200px;
     border-radius: 50%;
