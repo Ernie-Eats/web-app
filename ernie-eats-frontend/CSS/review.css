@@ -2,22 +2,47 @@ h3 {
     margin-left: 50px;
     position: relative;
     top: 10px;
-    transform: translateY(20px); 
+    transform: translateY(15px);
+}
+
+#resturant-name {
+    transform: translate(-265px, 5px);
+    font-weight: bold;
 }
 
 img.profile-picture {
-    width: 40px;
-    height: 40px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%; 
     float: left;
     margin-left: 3px;
+}
+
+div.profile-name {
+    position: absolute;
+    z-index: 10;
+    display: none;
+    top: 35px;
+    left: 25px;
+}
+
+img.profile-picture:hover {
+    transform: scale(1.2);
+}
+
+img.profile-picture:hover + div.profile-name {
+    position: absolute;
+    z-index: 10;
+    display: block;
+    top: 35px;
+    left: 22.5px;
 }
 
 .star-wrapper {
     width: 200px;
     height: 20px;
     position: relative;
-    transform: translate(575px, -7px);
+    transform: translate(575px, -25px);
 }
 
 img.filled-star {

@@ -30,7 +30,6 @@ class CustomReviewSlider extends HTMLElement {
             bullets.setAttribute("id", "bullets");
 
             reviews = [...document.getElementsByClassName("review")]
-            console.log(reviews.length);
             let x = 1;
             let radioButtons = [];
             

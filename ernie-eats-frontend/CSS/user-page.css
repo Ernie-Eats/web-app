@@ -1,0 +1,144 @@
+.containter {
+    display: flex;
+    justify-content: space-between; 
+    max-width: 1200px; 
+    margin: 0 auto; 
+    padding: 20px;
+}
+
+.scroll-box {
+    flex: 1;
+    overflow-y: scroll;
+    max-height: 600px;
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-left: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+}
+
+.scroll-content {
+    padding: 10px;
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 18px; 
+    color: #333; 
+    font-weight: normal; 
+    line-height: 1.6;
+}
+
+.scroll-content hr {
+    border: none;
+    height: 1px;
+    background-color: #bf1f3b;
+    margin: 15px 0;
+}
+
+.scroll-content h3 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #bf1f3b;
+}
+
+img.profile-picture {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    position: absolute;
+    top: calc(20vh - 10px);
+    left: calc(50vw - 100px);
+    border: 2px solid #fff;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 30px;
+}
+
+.cover-container {
+    position: relative;
+}
+
+img.user-cover {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+
+body {
+    margin: 0;
+    background-color: #dcdcdc;
+    font-family: 'Helvetica Neue', sans-serif;
+    color: #333;
+}
+
+.user-information h3 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #bf1f3b; 
+}
+
+.user-information p {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.user-information {
+    flex: 1;
+    font-family: 'Helvetica Neue', sans-serif;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    margin-left: 20px;
+}
+
+.star-rating {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+img.zero-stars {
+    height: 25px;
+    width: 100px;
+    margin-right: 10px;
+}
+
+img.one-star {
+    height: 25px;
+    width: 100px;
+    margin-right: 10px;
+}
+
+img.two-stars {
+    height: 25px;
+    width: 100px;
+    margin-right: 10px;
+}
+
+img.three-stars {
+    height: 25px;
+    width: 100px;
+    margin-right: 10px;
+}
+
+img.four-stars {
+    height: 25px;
+    width: 100px;
+    margin-right: 10px;
+}
+
+img.five-stars {
+    height: 25px;
+    width: 100px;
+    margin-right: 10px;
+}
+
+.star-rating span {
+    font-weight: bold;
+    font-size: 18px;
+    color: #bf1f3b;
+}

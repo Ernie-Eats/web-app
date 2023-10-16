@@ -1,3 +1,14 @@
+img.home-cover {
+    width: 100%;
+    height: 300px;
+    display: block;
+    margin: 0 auto 30px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
+} 
+
 h2 {
     color: rgb(61, 40, 40);
     text-align: center;
@@ -5,8 +16,8 @@ h2 {
 
 body {
     margin: 0;
-    background-color: #c8a5a5;
-    font-family: Helvetica Arial sans-serif;
+    background-color: #dcdcdc;
+    font-family: 'Open Sans', sans-serif;
 }
 
 hr {
@@ -14,9 +25,25 @@ hr {
     border: 1px #DE2A4A solid;
 }
 
-#about-us {
+.event-section-title {
+    font: 50px 'Open Sans', sans-serif;
+    text-align: center;
+    color: white;
+    background-color: #94270c;
+    border: 4px solid #94270c;
+    width: 892px;
+    margin: 40px auto;
+    margin-bottom: 0;
     display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
     justify-content: center;
+    align-items: center;
+    border-radius: 10px 10px 0 0;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
+
+    .event-section-title:after {
+        content: "Upcoming Events";
+        border-radius: 10px 10px 0 0;
+        display: inline-block;
+        width: 100%;
+    }
