@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title> Ernie Eats About Page </title>
+        <script type="module" src="./ernie-eats-backend/Elements/NavigationBar.js"></script>
+        <link rel="stylesheet" href="./ernie-eats-frontend/CSS/about-page.css">
+    </head>
+
+    <body>
+        <navigation-bar></navigation-bar> 
+        <div class="container">
+            <div class="about-title">
+                <h1> About </h1>
+                <div class="about-info">
+                    <p>Ernie's Eats is a website where users can discover, share, and read reviews and recommendations 
+                        about various restaurants in Bridgewater, Virginia. This website serves as a valuable 
+                        resource for food enthusiasts, tourists, and Bridgewater college students.
+
+                    </p>
+                </div>
+            </div>
+
+            <div class="who-title">
+                <h1>Our Goal</h1>
+                <div class="who-info">
+                    <p> We are a group of students from Bridgewater College with the goal of making a website designed to help both
+                        restaurants and customers. When our website is complete, businesses will be able to post to their own page and appear
+                        on our site for users to see. Customers can then review and see other reviews for restaurants in the area. 
+                        Restaurants will also be able to post upcoming events they are having and have them featured on the front page. 
+
+                    </p>
+                </div>
+            </div>
+
+            <div class="contact-title">
+                <h1>Contact</h1>
+                <div class="contact-info">
+                    <p> Contact us below by calling or sending us an email! Alternatively, you can
+                        send us a message via the footer located at the bottom of the page.
+                        <br />
+                        <br />
+                        <b>Phone:</b> <a href="tel: 123-456-7890">123-456-7890</a> <br />
+                        <br />
+                        <b>Email:</b> <a href="mailto: email@ernieeats.org">email@ernieeats.org</a> <br />
+                    </p>
+                </div>
+            </div>
+        </div>   
+    </body>
+    <div class = "footer"> 
+        <div class=" footer-content">
+            <div class="footer-section about">
+                <!-- <img src="./ernie-eats-frontend/Images/ErnieLogo.jpg" alt="ErnieEats_logo" width="50" height="50"> -->
+                <h1 class="logo-text">ErnieEats</h1>
+                <p>
+                    Ernie's Eats is a website where users can discover, share, and read 
+                    reviews and reccomendations about various restaurants in Bridgewater Virginia.
+                    This website serves as a valuable resource for food enthusiasts, tourists, 
+                    and Bridgewater college students. 
+                </p>
+            </div>
+            <div class="footer-section-contact-form">
+                <h2>Contact Us</h2>
+                <br>
+                <form action="/action_page.php">
+                    <label for="fname">First Name</label>
+                    <input type="text" id="fname" name="firstname" placeholder="Your name..">
+                
+                    <label for="lname">Last Name</label>
+                    <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+                
+                    <label for="country">Country</label>
+                    <select id="country" name="country">
+                      <option value=""></option>
+                      <option value="australia">Australia</option>
+                      <option value="canada">Canada</option>
+                      <option value="usa">USA</option>
+                    </select>
+                    <input type="submit" value="Submit">
+                  </form>
+            </div>
+        </div>
+        <div class="footer-bottom"> &copy; 2023 ErnieEats.com </div>
+     </div> 
+</html>
