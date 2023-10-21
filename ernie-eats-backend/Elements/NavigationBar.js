@@ -45,7 +45,6 @@ class NavigationBar extends HTMLElement {
         searchBar.oninput = (e) => searchResult = e.target.value;
 
         document.addEventListener("keypress", (e) => {
-            console.log(e.key);
             if (searchResult.length !== 0 && e.key === "Enter") {
                 window.open('business-page.html');
             }

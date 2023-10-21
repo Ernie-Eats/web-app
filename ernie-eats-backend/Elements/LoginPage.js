@@ -206,7 +206,7 @@ class LoginPage extends HTMLElement {
             signupSubmitButton.setAttribute("type", "submit");
             signupSubmitButton.setAttribute("value", "Sign up");
         
-            const signinUser = { user: "", password: "" };
+        const signinUser = { user: "", password: "" };
 
             usernameInput.oninput = (e) => {
                 const value = e.target.value;
@@ -231,12 +231,9 @@ class LoginPage extends HTMLElement {
                 }
 
                 await Userdatabase.findUserByUsernamePassword(signinUser.user, signinUser.password).then(result => {
-                    console.log(result);
                     if (result.success) {
-                        result.model.address = result.model.getAddress();
-                        console.log(result);
+                        result.model.address = keepSignedIn ? result.model.getAddress() : "";
                         Userdatabase.updateUser(result.model).then(r => {
-                            console.log(r);
                             if (r.success) {
                                 window.open('index.html');
                                 window.close('login-Signup.html');
@@ -292,16 +289,13 @@ class LoginPage extends HTMLElement {
                 const isPersonal = personalRadio.checked;
 
                 const user = new User("", signupUser.user, signupUser.email, signupUser.password, !isPersonal, "", "");
-                user.getAddress();
-                console.log(user)
+                user.address = await user.getAddress();
 
                 await Userdatabase.insertUser(user).then(result => {
-                    console.log(result);
                     if (result.success) {
-                        console.log(result.model);
                         window.open('index.html');
+                        window.close('login-Signup.html');
                     }
-                    console.log(result.message);
                 });
             }
 
