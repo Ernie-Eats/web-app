@@ -13,22 +13,6 @@ class User {
         this.id = id;
     }
 
-    getId() {
-        return this.id;
-    }
-
-    getUsername() {
-        return this.username;
-    }
-
-    getName() {
-        return this.name
-    }
-
-    getEmail() {
-        return this.email;
-    }
-
     getAddress() {
         this.address = fetch('https://api.ipify.org?format=json')
             .then(response => response.json())
@@ -66,26 +50,6 @@ class Resturant {
             : undefined;
     }
 
-    getId() {
-        return this.id;
-    }
-
-    getName() {
-        return this.name;
-    }
-
-    getMenu() {
-        return this.menu;
-    }
-
-    getOwnerId() {
-        return this.ownerId;
-    }
-
-    getReviews() {
-        return this.reviews;
-    }
-
     isValidResturant() {
         return this.id !== undefined && 
                 this.name !== undefined && 
@@ -112,27 +76,7 @@ class Review {
         this.text = text;
         this.rating = rating;
         this.resturantId = resturantId;
-        this.user = user;
-    }
-
-    getId() {
-        return this.id;
-    }
-
-    getTitle() {
-        return this.title;
-    }
-
-    getReviewText() {
-        return this.text;
-    }
-
-    getRating() {
-        return this.rating;
-    }
-
-    getResturantId() {
-        return this.resturantId;
+        this.userId = userId;
     }
 
     isValidReview() {
@@ -155,4 +99,49 @@ class Review {
     }
 }
 
-export { User, Resturant, Review };
+class ResturantPage {
+    constructor(id, resturant, photos) {
+        this.id = id;
+        this.resturant = resturant instanceof Resturant ? resturant : undefined;
+        this.photos = Array.isArray(photos) ? photos : undefined;
+    }
+
+    isValidPage() {
+        return this.id !== undefined &&
+                this.resturant !== undefined &&
+                this.photos !== undefined;
+    }
+
+    equals(resturantPage) {
+        return resturantPage !== undefined &&
+            this.id === resturantPage.id &&
+            this.resturant.equals(resturantPage.resturant) &&
+            resturantPage.photos.every((value, index) => value === this.photos[index]);
+    }
+}
+
+class UserSettings {
+    constructor(id, userId, isDarkTheme, banner, profile) {
+        this.id = id;
+        this.userId = userId;
+        this.isDarkTheme = isDarkTheme;
+        this.banner = banner;
+        this.profile = profile;
+    }
+
+    setId(id) {
+        this.id = id;
+    }
+
+    equals(userSettings) {
+        return userSettings !== undefined &&
+            this.id === userSettings.id &&
+            this.userId === userSettings.userId &&
+            this.isDarkTheme === userSettings.isDarkTheme &&
+            this.banner === userSettings.banner &&
+            this.profile === userSettings.profile;
+    }
+
+}
+
+export { User, Resturant, Review, ResturantPage, UserSettings };
