@@ -92,6 +92,10 @@ class NavigationBar extends HTMLElement {
             faqPage.href = "FAQ.html";
             faqPage.innerHTML = "FAQ Page";
 
+            const LogoutButton = content.appendChild(document.createElement("button"));
+            LogoutButton.innerHTML = "Logout";
+
+
             img.src = "./ernie-eats-frontend/Images/hamburger-menu-selected.png";
 
         } else {
