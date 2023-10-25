@@ -8,14 +8,14 @@
 }
 
 a {
-    color: white; 
+    color: white;
     text-decoration: none;
-    margin: 0 10px; 
+    margin: 0 10px;
 }
 
 input[type="text"] {
-    padding: 5px; 
-    border: none; 
+    padding: 5px;
+    border: none;
     border-radius: 5px;
     width: 500px;
     height: 35px;
@@ -59,15 +59,27 @@ img {
 #content-wrapper {
     display: flex;
     position: absolute;
-    width: 125px;
+    width: 150;
     flex-wrap: wrap;
     background-color: #94270c;
-    left: -60px;
+    left: -100px;
     z-index: 6;
 }
 
-#content-wrapper a {
+    #content-wrapper a {
+        position: relative;
+        font: 'Open Sans', sans-serif;
+        font-size: large;
+    }
+
+button {
     position: relative;
     font: 'Open Sans', sans-serif;
     font-size: large;
+    background: none !important;
+    border: none;
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+    margin-left: 5px;
 }
