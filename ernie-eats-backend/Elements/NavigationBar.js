@@ -1,5 +1,4 @@
 import * as Userdatabase from '../Database/UserDatabase.js';
-import * as Models from '../Database/models.js';
 
 class NavigationBar extends HTMLElement {
     constructor() {
@@ -92,9 +91,23 @@ class NavigationBar extends HTMLElement {
             faqPage.href = "FAQ.html";
             faqPage.innerHTML = "FAQ Page";
 
-            const LogoutButton = content.appendChild(document.createElement("button"));
-            LogoutButton.innerHTML = "Logout";
+            const logoutButton = content.appendChild(document.createElement("button"));
+            logoutButton.innerHTML = "Logout";
 
+            logoutButton.addEventListener("click", async () => {
+                await Userdatabase.findAllUsers().then(result => {
+                    if (result.success) {
+                        this.getAddress().then(address => {
+                            let found = result.model.find((value) => value.address == address);
+                            console.log(found);
+                            if (found !== undefined) {
+                                found.address = ""
+                                Userdatabase.updateUser(found).then(r => console.log(r));
+                            }
+                        })
+                    }
+                });
+            });
 
             img.src = "./ernie-eats-frontend/Images/hamburger-menu-selected.png";
 
