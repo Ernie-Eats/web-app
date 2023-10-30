@@ -40,32 +40,33 @@ class User {
 }
 
 class Resturant {
-    constructor(id, name, menu, ownerId, reviews) {
-        this.id = id;
+    constructor(name, menu, ownerId, reviews) {
         this.name = name;
         this.menu = menu;
         this.ownerId = ownerId;
-        this.reviews = (Array.isArray(reviews) && reviews.every((r) => r instanceof string)) 
+        this.reviews = (Array.isArray(reviews)) 
             ? reviews 
             : undefined;
     }
 
+    setId(id) {
+        this.id = id;
+    }
+
     isValidResturant() {
-        return this.id !== undefined && 
-                this.name !== undefined && 
+        return this.name !== undefined && 
                 this.menu !== undefined && 
-                this.owner !== undefined && 
+                this.ownerId !== undefined && 
                 this.reviews !== undefined;
     }
 
     equals(resturant) {
         return resturant !== undefined &&
-                this.id === resturant.id && 
                 this.name === resturant.name && 
                 this.menu === resturant.menu && 
-                this.owner.equals(resturant.owner) && 
+                this.ownerId.equals(resturant.ownerId) && 
                 (Array.isArray(resturant.reviews) && 
-                resturant.reviews.every((value, index) => value instanceof Review && value.equals(this.reviews[index])));
+                resturant.reviews.every((value, index) => value instanceof String && value.equals(this.reviews[index])));
     }
 }
 
@@ -100,21 +101,22 @@ class Review {
 }
 
 class ResturantPage {
-    constructor(id, resturant, photos) {
-        this.id = id;
-        this.resturant = resturant instanceof Resturant ? resturant : undefined;
+    constructor(resturant, photos) {
+        this.resturant = resturant;
         this.photos = Array.isArray(photos) ? photos : undefined;
     }
 
-    isValidPage() {
-        return this.id !== undefined &&
-                this.resturant !== undefined &&
+    setId(id) {
+        this.id = id;
+    }
+
+    isValidResturantPage() {
+        return this.resturant !== undefined &&
                 this.photos !== undefined;
     }
 
     equals(resturantPage) {
         return resturantPage !== undefined &&
-            this.id === resturantPage.id &&
             this.resturant.equals(resturantPage.resturant) &&
             resturantPage.photos.every((value, index) => value === this.photos[index]);
     }

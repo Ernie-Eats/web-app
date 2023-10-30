@@ -9,8 +9,9 @@ const { database } = await client.databases.createIfNotExists({ id: "Ernie-Eats"
 const { container } = await database.containers.createIfNotExists({ id: "resturantPage" });
 
 function isValidResturantPage(resturantPage) {
+    console.log(resturantPage);
     if (resturantPage !== undefined &&
-        resturantPage instanceof User &&
+        resturantPage instanceof ResturantPage &&
         resturantPage.isValidResturantPage()) {
         return true;
     }
@@ -21,7 +22,8 @@ async function findAllResturantPages() {
     let pages = [];
     const { resources } = await container.items.readAll().fetchAll();
     for (const item of resources) {
-        let resturantPage = new ResturantPage(item.id, item.resturant, item.photo);
+        let resturantPage = new ResturantPage(item.resturant, item.photos);
+        resturantPage.setId(item.id);
         pages.push(resturantPage);
     }
     return { success: true, model: pages };
@@ -32,7 +34,8 @@ async function insertResturantPage(resturantPage) {
         const { resources } = await container.items.readAll().fetchAll();
         for (const item of resources) {
             if (resturantPage.equals(item)) {
-                let model = new ResturantPage(item.id, item.resturant, item.photos)
+                let model = new ResturantPage(item.resturant, item.photos);
+                model.setId(item.id);
                 return {
                     success: true,
                     message: "Restuant Page already in Database",
@@ -42,7 +45,8 @@ async function insertResturantPage(resturantPage) {
         }
 
         const { item } = await container.items.create(resturantPage);
-        let model = new ResturantPage(item.id, item.resturant, item.photos);
+        let model = new ResturantPage(item.resturant, item.photos);
+        model.setId(item.id);
         return {
             success: true,
             message: "Created Restuarant Page in Database",
@@ -62,7 +66,8 @@ async function updateResturantPage(restuarantPage) {
         for (const i of resources) {
             if (restuarantPage.equals(i)) {
                 const { item } = await container.item(i.id).replace(restuarantPage);
-                let model = new ResturantPage(item.id, item.resturant, item.photos);
+                let model = new ResturantPage(item.resturant, item.photos);
+                model.setId(item.id);
                 return { success: true, model: model };
             }
         }
@@ -77,7 +82,8 @@ async function deleteRestuarantPage(resturantPage) {
             if (resturantPage.equals(i)) {
                 const { item } = await container.item(i.id).read();
                 await item.delete();
-                let model = new ResturantPage(item.id, item.resturant, item.photos);
+                let model = new ResturantPage(item.resturant, item.photos);
+                model.setId(item.id);
                 return {
                     success: true,
                     message: "Deleted Resturant Page from Database",
@@ -86,7 +92,8 @@ async function deleteRestuarantPage(resturantPage) {
             }
         }
 
-        let model = new ResturantPage(resturantPage.id, resturantPage.resturant, resturantPage.photos);
+        let model = new ResturantPage(resturantPage.resturant, resturantPage.photos);
+        model.setId(resturantPage.id);
         return {
             success: true,
             message: "Could not find Resturant Page in Database",

@@ -1,4 +1,6 @@
 import * as Userdatabase from '../Database/UserDatabase.js';
+import * as ResturantDatabase from '../Database/ResturantDatabase.js';
+import * as ResturantPageDatabase from '../Database/ResturantPageDatabase.js';
 import * as Models from '../Database/models.js';
 
 class NavigationBar extends HTMLElement {
@@ -44,12 +46,12 @@ class NavigationBar extends HTMLElement {
 
         searchBar.oninput = (e) => searchResult = e.target.value;
 
-        document.addEventListener("keypress", (e) => {
-            console.log(e.key);
+        document.addEventListener("keypress", async (e) => {
             if (searchResult.length !== 0 && e.key === "Enter") {
+                window.close();
                 window.open('business-page.html');
             }
-        });
+        })
 
         hamburger.addEventListener("click", () => this.hamburgerMenu(hamburgerWrapper, hamburgerImg));
 
