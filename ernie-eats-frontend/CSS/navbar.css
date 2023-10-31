@@ -10,7 +10,7 @@
 a {
     color: white; 
     text-decoration: none;
-    margin: 0 10px; 
+    margin: 0 10px;
 }
 
 input[type="text"] {
@@ -59,15 +59,29 @@ img {
 #content-wrapper {
     display: flex;
     position: absolute;
-    width: 125px;
+    width: 150;
     flex-wrap: wrap;
     background-color: #94270c;
-    left: -60px;
+    left: -100px;
     z-index: 6;
+    height: 100px;
+    overflow: hidden;
 }
 
-#content-wrapper a {
+    #content-wrapper a {
+        position: relative;
+        font: 'Open Sans', sans-serif;
+        font-size: large;
+    }
+
+button {
     position: relative;
     font: 'Open Sans', sans-serif;
     font-size: large;
+    background: none !important;
+    border: none;
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+    margin-left: 5px;
 }
