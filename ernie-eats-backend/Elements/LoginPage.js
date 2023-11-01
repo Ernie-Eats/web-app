@@ -231,11 +231,11 @@ class LoginPage extends HTMLElement {
                 }
 
                 await Userdatabase.findUserByUsernamePassword(signinUser.user, signinUser.password).then(result => {
-                    console.log(result);
                     if (result.success) {
                         result.model.address = result.model.getAddress();
-                        console.log(result);
                         Userdatabase.updateUser(result.model).then(r => {
+                            r.model.address = keepSignedIn ? r.model.address : "";
+                            console.log(keepSignedIn);
                             console.log(r);
                             if (r.success) {
                                 window.open('index.html');
@@ -293,15 +293,12 @@ class LoginPage extends HTMLElement {
 
                 const user = new User("", signupUser.user, signupUser.email, signupUser.password, !isPersonal, "", "");
                 user.getAddress();
-                console.log(user)
 
                 await Userdatabase.insertUser(user).then(result => {
-                    console.log(result);
                     if (result.success) {
                         console.log(result.model);
                         window.open('index.html');
                     }
-                    console.log(result.message);
                 });
             }
 
