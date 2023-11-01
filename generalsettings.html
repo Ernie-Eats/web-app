@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title> General Settings </title>
     <script type="module" src="./ernie-eats-backend/Elements/NavigationBar.js"></script>
+    <script type="module" src="./ernie-eats-backend/Pages/UserSettingsPage.js"></script>
     <link rel="stylesheet" href="./ernie-eats-frontend/CSS/theme.css">
     <link rel="stylesheet" href="./ernie-eats-frontend/CSS/generalSettings.css">
 </head>
@@ -11,10 +12,12 @@
     <navigation-bar></navigation-bar>
     <div class="body">
         <div class="sidebar">
-            <button onclick="viewAccount()"> Account </button>
-            <button onclick="viewGeneral()"> General </button>
-            <button onclick="viewPassword()"> Password </button>
+            <button id="account_button"> Account </button>
+            <button id="general_button"> General </button>
+            <button id="password_button"> Password </button>
         </div>
+
+        <h1 id="user"></h1>
 
         <div class="content" id="account">
             <h1> Account Settings </h1>
@@ -63,6 +66,5 @@
         </div>
         <div class="footer-bottom"> &copy; ErnieEats.com </div>
     </div>
-    <script src="./ernie-eats-backend/Pages/UserSettingsPage.js"></script>
 </body>
 </html> 
