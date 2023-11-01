@@ -64,6 +64,8 @@ img {
     background-color: #94270c;
     left: -100px;
     z-index: 6;
+    height: 100px;
+    overflow: hidden;
 }
 
     #content-wrapper a {
