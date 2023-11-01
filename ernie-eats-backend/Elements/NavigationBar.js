@@ -46,6 +46,7 @@ class NavigationBar extends HTMLElement {
         document.addEventListener("keypress", (e) => {
             console.log(e.key);
             if (searchResult.length !== 0 && e.key === "Enter") {
+                window.close();
                 window.open('business-page.html');
             }
         });
@@ -57,6 +58,7 @@ class NavigationBar extends HTMLElement {
                 if (result.success) {
                     this.getAddress().then(address => {
                         let found = result.model.find((value) => value.address == address) !== undefined;
+                        window.close();
                         found ? window.open('user-page.html') : window.open('login-Signup.html');
                     })
                 }
@@ -108,6 +110,10 @@ class NavigationBar extends HTMLElement {
                     }
                 });
             });
+          
+            const settingsPage = content.appendChild(document.createElement("a"));
+            settingsPage.href = "settings.html";
+            settingsPage.innerHTML = "Settings Page";
 
             img.src = "./ernie-eats-frontend/Images/hamburger-menu-selected.png";
 
