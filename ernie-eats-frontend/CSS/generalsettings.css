@@ -4,6 +4,8 @@
     grid-template-rows: auto auto auto;
     column-gap: 50px;
     height: 100vh;
+    
+  
 }
 
 .sidebar {
@@ -13,6 +15,10 @@
     grid-row-end: 4;
     background-color: black;
     max-height: 100vh;
+    
+    
+   
+    
 }
 
 .content {
@@ -21,6 +27,9 @@
     grid-row-start: 1;
     grid-row-end: 4;
     display: none;
+    
+    
+    
 }
 
 .footer {
@@ -94,6 +103,7 @@
 
 input[type=text], select, textarea {
     width: 100%;
+    
     padding: 12px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -130,3 +140,130 @@ footer-section-contact-form {
     footer-section-contact-form textarea {
         padding-bottom: 10px;
     }
+
+
+    img{
+        height:100px;
+        width:100px;
+        padding-left: 10px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+
+    .sidebar button {
+        display: flex;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        display: block; 
+        width: 100%; 
+        padding: 10px; /* Add padding for spacing between buttons */
+        margin-bottom: 10px; /* Add margin to separate buttons vertically */
+        background-color: #555; 
+        color: #fff; 
+        border: none;
+        text-align: left; 
+}
+    
+.save-button {
+    background-color: #4CAF50; 
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.cancel-button {
+    background-color: #f44336; 
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+theme-toggle {
+    position:absolute;
+    top: 10px;
+    right: 10px;
+    display: inline-block;
+    width: 60px;
+    height: 30px;
+    
+}
+.theme-toggle .switch{
+    text-align: left;
+    
+}
+
+.theme-toggle {
+    text-align: center;
+    padding: 10px;
+}
+
+.switch {
+    display: inline-block;
+    position: relative;
+    width: 60px;
+    height: 30px;
+    
+}
+
+.switch input {
+    display: none;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    border-radius: 15px;
+    transition: 0.4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    border-radius: 50%;
+    transition: 0.4s;
+}
+
+input:checked + .slider {
+    background-color: #2196F3;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+.label {
+    margin-left: 10px;
+    font-size: 16px;
+    vertical-align: middle;
+}
+
+.theme-toggle h2{
+    text-align: left;
+}
