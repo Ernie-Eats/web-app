@@ -21,7 +21,8 @@ async function findAllResturants() {
     let resturants = [];
     const { resources } = await container.items.readAll().fetchAll();
     for (const item of resources) {
-        let resturant = new Resturant(item.id, item.name, item.menu, item.owner, item.reviews);
+        let resturant = new Resturant(item.name, item.menu, item.owner, item.reviews);
+        resturant.id = item.id
         resturants.push(resturant);
     }
     return { success: true, model: resturants };
@@ -32,17 +33,22 @@ async function insertResturant(resturant) {
         const { resources } = await container.items.readAll().fetchAll();
         for (const item of resources) {
             if (resturant.equals(item)) {
-                    return { success: true, 
-                                message: "Resturant already in Database", 
-                                model: new Resturant(resturant.id, resturant.name, resturant.menu, resturant.owner, resturant.reviews) 
-                    };
+                let model = new Resturant(item.name, item.menu, item.owner, item.reviews);
+                model.id = item.id
+                return {
+                    success: true,
+                    message: "Resturant already in Database",
+                    model: model
+                };
             }
         }
 
-        await container.items.create(resturant);
+        const { item } = await container.items.create(resturant);
+        let model = new Resturant(item.name, item.menu, item.owner, item.reviews);
+        model.id = item.id
         return { success: true, 
             message: "Created resturant in Database", 
-            model: new Resturant(resturant.id, resturant.name, resturant.menu, resturant.owner, resturant.reviews) 
+            model: model
         };
     }
     return { success: false, 
@@ -58,16 +64,20 @@ async function deleteResturant(resturant) {
             if (resturant.equals(i)) {
                 const { item } = await container.item(i.id).read();
                 await item.delete();
+                let model = new Resturant(item.name, item.menu, item.owner, item.reviews);
+                model.id = item.id
                 return { success: true, 
                             message: "Deleted Resturant from Database", 
-                            model: new Resturant(resturant.id, resturant.name, resturant.menu, resturant.owner, resturant.reviews) 
+                            model: model 
                 };
             } 
         }
 
+        let model = new Resturant(resturant.name, resturant.menu, resturant.owner, resturant.reviews);
+        model.id = resturant.id
         return { success: true, 
                     message: "Could not find Resturant in Database", 
-                    model: new Resturant(resturant.id, resturant.name, resturant.menu, resturant.owner, resturant.reviews) 
+                    model: model 
         };
     }
 
@@ -85,7 +95,5 @@ async function deleteAllResturants() {
     }
     return true;
 }
-
-main().catch(err => console.error(err));
 
 export { insertResturant, findAllResturants, deleteResturant, deleteAllResturants }
