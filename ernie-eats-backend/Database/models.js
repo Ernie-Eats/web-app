@@ -16,7 +16,7 @@ class User {
     async getAddress() {
         return await fetch('https://api.ipify.org?format=json')
             .then(response => response.json())
-            .then(data => return data.ip);
+            .then(data => data.ip);
     }
 
     isBuisnessOwner() {
