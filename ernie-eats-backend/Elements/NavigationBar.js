@@ -113,7 +113,7 @@ class NavigationBar extends HTMLElement {
             });
           
             const settingsPage = content.appendChild(document.createElement("a"));
-            settingsPage.href = "settings.html";
+            settingsPage.href = "generalsettings.html";
             settingsPage.innerHTML = "Settings Page";
 
             img.src = "./ernie-eats-frontend/Images/hamburger-menu-selected.png";
