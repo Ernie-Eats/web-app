@@ -1,58 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>General Settings </title>
-    <link rel="stylesheet" href="./ernie-eats-frontend/CSS/generalsettings.css">
+    <meta charset="utf-8">
+    <title> General Settings </title>
     <script type="module" src="./ernie-eats-backend/Elements/NavigationBar.js"></script>
+    <link rel="stylesheet" href="./ernie-eats-frontend/CSS/theme.css">
+    <link rel="stylesheet" href="./ernie-eats-frontend/CSS/generalSettings.css">
 </head>
 <body>
     <navigation-bar></navigation-bar>
-    
-     
-    <!-- <div class="sidebar">
-        <ul>
-            <li><a href="#account">Account</a></li>
-            <li><a href="#general">General</a></li>
-            <li><a href="#password">Password</a></li>
-        </ul>
+    <div class="body">
+        <div class="sidebar">
+            <button onclick="viewAccount()"> Account </button>
+            <button onclick="viewGeneral()"> General </button>
+            <button onclick="viewPassword()"> Password </button>
+        </div>
+
+        <div class="content" id="account">
+            <h1> Account Settings </h1>
+        </div>
+
+        <div class="content" id="general">
+            <h1> General Settings </h1>
+        </div>
+
+        <div class="content" id="password">
+            <h1> Password Settings </h1>
+        </div>
     </div>
-    <div class="content">
-        <section id="account">
-           
-            <h2>Account</h2>
-            <p>Account-related content goes here.</p>
-        </section>
-        <section id="general">
-           
-            <h2>General</h2>
-            <p>General settings content goes here.</p>
-        </section>
-        <section id="password">
-            
-            <h2>Password</h2>
-            <p>Password-related content goes here.</p>
-        </section>
-    </div> 
+    <div class="footer">
+        <div class=" footer-content">
+            <div class="footer-section about">
+                <!-- <img src="./ernie-eats-frontend/Images/ErnieLogo.jpg" alt="ErnieEats_logo" width="50" height="50"> -->
+                <h1 class="logo-text">ErnieEats</h1>
+                <p>
+                    ErnieEats is a website where users can discover,share, and read
+                    reviews and reccomendations about various restaurants in Bridgewater Virginia.
+                    This website serves as a valuable resource for food enthusiasts, tourists,
+                    and Bridgewater college students.
+                </p>
+            </div>
+            <div class="footer-section-contact-form">
+                <h2>Contact Us</h2>
+                <br>
+                <form action="/action_page.php">
+                    <label for="fname">First Name</label>
+                    <input type="text" id="fname" name="firstname" placeholder="Your name..">
 
-   </div>  -->
-   <div class="sidenav">
-    <img src ="defaultLogin.png" alt="default profile Image">
-    <a href="#account">Account</a>
-    <a href="#General">General</a>
-    <a href="#Password">Password </a>
-  </div>
-  
-  <div class="main">
-    <h2>General Settings</h2>
-    <p>This sidebar is of full height (100%) and always shown.</p>
-    <p>Scroll down the page to see the result.</p>
-    <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
-    <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
-    <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
-    <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
-  </div>
+                    <label for="lname">Last Name</label>
+                    <input type="text" id="lname" name="lastname" placeholder="Your last name..">
 
+                    <label for="country">Country</label>
+                    <select id="country" name="country">
+                        <option value=""></option>
+                        <option value="australia">Australia</option>
+                        <option value="canada">Canada</option>
+                        <option value="usa">USA</option>
+                    </select>
+                    <input type="submit" value="Submit">
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom"> &copy; ErnieEats.com </div>
+    </div>
+    <script src="./ernie-eats-backend/Pages/UserSettingsPage.js"></script>
 </body>
 </html> 

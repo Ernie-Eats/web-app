@@ -46,8 +46,6 @@
         transform: rotateY(180deg);
 		position: absolute;
 		backface-visibility: hidden;
-
-
 	}
 
 	.login-wrapper .tab,
