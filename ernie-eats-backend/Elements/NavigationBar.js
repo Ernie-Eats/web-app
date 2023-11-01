@@ -1,7 +1,4 @@
 import * as Userdatabase from '../Database/UserDatabase.js';
-import * as ResturantDatabase from '../Database/ResturantDatabase.js';
-import * as ResturantPageDatabase from '../Database/ResturantPageDatabase.js';
-import * as Models from '../Database/models.js';
 
 class NavigationBar extends HTMLElement {
     constructor() {
@@ -60,6 +57,7 @@ class NavigationBar extends HTMLElement {
                 if (result.success) {
                     this.getAddress().then(address => {
                         let found = result.model.find((value) => value.address == address) !== undefined;
+                        window.close();
                         found ? window.open('user-page.html') : window.open('login-Signup.html');
                     })
                 }
@@ -93,6 +91,28 @@ class NavigationBar extends HTMLElement {
             const faqPage = content.appendChild(document.createElement("a"));
             faqPage.href = "FAQ.html";
             faqPage.innerHTML = "FAQ Page";
+
+            const logoutButton = content.appendChild(document.createElement("button"));
+            logoutButton.innerHTML = "Logout";
+
+            logoutButton.addEventListener("click", async () => {
+                await Userdatabase.findAllUsers().then(result => {
+                    if (result.success) {
+                        this.getAddress().then(address => {
+                            let found = result.model.find((value) => value.address == address);
+                            console.log(found);
+                            if (found !== undefined) {
+                                found.address = ""
+                                Userdatabase.updateUser(found).then(r => console.log(r));
+                            }
+                        })
+                    }
+                });
+            });
+          
+            const settingsPage = content.appendChild(document.createElement("a"));
+            settingsPage.href = "settings.html";
+            settingsPage.innerHTML = "Settings Page";
 
             img.src = "./ernie-eats-frontend/Images/hamburger-menu-selected.png";
 

@@ -234,6 +234,7 @@ class LoginPage extends HTMLElement {
                     if (result.success) {
                         result.model.address = result.model.getAddress();
                         Userdatabase.updateUser(result.model).then(r => {
+                            r.model.address = keepSignedIn ? r.model.address : "";
                             if (r.success) {
                                 window.open('index.html');
                                 window.close('login-Signup.html');
