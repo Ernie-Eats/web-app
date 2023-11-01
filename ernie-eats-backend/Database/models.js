@@ -13,11 +13,10 @@ class User {
         this.id = id;
     }
 
-    getAddress() {
-        this.address = fetch('https://api.ipify.org?format=json')
+    async getAddress() {
+        return await fetch('https://api.ipify.org?format=json')
             .then(response => response.json())
-            .then(data => this.address = data.ip);
-        return this.address;
+            .then(data => return data.ip);
     }
 
     isBuisnessOwner() {

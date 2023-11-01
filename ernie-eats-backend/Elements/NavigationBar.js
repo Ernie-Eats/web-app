@@ -43,12 +43,12 @@ class NavigationBar extends HTMLElement {
 
         searchBar.oninput = (e) => searchResult = e.target.value;
 
-        document.addEventListener("keypress", async (e) => {
+        document.addEventListener("keypress", (e) => {
             if (searchResult.length !== 0 && e.key === "Enter") {
                 window.close();
                 window.open('business-page.html');
             }
-        })
+        });
 
         hamburger.addEventListener("click", () => this.hamburgerMenu(hamburgerWrapper, hamburgerImg));
 
@@ -78,6 +78,7 @@ class NavigationBar extends HTMLElement {
         if (!wrapper.getAttribute("data-isContentDisplayed")) {
             wrapper.setAttribute("data-isContentDisplayed", "true");
         }
+      
         const isContentDisplayed = wrapper.getAttribute("data-isContentDisplayed") === "true";
         let content;
         if (isContentDisplayed) {

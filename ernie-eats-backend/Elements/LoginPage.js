@@ -206,7 +206,7 @@ class LoginPage extends HTMLElement {
             signupSubmitButton.setAttribute("type", "submit");
             signupSubmitButton.setAttribute("value", "Sign up");
         
-            const signinUser = { user: "", password: "" };
+        const signinUser = { user: "", password: "" };
 
             usernameInput.oninput = (e) => {
                 const value = e.target.value;
@@ -234,7 +234,7 @@ class LoginPage extends HTMLElement {
                     if (result.success) {
                         result.model.address = result.model.getAddress();
                         Userdatabase.updateUser(result.model).then(r => {
-                            r.model.address = keepSignedIn ? r.model.address : "";
+                            r.model.address = keepSignedIn ? result.model.address : "";
                             if (r.success) {
                                 window.open('index.html');
                                 window.close('login-Signup.html');
@@ -290,12 +290,13 @@ class LoginPage extends HTMLElement {
                 const isPersonal = personalRadio.checked;
 
                 const user = new User("", signupUser.user, signupUser.email, signupUser.password, !isPersonal, "", "");
-                user.getAddress();
+                user.address = await user.getAddress();
 
                 await Userdatabase.insertUser(user).then(result => {
-                    if (result.success) {
+                    if (result.success) {       
                         window.close();
                         window.open('index.html');
+                        window.close('login-Signup.html');
                     }
                 });
             }
