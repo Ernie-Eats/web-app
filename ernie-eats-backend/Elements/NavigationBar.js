@@ -17,7 +17,8 @@ class NavigationBar extends HTMLElement {
         homePage.href = "index.html";
         
         const homeLogo = homePage.appendChild(document.createElement("img"));
-        homeLogo.src = "./ernie-eats-frontend/Images/ErnieLogo.jpg";
+        homeLogo.src = "./ernie-eats-frontend/Images/CoverLogo.jpg";
+        homeLogo.id = "homeLogo-img";
 
         const searchBar = wrapper.appendChild(document.createElement("input"));
         searchBar.setAttribute("type", "text");
