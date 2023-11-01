@@ -232,8 +232,9 @@ class LoginPage extends HTMLElement {
 
                 await Userdatabase.findUserByUsernamePassword(signinUser.user, signinUser.password).then(result => {
                     if (result.success) {
-                        result.model.address = keepSignedIn ? result.model.getAddress() : "";
+                        result.model.address = result.model.getAddress();
                         Userdatabase.updateUser(result.model).then(r => {
+                            r.model.address = keepSignedIn ? result.model.address : "";
                             if (r.success) {
                                 window.open('index.html');
                                 window.close('login-Signup.html');
@@ -278,7 +279,7 @@ class LoginPage extends HTMLElement {
                     || (signupUser.password === undefined || signupUser.password.length === 0)
                     || (signupUser.repassword === undefined || signupUser.repassword.length === 0)
                     || (signupUser.email === undefined || signupUser.email.length === 0)) {
-                        console.log("Values were not entered")
+                        console.log("Values were not entered");
                         return;
                 }
 
@@ -292,7 +293,8 @@ class LoginPage extends HTMLElement {
                 user.address = await user.getAddress();
 
                 await Userdatabase.insertUser(user).then(result => {
-                    if (result.success) {
+                    if (result.success) {       
+                        window.close();
                         window.open('index.html');
                         window.close('login-Signup.html');
                     }
