@@ -235,8 +235,6 @@ class LoginPage extends HTMLElement {
                         result.model.address = result.model.getAddress();
                         Userdatabase.updateUser(result.model).then(r => {
                             r.model.address = keepSignedIn ? r.model.address : "";
-                            console.log(keepSignedIn);
-                            console.log(r);
                             if (r.success) {
                                 window.open('index.html');
                                 window.close('login-Signup.html');
@@ -281,7 +279,7 @@ class LoginPage extends HTMLElement {
                     || (signupUser.password === undefined || signupUser.password.length === 0)
                     || (signupUser.repassword === undefined || signupUser.repassword.length === 0)
                     || (signupUser.email === undefined || signupUser.email.length === 0)) {
-                        console.log("Values were not entered")
+                        console.log("Values were not entered");
                         return;
                 }
 
@@ -296,7 +294,7 @@ class LoginPage extends HTMLElement {
 
                 await Userdatabase.insertUser(user).then(result => {
                     if (result.success) {
-                        console.log(result.model);
+                        window.close();
                         window.open('index.html');
                     }
                 });

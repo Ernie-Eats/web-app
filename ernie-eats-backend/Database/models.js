@@ -13,22 +13,6 @@ class User {
         this.id = id;
     }
 
-    getId() {
-        return this.id;
-    }
-
-    getUsername() {
-        return this.username;
-    }
-
-    getName() {
-        return this.name
-    }
-
-    getEmail() {
-        return this.email;
-    }
-
     getAddress() {
         this.address = fetch('https://api.ipify.org?format=json')
             .then(response => response.json())
@@ -56,52 +40,33 @@ class User {
 }
 
 class Resturant {
-    constructor(id, name, menu, ownerId, reviews) {
-        this.id = id;
+    constructor(name, menu, ownerId, reviews) {
         this.name = name;
         this.menu = menu;
         this.ownerId = ownerId;
-        this.reviews = (Array.isArray(reviews) && reviews.every((r) => r instanceof string)) 
+        this.reviews = (Array.isArray(reviews)) 
             ? reviews 
             : undefined;
     }
 
-    getId() {
-        return this.id;
-    }
-
-    getName() {
-        return this.name;
-    }
-
-    getMenu() {
-        return this.menu;
-    }
-
-    getOwnerId() {
-        return this.ownerId;
-    }
-
-    getReviews() {
-        return this.reviews;
+    setId(id) {
+        this.id = id;
     }
 
     isValidResturant() {
-        return this.id !== undefined && 
-                this.name !== undefined && 
+        return this.name !== undefined && 
                 this.menu !== undefined && 
-                this.owner !== undefined && 
+                this.ownerId !== undefined && 
                 this.reviews !== undefined;
     }
 
     equals(resturant) {
         return resturant !== undefined &&
-                this.id === resturant.id && 
                 this.name === resturant.name && 
                 this.menu === resturant.menu && 
-                this.owner.equals(resturant.owner) && 
+                this.ownerId.equals(resturant.ownerId) && 
                 (Array.isArray(resturant.reviews) && 
-                resturant.reviews.every((value, index) => value instanceof Review && value.equals(this.reviews[index])));
+                resturant.reviews.every((value, index) => value instanceof String && value.equals(this.reviews[index])));
     }
 }
 
@@ -112,27 +77,7 @@ class Review {
         this.text = text;
         this.rating = rating;
         this.resturantId = resturantId;
-        this.user = user;
-    }
-
-    getId() {
-        return this.id;
-    }
-
-    getTitle() {
-        return this.title;
-    }
-
-    getReviewText() {
-        return this.text;
-    }
-
-    getRating() {
-        return this.rating;
-    }
-
-    getResturantId() {
-        return this.resturantId;
+        this.userId = userId;
     }
 
     isValidReview() {
@@ -155,4 +100,50 @@ class Review {
     }
 }
 
-export { User, Resturant, Review };
+class ResturantPage {
+    constructor(resturant, photos) {
+        this.resturant = resturant;
+        this.photos = Array.isArray(photos) ? photos : undefined;
+    }
+
+    setId(id) {
+        this.id = id;
+    }
+
+    isValidResturantPage() {
+        return this.resturant !== undefined &&
+                this.photos !== undefined;
+    }
+
+    equals(resturantPage) {
+        return resturantPage !== undefined &&
+            this.resturant.equals(resturantPage.resturant) &&
+            resturantPage.photos.every((value, index) => value === this.photos[index]);
+    }
+}
+
+class UserSettings {
+    constructor(id, userId, isDarkTheme, banner, profile) {
+        this.id = id;
+        this.userId = userId;
+        this.isDarkTheme = isDarkTheme;
+        this.banner = banner;
+        this.profile = profile;
+    }
+
+    setId(id) {
+        this.id = id;
+    }
+
+    equals(userSettings) {
+        return userSettings !== undefined &&
+            this.id === userSettings.id &&
+            this.userId === userSettings.userId &&
+            this.isDarkTheme === userSettings.isDarkTheme &&
+            this.banner === userSettings.banner &&
+            this.profile === userSettings.profile;
+    }
+
+}
+
+export { User, Resturant, Review, ResturantPage, UserSettings };
