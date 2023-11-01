@@ -4,6 +4,7 @@
 		color: #6e6e6e;
 		background: #c8c8c8;
 		font: 600 16px/18px 'Open Sans', sans-serif;
+
 	}
 
 	*,
@@ -63,6 +64,7 @@
 		margin: 0 15px 10px 0;
 		display: inline-block;
 		border-bottom: 2px solid transparent;
+		cursor: pointer;
 	}
 
 	.login-wrapper .signin,
@@ -91,6 +93,8 @@
 	.login-wrapper .signup:checked+.tab {
 		color: #fff;
 		border-color: #8f6516;
+		cursor: pointer;
+		
 	}
 
 	.login-form {
@@ -111,6 +115,12 @@
 
 	.login-form .group .button {
 		background: #8f6516;
+		cursor: pointer;
+	}
+
+	.login-form .group .button:hover {
+		background: #bf1f3b;
+		transition: 0.5s;
 	}
 
 	.login-form .group label .icon {
