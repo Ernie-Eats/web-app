@@ -238,7 +238,7 @@ class LoginPage extends HTMLElement {
                                 console.log(r);
                                 if (r.success) {
                                     window.open('index.html');
-                                    //window.close('login-Signup.html');
+                                    window.close();
                                 }
                             });
                         });
