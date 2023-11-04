@@ -58,8 +58,8 @@ class NavigationBar extends HTMLElement {
                 if (result.success) {
                     this.getAddress().then(address => {
                         let found = result.model.find((value) => value.address == address) !== undefined;
-                        window.close();
                         found ? window.open('user-page.html') : window.open('login-Signup.html');
+                        window.close();
                     })
                 }
             });
@@ -101,10 +101,11 @@ class NavigationBar extends HTMLElement {
                 await Userdatabase.findAllUsers().then(result => {
                     if (result.success) {
                         this.getAddress().then(address => {
-                            let found = result.model.find((value) => value.address == address);
+                            let found = result.model.find((value) => value.address === address);
                             console.log(found);
                             if (found !== undefined) {
-                                found.address = ""
+                                found.address = "unknown";
+                                console.log(found);
                                 Userdatabase.updateUser(found).then(r => console.log(r));
                             }
                         })
@@ -112,9 +113,25 @@ class NavigationBar extends HTMLElement {
                 });
             });
           
-            const settingsPage = content.appendChild(document.createElement("a"));
-            settingsPage.href = "generalsettings.html";
+            const settingsPage = content.appendChild(document.createElement("button"));
             settingsPage.innerHTML = "Settings Page";
+            settingsPage.addEventListener("click", async () => {
+                await Userdatabase.findAllUsers().then(result => {
+                    console.log(result);
+                    if (result.success) {
+                        this.getAddress().then(address => {
+                            console.log(address);
+                            let found = result.model.find((value) => value.address === address) !== undefined;
+                            if (found) {
+                                window.open("generalsettings.html");
+                                window.close();
+                            } else {
+                                console.log("You are not logged in!");
+                            }
+                        });
+                    }
+                });
+            });
 
             img.src = "./ernie-eats-frontend/Images/hamburger-menu-selected.png";
 
