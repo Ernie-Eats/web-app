@@ -122,9 +122,9 @@ class ResturantPage {
 }
 
 class UserSettings {
-    constructor(id, userId, isDarkTheme, banner, profile) {
-        this.id = id;
+    constructor(userId, bio, isDarkTheme, banner, profile) {
         this.userId = userId;
+        this.bio = bio;
         this.isDarkTheme = isDarkTheme;
         this.banner = banner;
         this.profile = profile;
@@ -134,10 +134,17 @@ class UserSettings {
         this.id = id;
     }
 
+    isValidUserPage() {
+        return this.bio !== undefined &&
+            this.isDarkTheme !== undefined &&
+            this.banner !== undefined &&
+            this.profile !== undefined;
+    }
+
     equals(userSettings) {
         return userSettings !== undefined &&
-            this.id === userSettings.id &&
             this.userId === userSettings.userId &&
+            this.bio === userSettings.bio &&
             this.isDarkTheme === userSettings.isDarkTheme &&
             this.banner === userSettings.banner &&
             this.profile === userSettings.profile;

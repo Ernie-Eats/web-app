@@ -232,14 +232,15 @@ class LoginPage extends HTMLElement {
 
                 await Userdatabase.findUserByUsernamePassword(signinUser.user, signinUser.password).then(result => {
                     if (result.success) {
-                        result.model.address = result.model.getAddress();
-                        Userdatabase.updateUser(result.model).then(r => {
-                            r.model.address = keepSignedIn ? result.model.address : "";
-                            if (r.success) {
-                                window.open('index.html');
-                                window.close('login-Signup.html');
-                            }
-                        })
+                        result.model.getAddress().then(address => {
+                            result.model.address = keepSignedIn ? address : "";
+                            Userdatabase.updateUser(result.model).then(r => {
+                                if (r.success) {
+                                    window.open('index.html');
+                                    window.close('login-Signup.html');
+                                }
+                            });
+                        });
                     }
                 });
             }

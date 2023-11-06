@@ -62,10 +62,10 @@ async function updateUser(user) {
     if (isValidUser(user)) {
         const { resources } = await container.items.readAll().fetchAll();
         for (const i of resources) {
-            if (user.equals(i)) {
+            if (user.id === i.id) {
                 const { item } = await container.item(i.id).replace(user);
-                let model = new User(item.name, item.username, item.email, item.password, item.isBuisnessOwner, item.resturantId, "");
-                model.setId(item.id);
+                let model = new User(user.name, user.username, user.email, user.password, user.isBuisnessOwner, user.resturantId, user.address);
+                model.setId(user.id);
                 return { success: true, model: model};
             }
         }
