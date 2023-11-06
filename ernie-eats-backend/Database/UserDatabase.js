@@ -1,4 +1,4 @@
-// https://cdn.jsdelivr.net/npm/@azure/cosmos@4.0.0/+esm @azure/cosmos
+// https://cdn.jsdelivr.net/npm/@azure/cosmos@4.0.0/+esm
 import { CosmosClient } from "https://cdn.jsdelivr.net/npm/@azure/cosmos@4.0.0/+esm";
 import { User } from './models.js';
 
@@ -63,9 +63,9 @@ async function updateUser(user) {
         const { resources } = await container.items.readAll().fetchAll();
         for (const i of resources) {
             if (user.equals(i)) {
-                const { item } = await container.item(i.id).replace(user);
-                let model = new User(item.name, item.username, item.email, item.password, item.isBuisnessOwner, item.resturantId, "");
-                model.setId(item.id);
+                await container.item(i.id, undefined).replace(user);
+                let model = new User(user.name, user.username, user.email, user.password, user.isBuisness, user.resturantId, user.address);
+                model.setId(user.id);
                 return { success: true, model: model};
             }
         }
@@ -80,7 +80,7 @@ async function deleteUser(user) {
             if (user.equals(i)) {
                 const { item } = await container.item(i.id).read();
                 await item.delete();
-                let model = new User(user.name, user.username, user.email, user.password, user.isBusiness, user.resturantId, "")
+                let model = new User(user.name, user.username, user.email, user.password, user.isBusiness, user.resturantId, user.address)
                 model.setId(user.id);
                 return { success: true, 
                             message: "Deleted User from Database", 
@@ -89,7 +89,7 @@ async function deleteUser(user) {
             } 
         }
 
-        let model = new User(user.name, user.username, user.email, user.password, user.isBusiness, user.resturantId, "")
+        let model = new User(user.name, user.username, user.email, user.password, user.isBusiness, user.resturantId, user.address)
         model.setId(user.id);
         return { success: true, 
                     message: "Could not find User in Database", 
@@ -155,7 +155,6 @@ async function findUserByUsername(username) {
     let returnObject = { success: false, model: undefined };
 
     await findAllUsers().then(result => {
-        console.log(result);
         if (result.success) {
             const found = result.model.find((user) => user.username === username)
             if (found !== undefined) {
