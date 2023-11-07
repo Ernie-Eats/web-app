@@ -119,23 +119,15 @@ class NavigationBar extends HTMLElement {
 
             logoutButton.addEventListener("click", async () => {
                 await Function.getAddress().then(address => {
-                    UserDatabase.findUserByAddress(address).then(result => {
-                        if (result.success) {
-                            result.model.address = "";
-                            UserDatabase.updateUser(result.model);
-                        }
-                    });
-                });
-            });
-          
-            const settingsPage = content.appendChild(document.createElement("button"));
-            settingsPage.innerHTML = "Settings Page";
-            settingsPage.addEventListener("click", async () => {
-                await Function.getAddress().then(address => {
-                    UserDatabase.findUserByAddress(address).then(result => {
-                        if (result.success) {
-                            window.close();
-                            window.open("generalSettings.html");
+                    UserDatabase.findUserByAddress(address).then(user => {
+                        if (user.success) {
+                            user.model.address = "";
+                            UserDatabase.updateUser(user.model).then(result => {
+                                if (result.success) {
+                                    location.reload();
+                                }
+                            });
+                            
                         }
                     });
                 });
