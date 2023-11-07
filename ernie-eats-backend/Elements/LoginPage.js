@@ -1,4 +1,5 @@
-import * as Userdatabase from '../Database/UserDatabase.js'
+import * as Userdatabase from '../Database/UserDatabase.js';
+import * as Function from '../Database/functions.js';
 import { User } from '../Database/models.js';
 
 class LoginPage extends HTMLElement {
@@ -222,17 +223,18 @@ class LoginPage extends HTMLElement {
                 }
             }
 
-            submitButton.onclick = async () => {
+        submitButton.onclick = async () => {
                 const keepSignedIn = signinInput.checked;
                 if ((signinUser.user === undefined || signinUser.user.length === 0) ||
                         (signinUser.password === undefined || signinUser.password.length === 0)) {
                             console.log("No Username or password was entered");
                             return;
                 }
-
                 await Userdatabase.findUserByUsernamePassword(signinUser.user, signinUser.password).then(result => {
+                    console.log(result);
                     if (result.success) {
-                        result.model.getAddress().then(address => {
+                        console.log(result);
+                        Function.getAddress().then(address => {
                             result.model.address = keepSignedIn ? address : "";
                             Userdatabase.updateUser(result.model).then(r => {
                                 if (r.success) {
@@ -291,13 +293,12 @@ class LoginPage extends HTMLElement {
                 const isPersonal = personalRadio.checked;
 
                 const user = new User("", signupUser.user, signupUser.email, signupUser.password, !isPersonal, "", "");
-                user.address = await user.getAddress();
+                await Function.getAddress().then(address => user.address = address);
 
                 await Userdatabase.insertUser(user).then(result => {
                     if (result.success) {       
                         window.close();
                         window.open('index.html');
-                        window.close('login-Signup.html');
                     }
                 });
             }

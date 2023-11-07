@@ -13,12 +13,6 @@ class User {
         this.id = id;
     }
 
-    async getAddress() {
-        return await fetch('https://api.ipify.org?format=json')
-            .then(response => response.json())
-            .then(data => data.ip);
-    }
-
     isBuisnessOwner() {
         return this.isBuisness && this.resturantId !== undefined;
     }

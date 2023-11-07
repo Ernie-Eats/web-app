@@ -1,9 +1,10 @@
 import * as UserDatabase from '../Database/UserDatabase.js';
 import * as UserSettingsDatabase from '../Database/UserSettingsDatabase.js';
 import * as Model from '../Database/models.js';
+import * as Function from '../Database/functions.js';
 
 let activePage = "account";
-const account = { firstName: "", lastName: "", email: "", username: "", bio: "" };
+const account = { firstName: "", lastName: "", email: "", username: "", bio: "", profile: undefined };
 const general = { darkTheme: false };
 const password = {currentPassword: "", newPassword: "", repeatPassword: ""};
 
@@ -28,6 +29,26 @@ const lname = document.getElementById("lname");
 const email = document.getElementById("email");
 const username = document.getElementById("username");
 const bio = document.getElementById("Bio");
+const profile = document.getElementById("profile");
+const profilePicture = document.getElementById("profileImg");
+
+await Function.getAddress().then(address => {
+    UserDatabase.findUserByAddress(address).then(result => {
+        if (result.success) {
+            fname.value = result.model.name.slice(0, result.model.name.indexOf(" "));
+            lname.value = result.model.name.slice(result.model.name.indexOf(" ") + 1);
+            email.value = result.model.email;
+            username.value = result.model.username;
+            UserSettingsDatabase.findUserSettingsPageById(result.model.id).then(page => {
+                if (page.success) {
+                    bio.value = page.model.bio;
+                    profilePicture.src = page.model.profile !== undefined && page.model.profile.length !== 0 ?
+                        page.model.profile : "../../ernie-eats-frontend/Images/defaultLogin.png";
+                }
+            });
+        }
+    });
+});
 
 fname.oninput = (e) => {
     const value = e.target.value;
@@ -63,6 +84,11 @@ bio.oninput = (e) => {
         account.bio = value;
     }
 };
+
+profile.onchange = async (e) => {
+    profilePicture.src = URL.createObjectURL(e.target.files[0]);
+    await Function.convertImageToBase64(e.target.files[0]).then(result => account.profile = result);
+}
 
 // General Page
 const theme = document.getElementById("theme");
@@ -122,71 +148,59 @@ async function save() {
     switch (activePage) {
         case "account":
             {
-                await UserDatabase.findAllUsers().then(result => {
-                    if (result.success) {
-                        result.model[0].getAddress().then(address => {
-                            let found = result.model.find(value => value.address === address);
-                            if (found !== undefined) {
-                                found.username = account.username.length === 0 ? found.username : account.username;
-                                found.name = account.firstName.length === 0 && account.lastName.length === 0
-                                    ? found.name : account.firstName + " " + account.lastName;
-                                found.email = account.email.length === 0 ? found.email : account.email;
-                                UserDatabase.updateUser(found);
-                                UserSettingsDatabase.findAllUserPages().then(r => {
-                                    if (r.success) {
-                                        let foundPage = r.model.find(value => value.userId === found.id);
-                                        if (foundPage === undefined) {
-                                            let newPage = new Model.UserSettings(found.id, account.bio, false, "", "");
-                                            UserSettingsDatabase.insertUserPage(newPage);
-                                            return;
-                                        }
-                                        foundPage.bio = account.bio;
-                                        UserSettingsDatabase.updateUserPage(foundPage);
-                                    }
-                                });
-                            }
-                        });
-                    }
+                await Function.getAddress().then(address => {
+                    UserDatabase.findUserByAddress(address).then(result => {
+                        if (result.success) {
+                            result.model.username = account.username.length === 0 ? result.model.username : account.username;
+                            result.model.name = account.firstName.length === 0 && account.lastName.length === 0 ?
+                                result.model.name : account.firstName + " " + account.lastName;
+                            result.model.email = account.email.length === 0 ? result.model.email : account.email;
+                            UserDatabase.updateUser(result.model);
+                            UserSettingsDatabase.findUserSettingsPageById(found.id).then(page => {
+                                if (page.success) {
+                                    page.model.bio = account.bio;
+                                    page.model.profile = account.profile;
+                                    UserSettingsDatabase.updateUserPage(page.model);
+                                } else {
+                                    const newPage = new Model.UserSettings(found.id, account.bio, false, "", account.profile);
+                                    UserSettingsDatabase.insertUserPage(newPage);
+                                }
+                            });
+                        }
+                    });
                 });
                 return;
             }
         case "general":
             {
-                await UserDatabase.findAllUsers().then(result => {
-                    if (result.success) {
-                        result.model[0].getAddress().then(address => {
-                            let foundUser = result.model.find(value => value.address === addresss);
-                            if (foundUser !== undefined) {
-                                UserSettingsDatabase.findAllUserPages().then(pages => {
-                                    let foundPage = pages.model.find(value.userId === foundUser.id);
-                                    if (foundPage !== undefined) {
-                                        foundPage.isDarkTheme = general.lightMode;
-                                        UserSettingsDatabase.updateUserPage(foundPage);
-                                    }
-                                });
-                            }
-                        });
-                    }
+                await Function.getAddress().then(address => {
+                    UserDatabase.findUserByAddress(address).then(result => {
+                        if (result.success) {
+                            UserSettingsDatabase.findUserSettingsPageById(result.model.id).then(page => {
+                                if (page.success) {
+                                    page.model.isDarkTheme = general.lightMode;
+                                    UserSettingsDatabase.updateUserPage(page.model);
+                                }
+                            });
+                        }
+                    })
                 });
                 return;
             }
         case "password":
             {
-                await UserDatabase.findAllUsers().then(result => {
-                    if (result.success) {
-                        result.model[0].getAddress().then(address => {
-                            let foundUser = result.model.find(value => value.address === address);
-                            if (foundUser !== undefined) {
-                                if (foundUser.password === password.currentPassword) {
-                                    if (password.newPassword === password.repeatPassword) {
-                                        foundUser.password = password.newPassword;
-                                        UserDatabase.updateUser(foundUser);
-                                    }
+                if (password.newPassword === password.repeatPassword) {
+                    await Function.getAddress().then(address => {
+                        UserDatabase.findUserByAddress(address).then(result => {
+                            if (result.success) {
+                                if (result.model.password === password.currentPassword) {
+                                    result.model.password = password.newPassword;
+                                    UserDatabase.updateUser(result.model);
                                 }
                             }
                         });
-                    }
-                });
+                    });
+                }
 
                 return;
             }

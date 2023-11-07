@@ -28,6 +28,20 @@ async function findAllUserPages() {
     return { success: true, model: pages };
 }
 
+async function findUserSettingsPageById(id) {
+    if (id !== undefined || id !== null) {
+        const { resources } = await container.items.readAll().fetchAll();
+        for (const item of resources) {
+            if (item.userId === id) {
+                const model = new UserSettings(item.userId, item.bio, item.isDarkTheme, item.banner, item.profile);
+                model.setId(id);
+                return { success: true, model: model };
+            }
+        }
+    }
+    return { success: false, model: undefined };
+}
+
 async function insertUserPage(userPage) {
     if (isValidUserSettingsPage(userPage)) {
         const { resources } = await container.items.readAll().fetchAll();
@@ -107,4 +121,4 @@ async function deleteUserPage(userPage) {
     };
 }
 
-export { deleteUserPage, findAllUserPages, insertUserPage, updateUserPage }
+export { deleteUserPage, findAllUserPages, findUserSettingsPageById, insertUserPage, updateUserPage }

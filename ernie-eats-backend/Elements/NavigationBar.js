@@ -1,4 +1,6 @@
-import * as Userdatabase from '../Database/UserDatabase.js';
+import * as UserDatabase from '../Database/UserDatabase.js';
+import * as UserSettingsDatabase from '../Database/UserSettingsDatabase.js';
+import * as Function from '../Database/functions.js';
 
 class NavigationBar extends HTMLElement {
     constructor() {
@@ -28,7 +30,21 @@ class NavigationBar extends HTMLElement {
         accountLogin.setAttribute("class", "button");
 
         const accountPhoto = accountLogin.appendChild(document.createElement("img"));
-        accountPhoto.src = "./ernie-eats-frontend/Images/defaultLogin.png";
+
+        Function.getAddress().then(address => {
+            UserDatabase.findUserByAddress(address).then(async (result) => {
+                if (result.success) {
+                    await UserSettingsDatabase.findUserSettingsPageById(result.model.id).then(page => {
+                        if (page.success) {
+                            accountPhoto.src = page.model.profile !== undefined && page.model.profile.length !== 0 ?
+                                page.model.profile : "./ernie-eats-frontend/Images/defaultLogin.png";
+                        }
+                    });
+                } else {
+                    accountPhoto.src = "./ernie-eats-frontend/Images/defaultLogin.png";
+                }
+            });
+        });
 
         const hamburgerWrapper = wrapper.appendChild(document.createElement("div"));
         hamburgerWrapper.setAttribute("id", "hamburger-wrapper");
@@ -54,25 +70,16 @@ class NavigationBar extends HTMLElement {
         hamburger.addEventListener("click", () => this.hamburgerMenu(hamburgerWrapper, hamburgerImg));
 
         accountLogin.addEventListener("click", async () => {
-            await Userdatabase.findAllUsers().then(result => {
-                if (result.success) {
-                    this.getAddress().then(address => {
-                        let found = result.model.find((value) => value.address == address) !== undefined;
-                        window.close();
-                        found ? window.open('user-page.html') : window.open('login-Signup.html');
-                    })
-                }
+            await Function.getAddress().then(address => {
+                UserDatabase.findUserByAddress(address).then(result => {
+                    window.close();
+                    result.success ? window.open('user-page.html') : window.open('login-Signup.html');
+                });
             });
         });
 
         shadow.appendChild(css);
         shadow.appendChild(wrapper);
-    }
-
-    async getAddress() {
-        return await fetch('https://api.ipify.org?format=json')
-                        .then(async response => await response.json())
-                        .then(data => { return data.ip });
     }
 
     hamburgerMenu(wrapper, img) {
@@ -93,28 +100,33 @@ class NavigationBar extends HTMLElement {
             const faqPage = content.appendChild(document.createElement("a"));
             faqPage.href = "FAQ.html";
             faqPage.innerHTML = "FAQ Page";
+          
+            const settingsPage = content.appendChild(document.createElement("button"));
+            settingsPage.innerHTML = "Settings Page";
+            settingsPage.addEventListener("click", async () => {
+                await Function.getAddress().then(address => {
+                    UserDatabase.findUserByAddress(address).then(result => {
+                        if (result.success) {
+                            window.close();
+                            window.open("generalSettings.html");
+                        }
+                    });
+                });
+            });
 
             const logoutButton = content.appendChild(document.createElement("button"));
             logoutButton.innerHTML = "Logout";
 
             logoutButton.addEventListener("click", async () => {
-                await Userdatabase.findAllUsers().then(result => {
-                    if (result.success) {
-                        this.getAddress().then(address => {
-                            let found = result.model.find((value) => value.address == address);
-                            console.log(found);
-                            if (found !== undefined) {
-                                found.address = ""
-                                Userdatabase.updateUser(found).then(r => console.log(r));
-                            }
-                        })
-                    }
+                await Function.getAddress().then(address => {
+                    UserDatabase.findUserByAddress(address).then(result => {
+                        if (result.success) {
+                            result.model.address = "";
+                            UserDatabase.updateUser(result.model);
+                        }
+                    });
                 });
             });
-          
-            const settingsPage = content.appendChild(document.createElement("a"));
-            settingsPage.href = "generalsettings.html";
-            settingsPage.innerHTML = "Settings Page";
 
             img.src = "./ernie-eats-frontend/Images/hamburger-menu-selected.png";
 
