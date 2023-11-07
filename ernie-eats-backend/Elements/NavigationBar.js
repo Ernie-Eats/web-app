@@ -127,6 +127,19 @@ class NavigationBar extends HTMLElement {
                     });
                 });
             });
+          
+            const settingsPage = content.appendChild(document.createElement("button"));
+            settingsPage.innerHTML = "Settings Page";
+            settingsPage.addEventListener("click", async () => {
+                await Function.getAddress().then(address => {
+                    UserDatabase.findUserByAddress(address).then(result => {
+                        if (result.success) {
+                            window.close();
+                            window.open("generalSettings.html");
+                        }
+                    });
+                });
+            });
 
             img.src = "./ernie-eats-frontend/Images/hamburger-menu-selected.png";
 

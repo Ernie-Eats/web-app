@@ -1,4 +1,4 @@
-// https://cdn.jsdelivr.net/npm/@azure/cosmos@4.0.0/+esm @azure/cosmos
+// https://cdn.jsdelivr.net/npm/@azure/cosmos@4.0.0/+esm
 import { CosmosClient } from "https://cdn.jsdelivr.net/npm/@azure/cosmos@4.0.0/+esm";
 import { User } from './models.js';
 
@@ -87,7 +87,7 @@ async function deleteUser(user) {
                 };
             } 
         }
-
+      
         let model = new User(user.name, user.username, user.email, user.password, user.isBusiness, user.resturantId, user.address);
         model.setId(user.id);
         return { success: true, 
