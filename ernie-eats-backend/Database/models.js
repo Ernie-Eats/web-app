@@ -64,8 +64,7 @@ class Resturant {
 }
 
 class Review {
-    constructor(id, title, text, rating, resturantId, userId) {
-        this.id = id;
+    constructor(title, text, rating, resturantId, userId) {
         this.title = title;
         this.text = text;
         this.rating = rating;
@@ -73,23 +72,26 @@ class Review {
         this.userId = userId;
     }
 
+    setId(id) {
+        this.id = id;
+    }
+
     isValidReview() {
         return this.id !== undefined && 
                 this.title !== undefined && 
                 this.text !== undefined && 
                 this.rating !== undefined && 
-                this.resturant !== undefined && 
-                this.user !== undefined;
+                this.resturantId !== undefined && 
+                this.userId !== undefined;
     }
 
     equals(review) {
         return review !== undefined &&
-            this.id === review.id && 
             this.title === review.title && 
             this.text === review.text && 
             this.rating === review.rating && 
-            this.resturant === review.resturant && 
-            this.user === review.user;
+            this.resturantId === review.resturantId && 
+            this.userId === review.userId;
     }
 }
 

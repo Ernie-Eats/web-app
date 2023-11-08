@@ -34,7 +34,7 @@ async function findUserSettingsPageById(id) {
         for (const item of resources) {
             if (item.userId === id) {
                 const model = new UserSettings(item.userId, item.bio, item.isDarkTheme, item.banner, item.profile);
-                model.setId(id);
+                model.setId(item.id);
                 return { success: true, model: model };
             }
         }
@@ -74,18 +74,23 @@ async function insertUserPage(userPage) {
 }
 
 async function updateUserPage(userPage) {
+    let result = { success: false, model: undefined }
     if (isValidUserSettingsPage(userPage)) {
+        console.log("It is a valid User Page");
         const { resources } = await container.items.readAll().fetchAll();
         for (const i of resources) {
+            console.log(userPage.id);
+            console.log(i.id);
             if (userPage.id === i.id) {
+                console.log("Found a Page");
                 const { item } = await container.item(i.id).replace(userPage);
                 let model = new UserSettings(item.userId, item.bio, item.isDarkTheme, item.banner, item.profile);
                 model.setId(item.id);
-                return { success: true, model: model };
+                result = { success: true, model: model };
             }
         }
     }
-    return { success: false, model: undefined };
+    return result;
 }
 
 async function deleteUserPage(userPage) {

@@ -30,7 +30,7 @@ const email = document.getElementById("email");
 const username = document.getElementById("username");
 const bio = document.getElementById("Bio");
 const profile = document.getElementById("profile");
-const profilePicture = document.getElementById("profileImg");
+const profilePicture = [...document.getElementsByClassName("profileImg")];
 
 await Function.getAddress().then(address => {
     UserDatabase.findUserByAddress(address).then(result => {
@@ -42,8 +42,8 @@ await Function.getAddress().then(address => {
             UserSettingsDatabase.findUserSettingsPageById(result.model.id).then(page => {
                 if (page.success) {
                     bio.value = page.model.bio;
-                    profilePicture.src = page.model.profile !== undefined && page.model.profile.length !== 0 ?
-                        page.model.profile : "../../ernie-eats-frontend/Images/defaultLogin.png";
+                    profilePicture.forEach(elm => elm.src = page.model.profile !== undefined && page.model.profile.length !== 0 ?
+                        page.model.profile : "../../ernie-eats-frontend/Images/defaultLogin.png");
                 }
             });
         }
@@ -86,7 +86,7 @@ bio.oninput = (e) => {
 };
 
 profile.onchange = async (e) => {
-    profilePicture.src = URL.createObjectURL(e.target.files[0]);
+    profilePicture[1].src = URL.createObjectURL(e.target.files[0]);
     await Function.convertImageToBase64(e.target.files[0]).then(result => account.profile = result);
 }
 
@@ -156,13 +156,17 @@ async function save() {
                                 result.model.name : account.firstName + " " + account.lastName;
                             result.model.email = account.email.length === 0 ? result.model.email : account.email;
                             UserDatabase.updateUser(result.model);
-                            UserSettingsDatabase.findUserSettingsPageById(found.id).then(page => {
+                            UserSettingsDatabase.findUserSettingsPageById(result.model.id).then(page => {
                                 if (page.success) {
                                     page.model.bio = account.bio;
                                     page.model.profile = account.profile;
-                                    UserSettingsDatabase.updateUserPage(page.model);
+                                    UserSettingsDatabase.updateUserPage(page.model).then(r => {
+                                        if (r.success) {
+                                            history.go();
+                                        }
+                                    });
                                 } else {
-                                    const newPage = new Model.UserSettings(found.id, account.bio, false, "", account.profile);
+                                    const newPage = new Model.UserSettings(result.model.id, account.bio, false, "", account.profile);
                                     UserSettingsDatabase.insertUserPage(newPage);
                                 }
                             });

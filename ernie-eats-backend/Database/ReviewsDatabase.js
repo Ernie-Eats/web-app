@@ -10,7 +10,7 @@ const { container } = await database.containers.createIfNotExists({ id: "reviews
 
 function isValidReview(review) {
     if (review !== undefined &&
-        review instanceof Resturant &&
+        review instanceof Review &&
         review.isValidReview()) {
             return true;
     }
@@ -18,13 +18,14 @@ function isValidReview(review) {
 }
 
 async function findAllReviews() {
-    let resturants = [];
+    let reviews = [];
     const { resources } = await container.items.readAll().fetchAll();
     for (const item of resources) {
-        let resturant = new Review(item.id, item.name, item.menu, item.owner, item.reviews);
-        resturants.push(resturant);
+        let review = new Review(item.title, item.text, item.rating, item.resturantId, item.userId);
+        review.setId(item.id);
+        reviews.push(review);
     }
-    return { success: true, model: resturants };
+    return { success: true, model: reviews };
 }
 
 async function insertReview(review) {
@@ -32,17 +33,22 @@ async function insertReview(review) {
         const { resources } = await container.items.readAll().fetchAll();
         for (const item of resources) {
             if (review.equals(item)) {
-                    return { success: true, 
-                                message: "Review already in Database", 
-                                model: new Review(review.id, review.title, review.text, review.rating, review.resturant, review.user) 
-                    };
+                const model = new Review(item.title, item.text, item.rating, item.resturantId, item.userId);
+                model.setId(item.id);
+                return {
+                    success: true,
+                    message: "Review already in Database",
+                    model: model
+                };
             }
         }
 
-        await container.items.create(review);
+        const { item } = await container.items.create(review);
+        const model = new Review(review.title, review.text, review.rating, review.resturantId, review.userId);
+        model.setId(item.id);
         return { success: true, 
             message: "Created review in Database", 
-            model: new Review(review.id, review.title, review.text, review.rating, review.resturant, review.user) 
+            model: model 
         };
     }
     return { success: false, 
@@ -58,16 +64,20 @@ async function deleteReview(review) {
             if (review.equals(i)) {
                 const { item } = await container.item(i.id).read();
                 await item.delete();
+                const model = new Review(review.title, review.text, review.rating, review.resturantId, review.userId);
+                model.setId(item.id);
                 return { success: true, 
                             message: "Deleted Review from Database", 
-                            model: new Review(review.id, review.title, review.text, review.rating, review.resturant, review.user)
+                            model: model
                 };
             } 
         }
 
+        const model = new Review(review.title, review.text, review.rating, review.resturantId, review.userId);
+        model.setId(item.id);
         return { success: true, 
                     message: "Could not find Review in Database", 
-                    model: new Review(resturant.id, resturant.name, resturant.menu, resturant.owner, resturant.reviews) 
+                    model: model 
         };
     }
 
@@ -77,15 +87,26 @@ async function deleteReview(review) {
     };
 }
 
-async function deleteAllReviews() {
-    const { resources } = await container.items.readAll().fetchAll();
-    for (const i of resources) {
-        const { item } = await container.item(i.id).read();
-        await item.delete();
-    }
-    return true;
+async function findReviewsByUserId(id) {
+    let result = { success: false, model: undefined };
+    await findAllReviews().then(result => {
+        if (result.success) {
+            const reviews = result.model.filter(value => value.userId === id);
+            result = { success: true, model: reviews };
+        }
+    });
+    return result;
 }
 
-main().catch(err => console.error(err));
+async function findReviewsByResturantId(id) {
+    let result = { success: false, model: undefined };
+    await findAllReviews().then(result => {
+        if (result.success) {
+            const reviews = result.model.filter(value => value.resturantId === id);
+            result = { success: true, model: reviews };
+        }
+    });
+    return result;
+} 
 
-export { insertReview, findAllReviews, deleteAllReviews, deleteReview }
+export { insertReview, findAllReviews, findReviewsByResturantId, findReviewsByUserId, deleteReview }
