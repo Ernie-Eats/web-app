@@ -93,25 +93,6 @@ class NavigationBar extends HTMLElement {
             const faqPage = content.appendChild(document.createElement("a"));
             faqPage.href = "FAQ.html";
             faqPage.innerHTML = "FAQ Page";
-
-            const logoutButton = content.appendChild(document.createElement("button"));
-            logoutButton.innerHTML = "Logout";
-
-            logoutButton.addEventListener("click", async () => {
-                await Userdatabase.findAllUsers().then(result => {
-                    if (result.success) {
-                        this.getAddress().then(address => {
-                            let found = result.model.find((value) => value.address === address);
-                            console.log(found);
-                            if (found !== undefined) {
-                                found.address = "unknown";
-                                console.log(found);
-                                Userdatabase.updateUser(found).then(r => console.log(r));
-                            }
-                        })
-                    }
-                });
-            });
           
             const settingsPage = content.appendChild(document.createElement("button"));
             settingsPage.innerHTML = "Settings Page";
@@ -129,6 +110,25 @@ class NavigationBar extends HTMLElement {
                                 console.log("You are not logged in!");
                             }
                         });
+                    }
+                });
+            });
+
+            const logoutButton = content.appendChild(document.createElement("button"));
+            logoutButton.innerHTML = "Logout";
+
+            logoutButton.addEventListener("click", async () => {
+                await Userdatabase.findAllUsers().then(result => {
+                    if (result.success) {
+                        this.getAddress().then(address => {
+                            let found = result.model.find((value) => value.address === address);
+                            console.log(found);
+                            if (found !== undefined) {
+                                found.address = "unknown";
+                                console.log(found);
+                                Userdatabase.updateUser(found).then(r => console.log(r));
+                            }
+                        })
                     }
                 });
             });
