@@ -79,7 +79,7 @@ async function deleteUser(user) {
             if (user.equals(i)) {
                 const { item } = await container.item(i.id).read();
                 await item.delete();
-                let model = new User(user.name, user.username, user.email, user.password, user.isBusiness, user.resturantId, user.address)
+                let model = new User(user.name, user.username, user.email, user.password, user.isBusiness, user.resturantId, user.address);
                 model.setId(user.id);
                 return { success: true, 
                             message: "Deleted User from Database", 
@@ -132,7 +132,7 @@ async function findUserByUsernamePassword(username, password) {
 
     await findAllUsers().then(result => {
         if (result.success) {
-            const found = result.model.find((user) => user.username === username && user.password === password)
+            const found = result.model.find((user) => user.username === username && user.password === password);
             if (found !== undefined) {
                 returnObject = { success: true, model: found };
             }
@@ -145,7 +145,7 @@ async function findUserByUsername(username) {
     let returnObject = { success: false, model: undefined };
     await findAllUsers().then(result => {
         if (result.success) {
-            const found = result.model.find((user) => user.username === username)
+            const found = result.model.find((user) => user.username === username);
             if (found !== undefined) {
                 returnObject = { success: true, model: found };
             }

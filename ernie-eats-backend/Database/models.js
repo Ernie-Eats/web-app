@@ -59,7 +59,7 @@ class Resturant {
                 this.menu === resturant.menu && 
                 this.ownerId.equals(resturant.ownerId) && 
                 (Array.isArray(resturant.reviews) && 
-                resturant.reviews.every((value, index) => value instanceof String && value.equals(this.reviews[index])));
+                resturant.reviews.every((value, index) => value.equals(this.reviews[index])));
     }
 }
 
@@ -77,8 +77,7 @@ class Review {
     }
 
     isValidReview() {
-        return this.id !== undefined && 
-                this.title !== undefined && 
+        return  this.title !== undefined && 
                 this.text !== undefined && 
                 this.rating !== undefined && 
                 this.resturantId !== undefined && 
