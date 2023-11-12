@@ -4,8 +4,6 @@
     grid-template-rows: auto auto auto;
     column-gap: 50px;
     height: 100vh;
-    
-  
 }
 
 .sidebar {
@@ -13,12 +11,16 @@
     grid-column-end: 2;
     grid-row-start: 1;
     grid-row-end: 4;
-    background-color: black;
+    background-color: #686868;
     max-height: 100vh;
     
-    
-   
-    
+}
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
 }
 
 .content {
@@ -137,36 +139,40 @@ footer-section-contact-form {
     padding-bottom: 30px;
 }
 
-    footer-section-contact-form textarea {
-        padding-bottom: 10px;
-    }
+footer-section-contact-form textarea {
+    padding-bottom: 10px;
+}
 
+img{
+    height:100px;
+    width:100px;
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
 
-    img{
-        height:100px;
-        width:100px;
-        padding-left: 10px;
-        padding-top: 5px;
-        padding-bottom: 5px;
-    }
-
-    .sidebar button {
-        display: flex;
-        align-items: center;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        display: block; 
-        width: 100%; 
-        padding: 10px; /* Add padding for spacing between buttons */
-        margin-bottom: 10px; /* Add margin to separate buttons vertically */
-        background-color: #555; 
-        color: #fff; 
-        border: none;
-        text-align: left; 
+.sidebar button {
+    display: flex;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    display: block; 
+    width: 100%; 
+    padding: 10px; /* Add padding for spacing between buttons */
+    margin-bottom: 10px; /* Add margin to separate buttons vertically */
+    background-color: #555; 
+    color: #fff; 
+    border: none;
+    text-align: left; 
 }
     
+.sidebar button:hover {
+    background-color: #94270c;
+    color:white
+}
+
 .save-button {
     background-color: #4CAF50; 
     color: white;

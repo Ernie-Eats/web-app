@@ -75,6 +75,18 @@ class LoginPage extends HTMLElement {
             passwordInput.setAttribute("class", "input");
             passwordInput.setAttribute("data-type", "password");
 
+            /*
+            const toggleVisibility = document.getElementById("toggleVisibility");
+
+            toggleVisibility.addEventListener("change", function() {
+                if (toggleVisibility.checked) {
+                    passwordInput.type = "text";
+                } else {
+                    passwordInput.type = "password";
+                }
+            });
+            */
+
             const keepSignedInGroup = signupPageWrapper.appendChild(document.createElement("div"));
             // keepSignedInGroup.setAttribute("class", "group");
 
