@@ -103,6 +103,7 @@ class NavigationBar extends HTMLElement {
           
             const settingsPage = content.appendChild(document.createElement("button"));
             settingsPage.innerHTML = "Settings Page";
+
             settingsPage.addEventListener("click", async () => {
                 await Function.getAddress().then(address => {
                     UserDatabase.findUserByAddress(address).then(result => {
@@ -124,7 +125,8 @@ class NavigationBar extends HTMLElement {
                             user.model.address = "";
                             UserDatabase.updateUser(user.model).then(result => {
                                 if (result.success) {
-                                    location.reload();
+                                    window.close();
+                                    window.open("index.html");
                                 }
                             });
                             
