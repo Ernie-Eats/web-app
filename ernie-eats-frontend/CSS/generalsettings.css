@@ -3,7 +3,7 @@
     grid-template-columns: 10vw auto auto;
     grid-template-rows: auto auto auto;
     column-gap: 50px;
-    height: 100vh;
+    height: 332px;
 }
 
 .sidebar {
@@ -29,16 +29,13 @@
     grid-row-start: 1;
     grid-row-end: 4;
     display: none;
-    
-    
-    
 }
 
 .footer {
     display: inline-block;
     background: #303036;
     color: #d3d3d3;
-    height: 400px;
+    height: 500px;
     position: relative;
 }
 

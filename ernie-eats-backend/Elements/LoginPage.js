@@ -75,8 +75,13 @@ class LoginPage extends HTMLElement {
             passwordInput.setAttribute("class", "input");
             passwordInput.setAttribute("data-type", "password");
 
-            /*
-            const toggleVisibility = document.getElementById("toggleVisibility");
+            const toggleVisibilityLabel = signupPageWrapper.appendChild(document.createElement("label"));
+            toggleVisibilityLabel.setAttribute("for", "toggleVisibility");
+            toggleVisibilityLabel.innerText = "Show Password";
+
+            const toggleVisibility = signupPageWrapper.appendChild(document.createElement("input"));
+            toggleVisibility.setAttribute("id", "toggleVisibility");
+            toggleVisibility.setAttribute("type", "checkbox");
 
             toggleVisibility.addEventListener("change", function() {
                 if (toggleVisibility.checked) {
@@ -85,7 +90,6 @@ class LoginPage extends HTMLElement {
                     passwordInput.type = "password";
                 }
             });
-            */
 
             const keepSignedInGroup = signupPageWrapper.appendChild(document.createElement("div"));
             // keepSignedInGroup.setAttribute("class", "group");
