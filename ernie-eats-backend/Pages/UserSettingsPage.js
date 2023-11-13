@@ -6,7 +6,8 @@ import * as Function from '../Database/functions.js';
 let activePage = "account";
 const account = { firstName: "", lastName: "", email: "", username: "", bio: "", profile: undefined };
 const general = { darkTheme: false };
-const password = {currentPassword: "", newPassword: "", repeatPassword: ""};
+const password = { currentPassword: "", newPassword: "", repeatPassword: "" };
+const buisness = {};
 
 const contentDivs = [...document.getElementsByClassName("content")];
 contentDivs[0].style.display = "block";
@@ -19,6 +20,9 @@ generalButton.addEventListener("click", viewGeneral);
 
 const passwordButton = document.getElementById("password_button");
 passwordButton.addEventListener("click", viewPassword);
+
+const buisnessButton = document.getElementById("business_button");
+buisnessButton.addEventListener("click", viewBuisness);
 
 const buttons = [...document.getElementsByClassName('save-button')];
 buttons.forEach(b => b.addEventListener('click', save));
@@ -35,6 +39,11 @@ const profilePicture = [...document.getElementsByClassName("profileImg")];
 await Function.getAddress().then(address => {
     UserDatabase.findUserByAddress(address).then(result => {
         if (result.success) {
+            if (!result.model.isBuisnessOwner()) { 
+                contentDivs.pop();
+                buisnessButton.style.display = "none";
+            }
+
             fname.value = result.model.name.slice(0, result.model.name.indexOf(" "));
             lname.value = result.model.name.slice(result.model.name.indexOf(" ") + 1);
             email.value = result.model.email;
@@ -142,6 +151,12 @@ function viewPassword() {
     contentDivs.forEach((x) => x.style.display = "none");
     document.getElementById("password").style.display = "block";
     activePage = "password";
+}
+
+function viewBuisness() {
+    contentDivs.forEach((x) => x.style.display = "none");
+    document.getElementById("business").style.display = "block";
+    activePage = "business";
 }
 
 async function save() {
