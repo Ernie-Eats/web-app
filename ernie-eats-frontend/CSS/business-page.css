@@ -19,6 +19,21 @@
     border-radius: 5px;
 }
 
+.scroll-box-post {
+    flex: 2;
+    overflow-y: scroll;
+    max-height: 600px;
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-left: 350px;
+    margin-right: 330px;
+    margin-bottom: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+}
+
+
 .scroll-content {
     padding: 10px;
     font-family: 'Helvetica Neue', sans-serif;

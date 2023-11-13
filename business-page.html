@@ -5,6 +5,7 @@
     <title>Ernie Eat's Business User Page'</title>
     <script type="module" src="./ernie-eats-backend/Elements/NavigationBar.js"></script>
     <link rel="stylesheet" href="./ernie-eats-frontend/CSS/business-page.css">
+    <script src="./ernie-eats-backend/Elements/Post.js"></script>
 </head>
 <body>
     <navigation-bar></navigation-bar>
@@ -33,8 +34,8 @@
             <h3>Website: </h3>
             <a href="https://www.thecrackedpillar.com/" target="_blank">thecrackedpillar.com</a>
             <h3>Average rating: </h3>
-                <img class="four-stars" src="./ernie-eats-frontend/Images/fourStars.png" img />
-                <span class="rating-text">33</span>
+            <img class="four-stars" src="./ernie-eats-frontend/Images/fourStars.png" img />
+            <span class="rating-text">33</span>
         </div>
         <div class="scroll-box">
             <div class="scroll-content">
@@ -60,6 +61,20 @@
             <img class="pillar-sign" src="./ernie-eats-frontend/Images/pillarSign.jpg" />
             <img class="pillar-sliders" src="./ernie-eats-frontend/Images/pillarSliders.jpg" />
             <img class="pillar-decor" src="./ernie-eats-frontend/Images/pillarDecor.jpg" />
+        </div>
+    </div>
+    <div class="scroll-box-post">
+        <div class="scroll-content">
+            <h3>Posts: </h3>
+            <div id="posts-container">
+              
+                <post-component title="Post 1" description="This is a sample post."
+                                date="2023-11-09"></post-component>
+
+                <post-component title="Post 2" description="This is a sample post."
+                                date="2023-11-10"></post-component>
+
+            </div>
         </div>
     </div>
 </body>
