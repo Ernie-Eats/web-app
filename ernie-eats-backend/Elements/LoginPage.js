@@ -222,13 +222,14 @@ class LoginPage extends HTMLElement {
             }
         }
 
-        submitButton.onclick = async () => {
-            const keepSignedIn = signinInput.checked;
-            if ((signinUser.user === undefined || signinUser.user.length === 0) ||
-                    (signinUser.password === undefined || signinUser.password.length === 0)) {
-                        console.log("No Username or password was entered");
-                        return;
-            }
+            submitButton.onclick = async () => {
+                const keepSignedIn = signinInput.checked;
+                if ((signinUser.user === undefined || signinUser.user.length === 0) ||
+                        (signinUser.password === undefined || signinUser.password.length === 0)) {
+                            console.log("No Username or password was entered");
+                            window.alert("please fill in all fields!");
+                            return;
+                }
 
             await Userdatabase.findUserByUsernamePassword(signinUser.user, signinUser.password).then(result => {
                 if (result.success) {
@@ -240,11 +241,10 @@ class LoginPage extends HTMLElement {
                                 window.open('index.html');
                                 window.close();
                             }
-                        });
-                    });
-                }
-            });
-        }
+                        })
+                    }
+                });
+            }
 
         const signupUser = { user: "", password: "", repassword: "", email: "" };
 
@@ -276,20 +276,20 @@ class LoginPage extends HTMLElement {
             }
         }
 
-        signupSubmitButton.onclick = async () => {
-            if ((signupUser.user === undefined || signupUser.user.length === 0)
-                || (signupUser.password === undefined || signupUser.password.length === 0)
-                || (signupUser.repassword === undefined || signupUser.repassword.length === 0)
-                || (signupUser.email === undefined || signupUser.email.length === 0)) {
-                    console.log("Values were not entered");
-                    return;
-            }
+            signupSubmitButton.onclick = async () => {
+                if ((signupUser.user === undefined || signupUser.user.length === 0)
+                    || (signupUser.password === undefined || signupUser.password.length === 0)
+                    || (signupUser.repassword === undefined || signupUser.repassword.length === 0)
+                    || (signupUser.email === undefined || signupUser.email.length === 0)) {
+                        console.log("Values were not entered");
+                        return;
+                }
 
-            if (signupUser.password !== signupUser.repassword) {
-                console.log("Passwords do not match");
-                return;
-            }
-            const isPersonal = personalRadio.checked;
+                if (signupUser.password !== signupUser.repassword) {
+                    console.log("Passwords do not match");
+                    return;
+                }
+                const isPersonal = personalRadio.checked;
 
             const user = new User("", signupUser.user, signupUser.email, signupUser.password, !isPersonal, "", "");
             user.address = await user.getAddress();
