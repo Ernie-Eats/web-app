@@ -226,8 +226,7 @@ class LoginPage extends HTMLElement {
                 const keepSignedIn = signinInput.checked;
                 if ((signinUser.user === undefined || signinUser.user.length === 0) ||
                         (signinUser.password === undefined || signinUser.password.length === 0)) {
-                            console.log("No Username or password was entered");
-                            window.alert("please fill in all fields!");
+                            alert("Please fill in all fields!");
                             return;
                 }
 
@@ -236,7 +235,6 @@ class LoginPage extends HTMLElement {
                     result.model.getAddress().then(address => {
                         result.model.address = keepSignedIn ? address : "unknown";
                         Userdatabase.updateUser(result.model).then(r => {
-                            console.log(r);
                             if (r.success) {
                                 window.open('index.html');
                                 window.close();
@@ -281,12 +279,12 @@ class LoginPage extends HTMLElement {
                     || (signupUser.password === undefined || signupUser.password.length === 0)
                     || (signupUser.repassword === undefined || signupUser.repassword.length === 0)
                     || (signupUser.email === undefined || signupUser.email.length === 0)) {
-                        console.log("Values were not entered");
+                        alert("Please fill in all fields!");
                         return;
                 }
 
                 if (signupUser.password !== signupUser.repassword) {
-                    console.log("Passwords do not match");
+                    alert("Passwords do not match");
                     return;
                 }
                 const isPersonal = personalRadio.checked;
