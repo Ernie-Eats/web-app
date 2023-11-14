@@ -13,12 +13,6 @@ class User {
         this.id = id;
     }
 
-    async getAddress() {
-        return await fetch('https://api.ipify.org?format=json')
-            .then(response => response.json())
-            .then(data => data.ip);
-    }
-
     isBuisnessOwner() {
         return this.isBuisness && this.resturantId !== undefined;
     }
@@ -65,13 +59,12 @@ class Resturant {
                 this.menu === resturant.menu && 
                 this.ownerId.equals(resturant.ownerId) && 
                 (Array.isArray(resturant.reviews) && 
-                resturant.reviews.every((value, index) => value instanceof String && value.equals(this.reviews[index])));
+                resturant.reviews.every((value, index) => value.equals(this.reviews[index])));
     }
 }
 
 class Review {
-    constructor(id, title, text, rating, resturantId, userId) {
-        this.id = id;
+    constructor(title, text, rating, resturantId, userId) {
         this.title = title;
         this.text = text;
         this.rating = rating;
@@ -79,23 +72,25 @@ class Review {
         this.userId = userId;
     }
 
+    setId(id) {
+        this.id = id;
+    }
+
     isValidReview() {
-        return this.id !== undefined && 
-                this.title !== undefined && 
+        return  this.title !== undefined && 
                 this.text !== undefined && 
                 this.rating !== undefined && 
-                this.resturant !== undefined && 
-                this.user !== undefined;
+                this.resturantId !== undefined && 
+                this.userId !== undefined;
     }
 
     equals(review) {
         return review !== undefined &&
-            this.id === review.id && 
             this.title === review.title && 
             this.text === review.text && 
             this.rating === review.rating && 
-            this.resturant === review.resturant && 
-            this.user === review.user;
+            this.resturantId === review.resturantId && 
+            this.userId === review.userId;
     }
 }
 
@@ -122,9 +117,9 @@ class ResturantPage {
 }
 
 class UserSettings {
-    constructor(id, userId, isDarkTheme, banner, profile) {
-        this.id = id;
+    constructor(userId, bio, isDarkTheme, banner, profile) {
         this.userId = userId;
+        this.bio = bio;
         this.isDarkTheme = isDarkTheme;
         this.banner = banner;
         this.profile = profile;
@@ -134,10 +129,17 @@ class UserSettings {
         this.id = id;
     }
 
+    isValidUserPage() {
+        return this.bio !== undefined &&
+            this.isDarkTheme !== undefined &&
+            this.banner !== undefined &&
+            this.profile !== undefined;
+    }
+
     equals(userSettings) {
         return userSettings !== undefined &&
-            this.id === userSettings.id &&
             this.userId === userSettings.userId &&
+            this.bio === userSettings.bio &&
             this.isDarkTheme === userSettings.isDarkTheme &&
             this.banner === userSettings.banner &&
             this.profile === userSettings.profile;

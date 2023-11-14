@@ -1,4 +1,6 @@
-import * as Userdatabase from '../Database/UserDatabase.js';
+import * as UserDatabase from '../Database/UserDatabase.js';
+import * as UserSettingsDatabase from '../Database/UserSettingsDatabase.js';
+import * as Function from '../Database/functions.js';
 
 class NavigationBar extends HTMLElement {
 
@@ -30,7 +32,7 @@ class NavigationBar extends HTMLElement {
                 </div>
             </div>
         `;
-
+      
         this.shadowRoot.querySelector("button").addEventListener("click", async () => await this.login()); 
 
         const hamburgerWrapper = this.shadowRoot.querySelector("#hamburger-wrapper");
@@ -40,22 +42,15 @@ class NavigationBar extends HTMLElement {
     }
 
     async login() {
-        console.log("Pressed");
         await Userdatabase.findAllUsers().then(result => {
             if (result.success) {
-                this.getAddress().then(address => {
+                await Function.getAddress().then(address => {
                     let found = result.model.find((value) => value.address === address) !== undefined;
                     found ? window.open('user-page.html') : window.open('login-Signup.html');
                     window.close();
                 })
             }
         });
-    }
-
-    async getAddress() {
-        return await fetch('https://api.ipify.org?format=json')
-            .then(async response => await response.json())
-            .then(data => { return data.ip });
     }
 
     async hamburgerMenu(wrapper) {
@@ -72,40 +67,37 @@ class NavigationBar extends HTMLElement {
             const faqPage = content.appendChild(document.createElement("a"));
             faqPage.href = "FAQ.html";
             faqPage.innerHTML = "FAQ Page";
-
+          
             const settingsPage = content.appendChild(document.createElement("button"));
             settingsPage.innerHTML = "Settings Page";
+
             settingsPage.addEventListener("click", async () => {
-                await Userdatabase.findAllUsers().then(result => { 
-                    if (result.success) {
-                        this.getAddress().then(address => {
-                            console.log(address);
-                            let found = result.model.find((value) => value.address === address) !== undefined;
-                            if (found) {
-                                window.open("generalsettings.html");
-                                window.close();
-                            } else {
-                                alert("Please login to look at your settings page");
-                            }
-                        });
-                    }
+                await Function.getAddress().then(address => {
+                    UserDatabase.findUserByAddress(address).then(result => {
+                        if (result.success) {
+                            window.close();
+                            window.open("generalSettings.html");
+                        }
+                    });
                 });
             });
-
             const logoutButton = content.appendChild(document.createElement("button"));
             logoutButton.innerHTML = "Logout";
 
             logoutButton.addEventListener("click", async () => {
-                await Userdatabase.findAllUsers().then(result => {
-                    if (result.success) {
-                        this.getAddress().then(address => {
-                            let found = result.model.find((value) => value.address === address);
-                            if (found !== undefined) {
-                                found.address = "";
-                                Userdatabase.updateUser(found).then(r => console.log(r));
-                            }
-                        })
-                    }
+                await Function.getAddress().then(address => {
+                    UserDatabase.findUserByAddress(address).then(user => {
+                        if (user.success) {
+                            user.model.address = "";
+                            UserDatabase.updateUser(user.model).then(result => {
+                                if (result.success) {
+                                    window.close();
+                                    window.open("index.html");
+                                }
+                            });
+                            
+                        }
+                    });
                 });
             });
 
