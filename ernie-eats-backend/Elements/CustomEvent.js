@@ -3,39 +3,50 @@ class CustomEvent extends HTMLElement {
 
         super();
 
-        const shadow = this.attachShadow({ mode: "open" });
+        this.attachShadow({ mode: "open" });
+    }
 
+    connectedCallback() {
+        this.render();
+    }
+
+    render() {
         const css = document.createElement("link");
         css.rel = "stylesheet";
         css.href = "./ernie-eats-frontend/CSS/event.css";
 
-        const wrapper = document.createElement("div");
-        wrapper.setAttribute("class", "customer-event-wrapper");
+        let title = this.getAttribute("event-name") || "Default Event";
+        let description = this.getAttribute("event-description") || "Default Description";
+        const name = this.getAttribute("resturant-name") || "";
 
-        const eventTitle = wrapper.appendChild(document.createElement("h3"));
+        if (name.length !== 0) {
+            title += `- Hosted By ${name}`;
+        }
 
-        const eventDescription = wrapper.appendChild(document.createElement("p"));
+        while (description.length > 97 && description.lastIndexOf(" ") !== -1) {
+            description = description.slice(0, description.lastIndexOf(" "));
+        }
 
-        document.addEventListener("DOMContentLoaded", () => {
-            eventTitle.innerText = (this.hasAttribute("data-event-name")
-                && this.hasAttribute("data-resturant-name"))
-                ? this.getAttribute("data-event-name") + " - Hosted By " + this.getAttribute("data-resturant-name")
-                : "Unknown Event";
+        description += "...";
 
-            eventDescription.innerText = this.hasAttribute("data-event-description")
-                ? this.getAttribute("data-event-description")
-                : "Unknown Description";
+        this.shadowRoot.innerHTML = `
+            <div class=customer-event-wrapper>
+                <h3> ${title} </h3>
+                <p> ${description} </p>
+            </div>
+        `;
 
-            if (eventDescription.innerText.length >= 97) {
-                do {
-                    eventDescription.innerText
-                        .slice(0, eventDescription.innerText.lastIndexOf(" "));
-                } while (eventDescription.innerText.length < 97);
-            }
-        });
+        this.shadowRoot.appendChild(css);
+    }
 
-        shadow.appendChild(css);
-        shadow.appendChild(wrapper);
+    static get observedAttributes() {
+        return ["resturant-name", "date", "event-name", "event-description"];
+    }
+
+    attributeChangedCallback(name, oldValue, newValue) {
+        if (oldValue !== newValue) {
+            this.render();
+        }
     }
 }
 
