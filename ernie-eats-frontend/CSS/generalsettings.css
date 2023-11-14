@@ -1,4 +1,5 @@
 .body {
+    font-family: 'Open Sans', sans-serif;
     display: grid;
     grid-template-columns: 10vw auto auto;
     grid-template-rows: auto auto auto;
