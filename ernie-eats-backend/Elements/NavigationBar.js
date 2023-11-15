@@ -1,5 +1,6 @@
 import * as UserDatabase from '../Database/UserDatabase.js';
 import * as UserSettingsDatabase from '../Database/UserSettingsDatabase.js';
+import * as ResturantDatabase from '../Database/ResturantDatabase.js'
 import * as Function from '../Database/functions.js';
 
 class NavigationBar extends HTMLElement {
@@ -11,11 +12,11 @@ class NavigationBar extends HTMLElement {
         this.attachShadow({ mode: "open" });
     }
 
-    connectedCallback() {
-        this.render();
+    async connectedCallback() {
+        await this.render();
     }
 
-    render() {
+    async render() {
         const css = document.createElement("link");
         css.rel = "stylesheet";
         css.href = "./ernie-eats-frontend/CSS/navbar.css";
@@ -26,29 +27,61 @@ class NavigationBar extends HTMLElement {
             <div class="navigation-wrapper">
                 <a href="index.html"><img src="./ernie-eats-frontend/Images/CoverLogo.jpg" id="homeLogoImg"></a>
                 <input type="text" placeholder="Search..." id="searchBar"> </input>
-                <button class="button"><img src=${account}></button>
+                <button class="button"><img src=${account} id="profile-picture"></button>
                 <div id="hamburger-wrapper">
                     <button class="hamburger-button"><img src="./ernie-eats-frontend/Images/cake.jpg" id="hamburgerImg"></button>
                 </div>
             </div>
         `;
-      
-        this.shadowRoot.querySelector("button").addEventListener("click", async () => await this.login()); 
+
+        this.shadowRoot.appendChild(css);
+
+        document.addEventListener("keydown", async (e) => await this.search(this.shadowRoot.querySelector("#searchBar").value, e.key))
+
+        await Function.getAddress().then(address => {
+            UserDatabase.findUserByAddress(address).then(user => {
+                if (user.success) {
+                    UserSettingsDatabase.findUserSettingsPageById(user.model.id).then(settings => {
+                        if (settings.success) {
+                            if (settings.model.profile !== undefined && settings.model.profile.length !== 0) {
+                                this.shadowRoot.querySelector('#profile-picture').src = settings.model.profile;
+                            }
+                        }
+                    });
+                }
+            });
+        });
+
+        this.shadowRoot.querySelector("button").addEventListener("click", async () => await this.login());
 
         const hamburgerWrapper = this.shadowRoot.querySelector("#hamburger-wrapper");
         hamburgerWrapper.querySelector("button").addEventListener("click", async () => await this.hamburgerMenu(hamburgerWrapper));
+    }
 
-        this.shadowRoot.appendChild(css);
+    async search(result, key) {
+        if (result !== undefined && result.length !== 0 && key === "Enter") {
+            await ResturantDatabase.findAllResturants().then(resturants => {
+                if (resturants.success) {
+                    let found = resturants.model.find(value => value.name.toLowerCase() === result.toLowerCase());
+                    if (found !== undefined) {
+                        window.open(`business-page.html?page=${encodeURI(found.name)}&restaurant=${encodeURI(found.id)}`);
+                    } else {
+                        window.open(`search.html?result=${encodeURI(result)}`);
+                    }
+                    window.close();
+                }
+            });
+        }
     }
 
     async login() {
-        await Userdatabase.findAllUsers().then(result => {
+        await UserDatabase.findAllUsers().then(result => {
             if (result.success) {
-                await Function.getAddress().then(address => {
+                Function.getAddress().then(address => {
                     let found = result.model.find((value) => value.address === address) !== undefined;
                     found ? window.open('user-page.html') : window.open('login-Signup.html');
                     window.close();
-                })
+                });
             }
         });
     }
