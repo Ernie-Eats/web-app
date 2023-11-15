@@ -15,7 +15,7 @@ await ReviewDatabase.findReviewsByResturantId(id).then(reviews => {
         for (const review of reviews.model) { 
             UserDatabase.findUserById(review.userId).then(user => { 
                 if (user.success) {
-                    const customerReview = document.createElement("small-customer-review");
+                    const customerReview = document.createElement("small-customer-review"); 
                     customerReview.setAttribute("restaurant-name", "");
                     customerReview.setAttribute("reviewer-title", review.title);
                     customerReview.setAttribute("reviewer",
