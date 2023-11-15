@@ -40,7 +40,7 @@ body.dark-mode {
 img {
     height:100px;
     width:100px;
-    padding-left: 10px;
+    padding-left: 35px;
     padding-top: 10px;
     padding-bottom: 10px;
 }
@@ -140,8 +140,8 @@ img {
 .profileImgSelection {
     display: inline-block;
     position: absolute;
-    top: 85%;
-    left: 40%;
+    top: 65vh;
+    left: 20vw;
 }
 
 input#theme-switch {
