@@ -188,3 +188,19 @@
 	.footer-section {
 		text-align: center;
 	}
+
+	input[type="password"],
+	input[type="text"] {
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	}
+
+	input[type="checkbox"] {
+	margin-left: 5px;
+	}
+
+	label[for="toggleVisibility"] {
+	color: #777;
+	cursor: pointer;
+	}
