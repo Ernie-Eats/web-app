@@ -66,7 +66,7 @@
         position: absolute;
         bottom: 0px;
         left: 0px;
-        padding-top: 20px;
+        padding-top: 30px;
     }
 
 .logo-text h1, p {
@@ -159,10 +159,10 @@ footer-section-contact-form {
         justify-content: center;
         display: block; 
         width: 100%; 
-        padding: 10px; /* Add padding for spacing between buttons */
-        margin-bottom: 10px; /* Add margin to separate buttons vertically */
+        padding: 10px; 
+        margin-bottom: 10px;  
         background-color: #555; 
-        color: #fff; 
+        color: #ffffff; 
         border: none;
         text-align: left; 
 }
@@ -193,10 +193,12 @@ footer-section-contact-form {
     margin: 10px;
     cursor: pointer;
     border-radius: 5px;
+    position: relative;
+    
 }
 
 theme-toggle {
-    position:absolute;
+    position:relative;
     top: 10px;
     right: 10px;
     display: inline-block;
@@ -204,66 +206,51 @@ theme-toggle {
     height: 30px;
     
 }
-.theme-toggle .switch{
-    text-align: left;
-    
-}
 
-.theme-toggle {
-    text-align: center;
-    padding: 10px;
-}
 
-.switch {
+
+  /* Dark theme styles */
+  body.dark-mode {
+    background-color: #1a1a1a;
+    color: #ffffff;
+  }
+
+  .toggle-container {
+    position: fixed;
+    top: 200px;
+    right: 400px;
+    display: flex;
+    align-items: center;
+
+  }
+
+  .toggle-label {
     display: inline-block;
-    position: relative;
-    width: 60px;
-    height: 30px;
+    margin-right: 10px;
     
-}
+  }
 
-.switch input {
-    display: none;
-}
-
-.slider {
-    position: absolute;
+  .theme-toggle {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+    background-color: #ddd;
+    border-radius: 12px;
     cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    border-radius: 15px;
-    transition: 0.4s;
-}
+  }
 
-.slider:before {
+  .theme-toggle-slider {
     position: absolute;
-    content: "";
-    height: 26px;
-    width: 26px;
-    left: 2px;
-    bottom: 2px;
-    background-color: white;
+    top: 5px;
+    left: 10px;
+    width: 20px;
+    height: 20px;
+    background-color: #fff;
     border-radius: 50%;
-    transition: 0.4s;
-}
-
-input:checked + .slider {
-    background-color: #2196F3;
-}
-
-input:checked + .slider:before {
+    transition: transform 0.3s;
+  }
+  .theme-toggle.dark-mode .theme-toggle-slider {
     transform: translateX(26px);
-}
-
-.label {
-    margin-left: 10px;
-    font-size: 16px;
-    vertical-align: middle;
-}
-
-.theme-toggle h2{
-    text-align: left;
-}
+  }
+  
