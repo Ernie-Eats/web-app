@@ -222,11 +222,11 @@ class LoginPage extends HTMLElement {
                 signinUser.password = value;
             }
         }
-
         submitButton.onclick = async () => {
                 const keepSignedIn = signinInput.checked;
                 if ((signinUser.user === undefined || signinUser.user.length === 0) ||
                         (signinUser.password === undefined || signinUser.password.length === 0)) {
+                            alert("Please fill in all fields!");
                             console.log("No Username or password was entered");
                             return;
                 }
@@ -277,16 +277,17 @@ class LoginPage extends HTMLElement {
             }
         }
 
-        signupSubmitButton.onclick = async () => {
-            if ((signupUser.user === undefined || signupUser.user.length === 0)
-                || (signupUser.password === undefined || signupUser.password.length === 0)
-                || (signupUser.repassword === undefined || signupUser.repassword.length === 0)
-                || (signupUser.email === undefined || signupUser.email.length === 0)) {
-                    console.log("Values were not entered");
-                    return;
-            }
-
+            signupSubmitButton.onclick = async () => {
+                if ((signupUser.user === undefined || signupUser.user.length === 0)
+                    || (signupUser.password === undefined || signupUser.password.length === 0)
+                    || (signupUser.repassword === undefined || signupUser.repassword.length === 0)
+                    || (signupUser.email === undefined || signupUser.email.length === 0)) {
+                        alert("Please fill in all fields!");
+                        return;
+                }
+              
             if (signupUser.password !== signupUser.repassword) {
+                alert("Passwords do not match");
                 console.log("Passwords do not match");
                 return;
             }
