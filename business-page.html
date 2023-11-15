@@ -8,6 +8,7 @@
     <script type="module" src="./ernie-eats-backend/Elements/SmallCustomerReview.js"></script>
     <link rel="stylesheet" href="./ernie-eats-frontend/CSS/theme.css">
     <link rel="stylesheet" href="./ernie-eats-frontend/CSS/business-page.css">
+    <script src="./ernie-eats-backend/Elements/CustomPost.js"></script>
 </head>
 <body>
     <navigation-bar></navigation-bar>
@@ -51,6 +52,20 @@
             <img class="pillar-sign" src="./ernie-eats-frontend/Images/pillarSign.jpg" />
             <img class="pillar-sliders" src="./ernie-eats-frontend/Images/pillarSliders.jpg" />
             <img class="pillar-decor" src="./ernie-eats-frontend/Images/pillarDecor.jpg" />
+        </div>
+    </div>
+    <div class="scroll-box-post">
+        <div class="scroll-content">
+            <h3>Posts: </h3>
+            <div id="posts-container">
+              
+                <custom-post title="Post 1" description="This is a sample post."
+                                date="2023-11-09"></custom-post>
+
+                <custom-post title="Post 2" description="This is a sample post."
+                                date="2023-11-10"></custom-post>
+
+            </div>
         </div>
     </div>
 </body>
