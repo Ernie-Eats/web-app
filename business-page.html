@@ -2,17 +2,20 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Ernie Eat's Business User Page'</title>
+    <title>Ernie Eat's Business User Page</title>
     <script type="module" src="./ernie-eats-backend/Elements/NavigationBar.js"></script>
+    <script type="module" src="./ernie-eats-backend/Pages/BusinessPage.js"></script>
+    <script type="module" src="./ernie-eats-backend/Elements/SmallCustomerReview.js"></script>
+    <link rel="stylesheet" href="./ernie-eats-frontend/CSS/theme.css">
     <link rel="stylesheet" href="./ernie-eats-frontend/CSS/business-page.css">
 </head>
 <body>
     <navigation-bar></navigation-bar>
-    <img class="restaurant-picture" src="./ernie-eats-frontend/Images/pillarCover.webp" img>
+    <img class="restaurant-picture" src="./ernie-eats-frontend/Images/pillarCover.webp">
     <div class="container">
         <div class="restaurant-info">
             <h3>Restaurant Name: </h3>
-            <p>The Cracked Pillar</p>
+            <p id="name"></p>
             <h3>Address: </h3>
             <p>
                 403 N Main St <br />
@@ -29,28 +32,16 @@
                 Sunday: 11:00 AM - 9:00 PM <br />
             </p>
             <h3>Contact Info: </h3>
-            <p> Phone: (540) 237-4563</p>
+            <p id="phone"> Phone: (540)237-4563</p>
             <h3>Website: </h3>
-            <a href="https://www.thecrackedpillar.com/" target="_blank">thecrackedpillar.com</a>
+            <a href="https://www.thecrackedpillar.com/" target="_blank" id="website">thecrackedpillar.com</a>
             <h3>Average rating: </h3>
-                <img class="four-stars" src="./ernie-eats-frontend/Images/fourStars.png" img />
-                <span class="rating-text">33</span>
+            <div id="stars" class="stars"></div>
+            <span id="rating" class="rating-text"></span>
         </div>
         <div class="scroll-box">
-            <div class="scroll-content">
-                <h3>See The Cracked Pillar's Reviews: </h3>
-                "Loved the live music"...<br /> <hr />
-                "Great place to get a quick meal with our son who goes to Bridgewater!"...<br /> <hr />
-                "Bridgewater students get rowdy on the weekends"...<br /> <hr />
-                "FRIED PICKLES"...<br /> <hr />
-                "Very affordable drinks!!"...<br /> <hr />
-                "Quick service, great night"...<br /> <hr />
-                "Too many students"...<br /> <hr />
-                "One of my favorite spots!"<br /> <hr />
-                "Pretty average food tbh"...<br /> <hr />
-                "License plates in the bathroom"...<br /> <hr />
-                "Needs more parking"...<br /> <hr />
-                "Nice place to grab a drink with friends!"...<br /> <hr />
+            <div id="reviews" class="scroll-content">
+                <h3> See The Cracked Pillar's Reviews: </h3>
             </div>
         </div>
         <div class="more-pictures">

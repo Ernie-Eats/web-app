@@ -123,7 +123,6 @@ async function findUserByAddress(address) {
             }
         }
     });
-    console.log(result);
     return result;
 }
 
@@ -154,4 +153,30 @@ async function findUserByUsername(username) {
     return returnObject;
 }
 
-export { insertUser, findAllUsers, deleteUser, deleteAllUsers, findUserByUsernamePassword, findUserByUsername, updateUser, findUserByAddress }
+async function findUserById(id) {
+    let returnObject = { success: false, model: undefined };
+    await findAllUsers().then(result => {
+        if (result.success) {
+            const found = result.model.find((user) => user.id === id);
+            if (found !== undefined) {
+                returnObject = { success: true, model: found };
+            }
+        }
+    });
+    return returnObject;
+}
+
+async function findUserByName(name) {
+    let returnObject = { success: false, model: undefined };
+    await findAllUsers().then(result => {
+        if (result.success) {
+            const found = result.model.find((user) => user.name === name);
+            if (found !== undefined) {
+                returnObject = { success: true, model: found };
+            }
+        }
+    });
+    return returnObject;
+}
+
+export { insertUser, findAllUsers, deleteUser, deleteAllUsers, findUserByUsernamePassword, findUserByUsername, updateUser, findUserByAddress, findUserById, findUserByName }
