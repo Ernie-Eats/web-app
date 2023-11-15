@@ -1,5 +1,5 @@
 import * as UserDatabase from '../Database/UserDatabase.js';
-import * as UserSettings from '../Database/UserSettingsDatabase.js';
+import * as UserSettings from '../Database/UserSettingsDatabase.js'; 
 
 class SmallCustomerReview extends HTMLElement {
     constructor() {

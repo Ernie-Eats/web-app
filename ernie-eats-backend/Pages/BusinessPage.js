@@ -1,6 +1,6 @@
 import * as ReviewDatabase from '../Database/ReviewsDatabase.js';
 import * as UserDatabase from '../Database/UserDatabase.js';
-
+ 
 const urlParams = new URLSearchParams(window.location.search);
 const page = urlParams.get("page").replace("%20", " ");
 const id = urlParams.get("restaurant").replace("%20", " ");
