@@ -13,7 +13,7 @@ let starAverage = 0;
 await ReviewDatabase.findReviewsByResturantId(id).then(reviews => {
     if (reviews.success) {
         for (const review of reviews.model) { 
-            UserDatabase.findUserById(review.userId).then(user => {
+            UserDatabase.findUserById(review.userId).then(user => { 
                 if (user.success) {
                     const customerReview = document.createElement("small-customer-review");
                     customerReview.setAttribute("restaurant-name", "");
