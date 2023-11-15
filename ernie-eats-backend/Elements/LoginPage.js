@@ -1,4 +1,5 @@
-import * as Userdatabase from '../Database/UserDatabase.js'
+import * as Userdatabase from '../Database/UserDatabase.js';
+import * as Function from '../Database/functions.js';
 import { User } from '../Database/models.js';
 
 class LoginPage extends HTMLElement {
@@ -221,30 +222,30 @@ class LoginPage extends HTMLElement {
                 signinUser.password = value;
             }
         }
-
         submitButton.onclick = async () => {
-            const keepSignedIn = signinInput.checked;
-            if ((signinUser.user === undefined || signinUser.user.length === 0) ||
-                    (signinUser.password === undefined || signinUser.password.length === 0)) {
-                        console.log("No Username or password was entered");
-                        return;
-            }
-
-            await Userdatabase.findUserByUsernamePassword(signinUser.user, signinUser.password).then(result => {
-                if (result.success) {
-                    result.model.getAddress().then(address => {
-                        result.model.address = keepSignedIn ? address : "unknown";
-                        Userdatabase.updateUser(result.model).then(r => {
-                            console.log(r);
-                            if (r.success) {
-                                window.open('index.html');
-                                window.close();
-                            }
-                        });
-                    });
+                const keepSignedIn = signinInput.checked;
+                if ((signinUser.user === undefined || signinUser.user.length === 0) ||
+                        (signinUser.password === undefined || signinUser.password.length === 0)) {
+                            alert("Please fill in all fields!");
+                            console.log("No Username or password was entered");
+                            return;
                 }
-            });
-        }
+                await Userdatabase.findUserByUsernamePassword(signinUser.user, signinUser.password).then(result => {
+                    console.log(result);
+                    if (result.success) {
+                        console.log(result);
+                        Function.getAddress().then(address => {
+                            result.model.address = keepSignedIn ? address : "";
+                            Userdatabase.updateUser(result.model).then(r => {
+                                if (r.success) {
+                                    window.open('index.html');
+                                    window.close('login-Signup.html');
+                                }
+                            });
+                        });
+                    }
+                });
+            }
 
         const signupUser = { user: "", password: "", repassword: "", email: "" };
 
@@ -276,31 +277,32 @@ class LoginPage extends HTMLElement {
             }
         }
 
-        signupSubmitButton.onclick = async () => {
-            if ((signupUser.user === undefined || signupUser.user.length === 0)
-                || (signupUser.password === undefined || signupUser.password.length === 0)
-                || (signupUser.repassword === undefined || signupUser.repassword.length === 0)
-                || (signupUser.email === undefined || signupUser.email.length === 0)) {
-                    console.log("Values were not entered");
-                    return;
-            }
-
+            signupSubmitButton.onclick = async () => {
+                if ((signupUser.user === undefined || signupUser.user.length === 0)
+                    || (signupUser.password === undefined || signupUser.password.length === 0)
+                    || (signupUser.repassword === undefined || signupUser.repassword.length === 0)
+                    || (signupUser.email === undefined || signupUser.email.length === 0)) {
+                        alert("Please fill in all fields!");
+                        return;
+                }
+              
             if (signupUser.password !== signupUser.repassword) {
+                alert("Passwords do not match");
                 console.log("Passwords do not match");
                 return;
             }
-            const isPersonal = personalRadio.checked;
+                const isPersonal = personalRadio.checked;
 
-            const user = new User("", signupUser.user, signupUser.email, signupUser.password, !isPersonal, "", "");
-            user.address = await user.getAddress();
+                const user = new User("", signupUser.user, signupUser.email, signupUser.password, !isPersonal, "", "");
+                await Function.getAddress().then(address => user.address = address);
 
-            await Userdatabase.insertUser(user).then(result => {
-                if (result.success) {       
-                    window.close();
-                    window.open('index.html');
-                }
-            });
-        }
+                await Userdatabase.insertUser(user).then(result => {
+                    if (result.success) {       
+                        window.close();
+                        window.open('index.html');
+                    }
+                });
+            }
 
         shadow.appendChild(css);
         shadow.appendChild(login);

@@ -42,7 +42,6 @@ async function insertUser(user) {
             }
         }
 
-        console.log(user);
         const { item } = await container.items.create(user);
         let model = new User(user.name, user.username, user.email, user.password, user.isBusiness, user.resturantId, user.address);
         model.setId(item.id);
@@ -62,9 +61,9 @@ async function updateUser(user) {
     if (isValidUser(user)) {
         const { resources } = await container.items.readAll().fetchAll();
         for (const i of resources) {
-            if (user.equals(i)) {
-                await container.item(i.id, undefined).replace(user);
-                let model = new User(user.name, user.username, user.email, user.password, user.isBuisness, user.resturantId, user.address);
+            if (user.id === i.id) {
+                const { item } = await container.item(i.id).replace(user);
+                let model = new User(user.name, user.username, user.email, user.password, user.isBuisnessOwner, user.resturantId, user.address);
                 model.setId(user.id);
                 return { success: true, model: model};
             }
@@ -80,7 +79,7 @@ async function deleteUser(user) {
             if (user.equals(i)) {
                 const { item } = await container.item(i.id).read();
                 await item.delete();
-                let model = new User(user.name, user.username, user.email, user.password, user.isBusiness, user.resturantId, user.address)
+                let model = new User(user.name, user.username, user.email, user.password, user.isBusiness, user.resturantId, user.address);
                 model.setId(user.id);
                 return { success: true, 
                             message: "Deleted User from Database", 
@@ -88,8 +87,8 @@ async function deleteUser(user) {
                 };
             } 
         }
-
-        let model = new User(user.name, user.username, user.email, user.password, user.isBusiness, user.resturantId, user.address)
+      
+        let model = new User(user.name, user.username, user.email, user.password, user.isBusiness, user.resturantId, user.address);
         model.setId(user.id);
         return { success: true, 
                     message: "Could not find User in Database", 
@@ -112,37 +111,27 @@ async function deleteAllUsers() {
     return true;
 }
 
-async function sortAllUsers(sortVariable) {
-    if (sortVariable === undefined && !(sortVariable instanceof string)) {
-        return { success: false, model: undefined };
-    }
-
-    await findAllUsers().then(result => {
-        if (result.success) {
-            let model = [];
-
-            if (sortVariable.toLowerCase() === "id") {
-                model = result.model.sort((a, b) => +(a.getId()) - +(b.getId()));
-            } else if (sortVariable.toLowerCase() === "username") {
-                model = result.model.sort((a, b) => +(a.getUsername()) - +(b.getUsername()));
-            } else if (sortVariable.toLowerCase() === "email") {
-                model = result.model.sort((a, b) => +(a.getEmail()) - +(b.getEmail()));
-            } else if (sortVariable.toLowerCase() === "owners") {
-                model = result.model.filter((value) => value.isBuisnessOwner());
+async function findUserByAddress(address) {
+    let result = { success: false, model: undefined }
+    await findAllUsers().then(users => {
+        if (users.success) { 
+            const found = users.model.find(value => value.address === address);
+            if (found !== undefined) {
+                const model = new User(found.name, found.username, found.email, found.password, found.isBuisness, found.resturantId, found.address);
+                model.setId(found.id);
+                result = { success: true, model: model };
             }
-
-            return { success: true, model: model };
         }
     });
+    return result;
 }
 
 async function findUserByUsernamePassword(username, password) {
     let returnObject = { success: false, model: undefined };
 
     await findAllUsers().then(result => {
-        console.log(result);
         if (result.success) {
-            const found = result.model.find((user) => user.username === username && user.password === password)
+            const found = result.model.find((user) => user.username === username && user.password === password);
             if (found !== undefined) {
                 returnObject = { success: true, model: found };
             }
@@ -153,10 +142,9 @@ async function findUserByUsernamePassword(username, password) {
 
 async function findUserByUsername(username) {
     let returnObject = { success: false, model: undefined };
-
     await findAllUsers().then(result => {
         if (result.success) {
-            const found = result.model.find((user) => user.username === username)
+            const found = result.model.find((user) => user.username === username);
             if (found !== undefined) {
                 returnObject = { success: true, model: found };
             }
@@ -165,4 +153,30 @@ async function findUserByUsername(username) {
     return returnObject;
 }
 
-export { insertUser, findAllUsers, deleteUser, deleteAllUsers, sortAllUsers, findUserByUsernamePassword, findUserByUsername, updateUser }
+async function findUserById(id) {
+    let returnObject = { success: false, model: undefined };
+    await findAllUsers().then(result => {
+        if (result.success) {
+            const found = result.model.find((user) => user.id === id);
+            if (found !== undefined) {
+                returnObject = { success: true, model: found };
+            }
+        }
+    });
+    return returnObject;
+}
+
+async function findUserByName(name) {
+    let returnObject = { success: false, model: undefined };
+    await findAllUsers().then(result => {
+        if (result.success) {
+            const found = result.model.find((user) => user.name === name);
+            if (found !== undefined) {
+                returnObject = { success: true, model: found };
+            }
+        }
+    });
+    return returnObject;
+}
+
+export { insertUser, findAllUsers, deleteUser, deleteAllUsers, findUserByUsernamePassword, findUserByUsername, updateUser, findUserByAddress, findUserById, findUserByName }

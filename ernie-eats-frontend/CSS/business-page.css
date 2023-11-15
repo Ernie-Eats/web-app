@@ -2,7 +2,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    max-width: 1200px;
+    max-width: 2400px;
     margin: 0 auto;
     padding: 20px;
 }
@@ -10,7 +10,7 @@
 .scroll-box {
     flex: 2;
     overflow-y: scroll;
-    max-height: 600px;
+    max-height: 680px;
     border: 1px solid #ccc;
     padding: 20px;
     margin-left: 20px;
@@ -62,7 +62,7 @@ img.restaurant-picture {
     height: 300px;
     object-fit: cover;
     margin-bottom: 10px;
-} 
+}
 
 body {
     margin: 0;
@@ -115,10 +115,30 @@ body {
     margin: 10px 0;
 }
 
+.starWrapper {
+    position: relative;
+    right: -5vw;
+    top: -6.5vw;
+}
+
+img.filled-star {
+    width: 20px;
+    height: 20px;
+    border-radius: 80%;
+    margin-top: 10px;
+}
+
+img.unfilled-star {
+    width: 20px;
+    height: 20px;
+    border-radius: 80%;
+    margin-top: 10px;
+}
+
 .more-pictures {
     flex: 1;
     overflow-y: scroll;
-    max-height: 600px;
+    max-height: 680px;
     font-family: 'Helvetica Neue', sans-serif;
     background-color: #ffffff;
     padding: 20px;

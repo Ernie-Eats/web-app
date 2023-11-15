@@ -1,88 +1,93 @@
-import * as Userdatabase from '../Database/UserDatabase.js';
+import * as UserDatabase from '../Database/UserDatabase.js';
+import * as UserSettingsDatabase from '../Database/UserSettingsDatabase.js';
+import * as ResturantDatabase from '../Database/ResturantDatabase.js';
+import * as Function from '../Database/functions.js';
 
 class NavigationBar extends HTMLElement {
+
+    isContentDisplayed = true;
     constructor() {
         super();
 
-        const shadow = this.attachShadow({ mode: "open" });
+        this.attachShadow({ mode: "open" });
+    }
 
+    async connectedCallback() {
+        await this.render();
+    }
+
+    async render() {
         const css = document.createElement("link");
         css.rel = "stylesheet";
         css.href = "./ernie-eats-frontend/CSS/navbar.css";
 
-        const wrapper = document.createElement("nav");
-        wrapper.setAttribute("class", "navigation-wrapper");
+        let account = "./ernie-eats-frontend/Images/defaultLogin.png";
 
-        const homePage = wrapper.appendChild(document.createElement("a"));
-        homePage.href = "index.html";
-        
-        const homeLogo = homePage.appendChild(document.createElement("img"));
-        homeLogo.src = "./ernie-eats-frontend/Images/CoverLogo.jpg";
-        homeLogo.id = "homeLogo-img";
+        this.shadowRoot.innerHTML = `
+            <div class="navigation-wrapper">
+                <a href="index.html"><img src="./ernie-eats-frontend/Images/CoverLogo.jpg" id="homeLogoImg"></a>
+                <input type="text" placeholder="Search..." id="searchBar"></input>
+                <button class="button"><img src=${account} id="profile-picture"></button>
+                <div id="hamburger-wrapper">
+                    <button class="hamburger-button"><img src="./ernie-eats-frontend/Images/cake.jpg" id="hamburgerImg"></button>
+                </div>
+            </div>
+        `;
+        this.shadowRoot.appendChild(css);
 
-        const searchBar = wrapper.appendChild(document.createElement("input"));
-        searchBar.setAttribute("type", "text");
-        searchBar.setAttribute("placeholder", "Search...");
+        document.addEventListener("keydown", async (e) => await this.search(this.shadowRoot.querySelector("#searchBar").value, e.key))
 
-        const accountLogin = wrapper.appendChild(document.createElement("button"));
-        accountLogin.setAttribute("class", "button");
-
-        const accountPhoto = accountLogin.appendChild(document.createElement("img"));
-        accountPhoto.src = "./ernie-eats-frontend/Images/defaultLogin.png";
-
-        const hamburgerWrapper = wrapper.appendChild(document.createElement("div"));
-        hamburgerWrapper.setAttribute("id", "hamburger-wrapper");
-
-        const hamburger = hamburgerWrapper.appendChild(document.createElement("button"));
-        hamburger.setAttribute("class", "hamburger-button");
-
-        const hamburgerImg = hamburger.appendChild(document.createElement("img")); 
-        hamburgerImg.src = "./ernie-eats-frontend/Images/cake.jpg";
-        hamburgerImg.id = "hamburger-img";
-
-        let searchResult = ""; 
-
-        searchBar.oninput = (e) => searchResult = e.target.value;
-
-        document.addEventListener("keypress", (e) => {
-            if (searchResult.length !== 0 && e.key === "Enter") {
-                window.close();
-                window.open('business-page.html');
-            }
-        });
-
-        hamburger.addEventListener("click", () => this.hamburgerMenu(hamburgerWrapper, hamburgerImg));
-
-        accountLogin.addEventListener("click", async () => {
-            await Userdatabase.findAllUsers().then(result => {
-                if (result.success) {
-                    this.getAddress().then(address => {
-                        let found = result.model.find((value) => value.address == address) !== undefined;
-                        found ? window.open('user-page.html') : window.open('login-Signup.html');
-                        window.close();
-                    })
+        await Function.getAddress().then(address => {
+            UserDatabase.findUserByAddress(address).then(user => {
+                if (user.success) {
+                    UserSettingsDatabase.findUserSettingsPageById(user.model.id).then(settings => {
+                        if (settings.success) {
+                            if (settings.model.profile !== undefined && settings.model.profile.length !== 0) {
+                                this.shadowRoot.querySelector('#profile-picture').src = settings.model.profile;
+                            }
+                        }
+                    });
                 }
             });
         });
+        this.shadowRoot.querySelector("button").addEventListener("click", async () => await this.login());
 
-        shadow.appendChild(css);
-        shadow.appendChild(wrapper);
+        const hamburgerWrapper = this.shadowRoot.querySelector("#hamburger-wrapper");
+        hamburgerWrapper.querySelector("button").addEventListener("click", async () => await this.hamburgerMenu(hamburgerWrapper));
     }
 
-    async getAddress() {
-        return await fetch('https://api.ipify.org?format=json')
-                        .then(async response => await response.json())
-                        .then(data => { return data.ip });
-    }
-
-    hamburgerMenu(wrapper, img) {
-        if (!wrapper.getAttribute("data-isContentDisplayed")) {
-            wrapper.setAttribute("data-isContentDisplayed", "true");
+    async search(result, key) {
+        if (result !== undefined && result.length !== 0 && key === "Enter") {
+            await ResturantDatabase.findAllResturants().then(resturants => {
+                if (resturants.success) {
+                    let found = resturants.model.find(value => value.name.toLowerCase() === result.toLowerCase());
+                    if (found !== undefined) {
+                        window.open(`business-page.html?page=${encodeURI(found.name)}&restaurant=${encodeURI(found.id)}`);
+                    } else {
+                        window.open(`search-results.html?result=${encodeURI(result)}`);
+                    }
+                    window.close();
+                }
+            });
         }
-      
-        const isContentDisplayed = wrapper.getAttribute("data-isContentDisplayed") === "true";
+    }
+
+    async login() {
+        await UserDatabase.findAllUsers().then(result => {
+            if (result.success) {
+                Function.getAddress().then(address => {
+                    let found = result.model.find((value) => value.address === address) !== undefined;
+                    found ? window.open('user-page.html') : window.open('login-Signup.html');
+                    window.close();
+                });
+            }
+        });
+    }
+
+    async hamburgerMenu(wrapper) {
+        const img = wrapper.querySelector("#hamburgerImg");
         let content;
-        if (isContentDisplayed) {
+        if (this.isContentDisplayed) {
             content = wrapper.appendChild(document.createElement("div"));
             content.setAttribute("id", "content-wrapper");
 
@@ -93,43 +98,37 @@ class NavigationBar extends HTMLElement {
             const faqPage = content.appendChild(document.createElement("a"));
             faqPage.href = "FAQ.html";
             faqPage.innerHTML = "FAQ Page";
+          
+            const settingsPage = content.appendChild(document.createElement("button"));
+            settingsPage.innerHTML = "Settings Page";
 
+            settingsPage.addEventListener("click", async () => {
+                await Function.getAddress().then(address => {
+                    UserDatabase.findUserByAddress(address).then(result => {
+                        if (result.success) {
+                            window.close();
+                            window.open("generalSettings.html");
+                        }
+                    });
+                });
+            });
             const logoutButton = content.appendChild(document.createElement("button"));
             logoutButton.innerHTML = "Logout";
 
             logoutButton.addEventListener("click", async () => {
-                await Userdatabase.findAllUsers().then(result => {
-                    if (result.success) {
-                        this.getAddress().then(address => {
-                            let found = result.model.find((value) => value.address === address);
-                            console.log(found);
-                            if (found !== undefined) {
-                                found.address = "unknown";
-                                console.log(found);
-                                Userdatabase.updateUser(found).then(r => console.log(r));
-                            }
-                        })
-                    }
-                });
-            });
-          
-            const settingsPage = content.appendChild(document.createElement("button"));
-            settingsPage.innerHTML = "Settings Page";
-            settingsPage.addEventListener("click", async () => {
-                await Userdatabase.findAllUsers().then(result => {
-                    console.log(result);
-                    if (result.success) {
-                        this.getAddress().then(address => {
-                            console.log(address);
-                            let found = result.model.find((value) => value.address === address) !== undefined;
-                            if (found) {
-                                window.open("generalsettings.html");
-                                window.close();
-                            } else {
-                                console.log("You are not logged in!");
-                            }
-                        });
-                    }
+                await Function.getAddress().then(address => {
+                    UserDatabase.findUserByAddress(address).then(user => {
+                        if (user.success) {
+                            user.model.address = "";
+                            UserDatabase.updateUser(user.model).then(result => {
+                                if (result.success) {
+                                    window.close();
+                                    window.open("index.html");
+                                }
+                            });
+                            
+                        }
+                    });
                 });
             });
 
@@ -140,7 +139,7 @@ class NavigationBar extends HTMLElement {
             img.src = "./ernie-eats-frontend/Images/cake.jpg";
         }
 
-        wrapper.setAttribute("data-isContentDisplayed", !isContentDisplayed);
+        this.isContentDisplayed = !this.isContentDisplayed;
     }
 } 
 

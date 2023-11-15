@@ -1,7 +1,7 @@
 import * as UserDatabase from '../Database/UserDatabase.js';
-import * as UserSettings from '../Database/UserSettingsDatabase.js';
+import * as UserSettings from '../Database/UserSettingsDatabase.js'; 
 
-class CustomerReview extends HTMLElement {
+class SmallCustomerReview extends HTMLElement {
     constructor() {
 
         super();
@@ -16,21 +16,15 @@ class CustomerReview extends HTMLElement {
     async render() {
         const css = document.createElement("link");
         css.rel = "stylesheet";
-        css.href = "./ernie-eats-frontend/CSS/review.css";
+        css.href = "./ernie-eats-frontend/CSS/small-review.css";
 
         const name = this.getAttribute("reviewer") || "Default Name";
         const title = this.getAttribute("reviewer-title") || "Default Title";
         const resturantName = this.getAttribute("resturant-name") || "Default Resturant";
-        const rating = this.getAttribute("reviewer-rating") || 1;
         let review = this.getAttribute("reviewer-review") || "";
         const image = "./ernie-eats-frontend/Images/defaultLogin.png";
 
         await this.loadImage(name);
-
-        while (review.length > 97 && review.lastIndexOf(" ") !== -1) {
-            review = review.slice(0, review.lastIndexOf(" "));
-        }
-        review += "..."
 
         this.shadowRoot.innerHTML = `
             <div class="customer-reviews-wrapper">
@@ -38,25 +32,21 @@ class CustomerReview extends HTMLElement {
                     <img class="profile-picture" src=${image}>
                     <div class="profile-name">${name}</div>
                     <h3> ${title} </h3>
-                    <p id="resturant-name"> ${resturantName} </p><hr>
-                    <div id=star-wrapper></div>
-                    <p> ${review} </p>
+                    <p id="resturant-name"> ${resturantName} </p>
+                    <hr>
+                    <p id="review"> ${review} </p>
                 </div>
             </div>
         `;
 
         this.shadowRoot.appendChild(css);
-
-        for (let i = 0; i < 5; i++) {
-            this.createStar(i < rating, this.shadowRoot.getElementById("star-wrapper"));
-        }
+        this.shadowRoot.querySelector("#review").innerText = review;
     }
 
     async loadImage(name) {
         await UserDatabase.findUserByName(name).then(user => {
             if (user.success) {
                 UserSettings.findUserSettingsPageById(user.model.id).then(settings => {
-                    console.log(settings);
                     if (settings.success) {
                         if (settings.model.profile !== undefined && settings.model.profile.length !== 0) {
                             this.shadowRoot.querySelector(".profile-picture").src = settings.model.profile;
@@ -65,18 +55,6 @@ class CustomerReview extends HTMLElement {
                 });
             }
         });
-    }
-
-    createStar(isFilled, starWrapper) {
-        if (isFilled) {
-            let star = starWrapper.appendChild(document.createElement("img"));
-            star.src = "./ernie-eats-frontend/Images/filledStar.jpg";
-            star.setAttribute("class", "filled-star");
-        } else {
-            let star = starWrapper.appendChild(document.createElement("img"));
-            star.src = "./ernie-eats-frontend/Images/unfilledStar.jpg";
-            star.setAttribute("class", "unfilled-star");
-        }
     }
 
     static get observedAttributes() {
@@ -90,4 +68,4 @@ class CustomerReview extends HTMLElement {
     }
 }
 
-customElements.define("customer-review", CustomerReview);
+customElements.define("small-customer-review", SmallCustomerReview);
