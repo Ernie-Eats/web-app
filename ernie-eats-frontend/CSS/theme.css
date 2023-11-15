@@ -1,5 +1,5 @@
 img.home-cover {
-    width: 1100px;
+    width: 47%;
     height: 300px;
     display: block;
     margin: 0 auto 30px;
@@ -163,3 +163,64 @@ hr {
       footer-section-contact-form textarea{
         padding-bottom: 10px;
       }
+
+.top-restaurants-title {
+  font: 50px 'Open Sans', sans-serif;
+  text-align: center;
+  color: white;
+  background-color: #94270c;
+  border: 4px solid #94270c;
+  width: 892px;
+  margin: 40px auto;
+  margin-bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px 10px 0 0;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.top-restaurants-title:after {
+    content: "Top Restaurants";
+    border-radius: 10px 10px 0 0;
+    display: inline-block;
+    width: 100%;
+}
+
+.top-restaurants a {
+    color: inherit;
+    text-decoration: inherit;
+}
+
+.top-restaurants h2 {
+    text-align: left;
+}
+
+.top-restaurants {
+    max-width: 892px;
+    margin: 20px auto;
+    background-color: #fff;
+    border: 4px solid #94270c;
+    border-radius: 0 0 10px 10px;
+    margin-top: 0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.restaurant-item {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+    .restaurant-item img {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        margin-right: 15px;
+    }
+
+.restaurant-info {
+    flex-grow: 1;
+}

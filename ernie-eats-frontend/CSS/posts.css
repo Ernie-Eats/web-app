@@ -1,0 +1,30 @@
+﻿.post {
+    padding: 10px;
+    margin-bottom: 20px;
+    background-color: #ffff;
+}
+
+.post-title {
+    font: 600 18px 'Open Sans', sans-serif;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.post-description {
+    margin: 10px 40px 10px 40px;
+    font: 600 14px 'Open Sans', sans-serif;
+    color: #4d4a4a
+}
+
+.post-date {
+    font: 600 16px 'Open Sans', sans-serif;
+    font-style: italic;
+    color: #555;
+}
+
+hr {
+    border: none;
+    height: 1px;
+    background-color: #bf1f3b;
+    margin: 15px 0;
+}

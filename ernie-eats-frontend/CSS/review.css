@@ -38,11 +38,11 @@ img.profile-picture:hover + div.profile-name {
     left: 22.5px;
 }
 
-.star-wrapper {
+#star-wrapper {
     width: 200px;
     height: 20px;
     position: relative;
-    transform: translate(575px, -25px);
+    transform: translate(575px, -45px);
 }
 
 img.filled-star {
