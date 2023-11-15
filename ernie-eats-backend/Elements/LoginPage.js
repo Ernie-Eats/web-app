@@ -17,7 +17,7 @@ class LoginPage extends HTMLElement {
 
         const wrapper = login.appendChild(document.createElement("div"));
         wrapper.setAttribute("class", "login-wrapper");
-
+      
         const signinTab = wrapper.appendChild(document.createElement("input"));
         signinTab.setAttribute("id", "signin-tab");
         signinTab.setAttribute("type", "radio");
@@ -185,6 +185,7 @@ class LoginPage extends HTMLElement {
         signupRePasswordInput.setAttribute("type", "password");
         signupRePasswordInput.setAttribute("class", "input");
         signupRePasswordInput.setAttribute("data-type", "password");
+
             
         const signupEmailGroup = signupFormWrapper.appendChild(document.createElement("div"));
         signupEmailGroup.setAttribute("class", "group");
