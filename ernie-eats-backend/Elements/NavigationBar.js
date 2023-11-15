@@ -35,6 +35,8 @@ class NavigationBar extends HTMLElement {
                 </div>
             </div>
         `;
+        this.shadowRoot.appendChild(css);
+
         document.addEventListener("keydown", async (e) => await this.search(this.shadowRoot.querySelector("#searchBar").value, e.key))
 
         await Function.getAddress().then(address => {
@@ -50,15 +52,26 @@ class NavigationBar extends HTMLElement {
                 }
             });
         });
-
-        console.log(account);
-
-        this.shadowRoot.querySelector("button").addEventListener("click", async () => await this.login()); 
+        this.shadowRoot.querySelector("button").addEventListener("click", async () => await this.login());
 
         const hamburgerWrapper = this.shadowRoot.querySelector("#hamburger-wrapper");
         hamburgerWrapper.querySelector("button").addEventListener("click", async () => await this.hamburgerMenu(hamburgerWrapper));
+    }
 
-        this.shadowRoot.appendChild(css);
+    async search(result, key) {
+        if (result !== undefined && result.length !== 0 && key === "Enter") {
+            await ResturantDatabase.findAllResturants().then(resturants => {
+                if (resturants.success) {
+                    let found = resturants.model.find(value => value.name.toLowerCase() === result.toLowerCase());
+                    if (found !== undefined) {
+                        window.open(`business-page.html?page=${encodeURI(found.name)}&restaurant=${encodeURI(found.id)}`);
+                    } else {
+                        window.open(`search.html?result=${encodeURI(result)}`);
+                    }
+                    window.close();
+                }
+            });
+        }
     }
 
     async search(result, key) {
@@ -85,7 +98,7 @@ class NavigationBar extends HTMLElement {
                     let found = result.model.find((value) => value.address === address) !== undefined;
                     found ? window.open('user-page.html') : window.open('login-Signup.html');
                     window.close();
-                })
+                });
             }
         });
     }
