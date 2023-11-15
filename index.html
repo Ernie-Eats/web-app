@@ -9,43 +9,44 @@
     <script src="./ernie-eats-backend/Elements/CustomReviewSlider.js"></script>
     <script src="./ernie-eats-backend/Elements/CustomEvent.js"></script>
     <script src="./ernie-eats-backend/Elements/CustomEventSection.js"></script>
+    <script src="./ernie-eats-backend/Elements/CustomFooter.js"></script>
     <link rel="stylesheet" href="./ernie-eats-frontend/CSS/theme.css">
 </head>
 <body>
     <navigation-bar></navigation-bar>
-    <img class="home-cover" src="./ernie-eats-frontend/Images/ErnieLogoCover.jpg" img> 
+    <img class="home-cover" src="./ernie-eats-frontend/Images/ErnieLogoCover.jpg"> 
     <customer-review-slider id="review-slider" data-current-review="0"> 
         <customer-review class="review"
-                         data-resturant-name="The Cracked Pillar"
-                         data-reviewer-title="It was alright"
-                         data-reviewer="Eric M."
-                         data-reviewer-date="A Month Ago"
-                         data-reviewer-rating="3"
-                         data-reviewer-review="Decent food and atmosphere, but I saw too many of my students there and it took away from the nice meal I wanted to share with my family">
+                         resturant-name="The Cracked Pillar"
+                         reviewer-title="It was alright"
+                         reviewer="Eric M."
+                         reviewer-date="A Month Ago"
+                         reviewer-rating="3"
+                         reviewer-review="Decent food and atmosphere, but I saw too many of my students there and it took away from the nice meal I wanted to share with my family">
         </customer-review>
         <customer-review class="review"
-                         data-resturant-name="El Charro"
-                         data-reviewer-title="BEST PLACE EVER"
-                         data-reviewer="Jen F"
-                         data-reviewer-date="Yesterday"
-                         data-reviewer-rating="5"
-                         data-reviewer-review="Hands down the best Mexican food in Bridgewater I LOVE this place. The service was great, the food was delicious, and the margaritas had me feeling goooood. I will definitely be coming back and bringing more of my friends. Knocked them down to 4 stars because they dont offer a marg tower">
+                         resturant-name="El Charro"
+                         reviewer-title="BEST PLACE EVER"
+                         reviewer="Jen F"
+                         reviewer-date="Yesterday"
+                         reviewer-rating="5"
+                         reviewer-review="Hands down the best Mexican food in Bridgewater I LOVE this place. The service was great, the food was delicious, and the margaritas had me feeling goooood. I will definitely be coming back and bringing more of my friends. Knocked them down to 4 stars because they dont offer a marg tower">
         </customer-review>
         <customer-review class="review"
-                         data-resturant-name="Magnolia's"
-                         data-reviewer-title="not worth it"
-                         data-reviewer="Ben G."
-                         data-reviewer-date="A Week Ago"
-                         data-reviewer-rating="1"
-                         data-reviewer-review="I brought my girlfriend here for dinner last week and was not very impressed. Service was slow (even though the place was not very busy) and our queso was COLD. The margaritas are so overpriced, they arent even worth it. The portions werent big enough and I was still hungry when I left after paying a hefty bill. Probably will not be coming back for date night again.">
+                         resturant-name="Magnolia's"
+                         reviewer-title="not worth it"
+                         reviewer="Ben G."
+                         reviewer-date="A Week Ago"
+                         reviewer-rating="1"
+                         reviewer-review="I brought my girlfriend here for dinner last week and was not very impressed. Service was slow (even though the place was not very busy) and our queso was COLD. The margaritas are so overpriced, they arent even worth it. The portions werent big enough and I was still hungry when I left after paying a hefty bill. Probably will not be coming back for date night again.">
         </customer-review>
         <customer-review class="review"
-                         data-resturant-name="New York Flying Pizza"
-                         data-reviewer-title="Obvious best joint for pizza"
-                         data-reviewer="Chris A."
-                         data-reviewer-date="A Year Ago"
-                         data-reviewer-rating="4"
-                         data-reviewer-review="Obviously voted best pizza in town for a reason. Good food for a good price. Quiet place for a nice meal with family or friends">
+                         resturant-name="New York Flying Pizza"
+                         reviewer-title="Obvious best joint for pizza"
+                         reviewer="Chris A."
+                         reviewer-date="A Year Ago"
+                         reviewer-rating="4"
+                         reviewer-review="Obviously voted best pizza in town for a reason. Good food for a good price. Quiet place for a nice meal with family or friends">
         </customer-review>
     </customer-review-slider>
     <br>
@@ -55,75 +56,102 @@
         </div>
     </div>
     <customer-event-section>
-        <custom-event data-resturant-name="Resturant 1"
-                      data-date="10/6/2023"
-                      data-event-name="Event 1"
-                      data-event-description="Description 1">
+        <custom-event resturant-name="Resturant 1"
+                      date="10/6/2023"
+                      event-name="Event 1"
+                      event-description="Description 1">
         </custom-event>
-        <custom-event data-resturant-name="Resturant 2"
-                      data-date="10/9/2023"
-                      data-event-name="Event 2"
-                      data-event-description="Description 2">
+        <custom-event resturant-name="Resturant 2"
+                      date="10/9/2023"
+                      event-name="Event 2"
+                      event-description="Description 2">
 
         </custom-event>
-        <custom-event data-resturant-name="Resturant 3"
-                      data-date="10/7/2023"
-                      data-event-name="Event 3"
-                      data-event-description="Description 3">
+        <custom-event resturant-name="Resturant 3"
+                      date="10/7/2023"
+                      event-name="Event 3"
+                      event-description="Description 3">
 
         </custom-event>
-        <custom-event data-resturant-name="Resturant 4"
-                      data-date="10/6/2023"
-                      data-event-name="Event 4"
-                      data-event-description="Description 4">
+        <custom-event resturant-name="Resturant 4"
+                      date="10/6/2023"
+                      event-name="Event 4"
+                      event-description="Description 4">
 
         </custom-event>
-        <custom-event data-resturant-name="Resturant 1"
-                      data-date="10/7/2023"
-                      data-event-name="Event 5"
-                      data-event-description="Description 5">
+        <custom-event resturant-name="Resturant 1"
+                      date="10/7/2023"
+                      event-name="Event 5"
+                      event-description="Description 5">
 
         </custom-event>
-        <custom-event data-resturant-name="Resturant 3"
-                      data-date="10/8/2023"
-                      data-event-name="Event 6"
-                      data-event-description="Description 6">
+        <custom-event resturant-name="Resturant 3"
+                      date="10/8/2023"
+                      event-name="Event 6"
+                      event-description="Description 6">
 
         </custom-event>
-        <custom-event data-resturant-name="Resturant 2"
-                      data-date="10/7/2023"
-                      data-event-name="Event 7"
-                      data-event-description="Description 7">
+        <custom-event resturant-name="Resturant 2"
+                      date="10/7/2023"
+                      event-name="Event 7"
+                      event-description="Description 7">
 
         </custom-event>
-        <custom-event data-resturant-name="Resturant 4"
-                      data-date="10/17/2023"
-                      data-event-name="Event 8"
-                      data-event-description="Description 8">
+        <custom-event resturant-name="Resturant 4"
+                      date="10/17/2023"
+                      event-name="Event 8"
+                      event-description="Description 8">
 
         </custom-event>
-        <custom-event data-resturant-name="Resturant 5"
-                      data-date="10/10/2023"
-                      data-event-name="Event 9"
-                      data-event-description="Description 9">
+        <custom-event resturant-name="Resturant 5"
+                      date="10/10/2023"
+                      event-name="Event 9"
+                      event-description="Description 9">
     </customer-event-section>
 
     <div class="container">
-        <div class="top-restaurants-section-title">
+        <div class="top-restaurants-title"></div>
+    </div>
+    <div class="top-restaurants">
+        <div class="restaurant-item">
+            <div class="restaurant-info">
+                <h2>#1</h2>
+                <h3>El Charro</h3>
+                <p>
+                    El Charro's charm lies in its vibrant decor and savory dishes, blending traditional Mexican flavors
+                    with a familial touch. Patrons savor homemade tortillas and zesty salsas while basking in the warm
+                    hospitality. This cherished spot evokes nostalgia, creating lasting memories for generations in the
+                    heart of our community.
+                </p>
+            </div>
+        </div>
+
+        <div class="restaurant-item">
+            <div class="restaurant-info">
+                <h2>#2</h2>
+                <a href="/business-page.html">
+                    <h3>The Cracked Pillar Pub</h3>
+                </a>
+                <p>
+                    Craft Beer and great Burgers along with delicious Pub Fare ! Historic Hometown Hospitality are the
+                    Pillars in this family owned and operated Pub. The Cracked Pillar is a 200 year old National
+                    Historic Registry building ( The Barbee House) Great Beer Selection. Great Burgers and a best
+                    selling Reuben!
+                </p>
+            </div>
+        </div>
+        <div class="restaurant-item">
+            <div class="restaurant-info">
+                <h2>#3</h2>
+                <h3>Red Apple Restaurant</h3>
+                <p>
+                    If you're craving some Chinese food in Bridgewater, then you've come to the right place! With dishes
+                    hailing from multiple Asian countries and prices that can't be beat, Red Apple Chinese Restaurant an
+                    outstanding Chinese restaurant.
+                </p>
+            </div>
         </div>
     </div>
-    <restaurant-section>
-        <top-event data-restaurant-name="Resturant 1"
-                      data-event-description="Description 1">
-        </top-event>
-        <top-event data-restaurant-name="Resturant 2"
-                      data-event-description="Description 2">
-
-        </top-event>
-        <top-event data-restaurant-name="Resturant 3"
-                      data-event-description="Description 3">
-
-        </top-event>
-    </restaurant-section>
+    <custom-footer></custom-footer>
 </body>
 </html>

@@ -5,18 +5,20 @@
     <title> General Settings </title>
     <script type="module" src="./ernie-eats-backend/Elements/NavigationBar.js"></script>
     <script type="module" src="./ernie-eats-backend/Pages/UserSettingsPage.js"></script>
+    <script type="module" src="./ernie-eats-backend/Elements/CustomFooter.js"></script>
     <link rel="stylesheet" href="./ernie-eats-frontend/CSS/theme.css">
     <link rel="stylesheet" href="./ernie-eats-frontend/CSS/generalsettings.css">
+    <script type="module" src = "./ernie-eats-backend/Elements/DarkThemeSettings.js"></script>
 </head>
 <body>
     <navigation-bar></navigation-bar>
     <div class="body">
         <div class="sidebar">
-            <img src="./ernie-eats-frontend/Images/defaultLogin.png" class="center"/>
-            <br>
-            <button id="account_button"> Account </button> 
+            <img class ="profileImg" src="./ernie-eats-frontend/Images/defaultLogin.png" />
+            <br><button id="account_button"> Account </button>
             <button id="general_button"> General </button>
             <button id="password_button"> Password </button>
+            <button id="business_button"> Business </button>
         </div>
 
         <h1 id="user"></h1>
@@ -38,32 +40,31 @@
                     <label for="Bio">Bio</label>
                     <input type="text" id="Bio" name="Bio" placeholder="Your Bio...">
 
+                    <label for="profile"> Update Profile Picture </label>
+                    <input type="file" id="profile" name="profile">
+                    <img class="profileImg"/>
+
                     <button type="submit" class="save-button">Save</button>
                     <button type="reset" class="cancel-button">Cancel</button>
-
-
         </div>
 
         <div class="content" id="general">
             <h1> General Settings </h1>
-            <div class="theme-toggle">
-                <h2> Theme</h2>
-                <label class="switch">
-                    <input type="checkbox">
-                    <span class="slider"></span>
-                    
+            <div class="toggle-container">
+                <span class="toggle-label"></span>
+                <label class="theme-toggle" for="theme-switch">
+                   <input type="checkbox" id="theme-switch"> 
+                   <span class="theme-toggle-slider" id="themeLabel"></span>
                 </label>
-                <span class="label">Light Theme</span>
-                <label class="switch">
-                    <input type="checkbox">
-                    <span class="slider"></span>
-                </label>
-               
-                <span class="label">Dark Theme</span>
-            </div>
+              </div>
+              <br> <br>
+              <div id="theme-display"> Light Theme </div>
+              <br> <br>
 
-            <button type="submit" class="save-button">Save</button>
+              <button type="submit" class="save-button">Save</button>
             <button type="reset" class="cancel-button">Cancel</button>
+
+
         </div>
 
         <div class="content" id="password">
@@ -81,42 +82,11 @@
             <button type="submit" class="save-button">Save</button>
             <button type="reset" class="cancel-button">Cancel</button>
         </div>
-    </div>
 
-    <div class="footer">
-        <div class=" footer-content">
-            <div class="footer-section about">
-                <!-- <img src="./ernie-eats-frontend/Images/ErnieLogo.jpg" alt="ErnieEats_logo" width="50" height="50"> -->
-                <h1 class="logo-text">ErnieEats</h1>
-                <p>
-                    ErnieEats is a website where users can discover,share, and read
-                    reviews and reccomendations about various restaurants in Bridgewater Virginia.
-                    This website serves as a valuable resource for food enthusiasts, tourists,
-                    and Bridgewater college students.
-                </p>
-            </div>
-            <div class="footer-section-contact-form">
-                <h2>Contact Us</h2>
-                <br>
-                <form action="/action_page.php">
-                    <label for="fname">First Name</label>
-                    <input type="text" id="fname" name="firstname" placeholder="Your name..">
-
-                    <label for="lname">Last Name</label>
-                    <input type="text" id="lname" name="lastname" placeholder="Your last name..">
-
-                    <label for="country">Country</label>
-                    <select id="country" name="country">
-                        <option value=""></option>
-                        <option value="australia">Australia</option>
-                        <option value="canada">Canada</option>
-                        <option value="usa">USA</option>
-                    </select>
-                    <input type="submit" value="Submit">
-                </form>
-            </div>
+        <div class="content" id="business">
+            <h1> Business Settings Page </h1>
         </div>
-        <div class="footer-bottom"> &copy; ErnieEats.com </div>
     </div>
+    <custom-footer></custom-footer>
 </body>
 </html> 

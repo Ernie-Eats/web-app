@@ -1,0 +1,51 @@
+﻿.customer-reviews-wrapper {
+    position: relative;
+}
+
+img.profile-picture {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%; 
+    float: left;
+    margin-left: 3px;
+}
+
+#star-wrapper {
+    position: absolute;
+    top: 10px;
+    left: 35vw;    
+}
+
+h3 {
+    margin-left: 50px;
+    position: absolute;
+    top: -5px;
+    left: 15vw;
+}
+
+#resturant-name {
+    transform: translate(-265px, 5px);
+    font-weight: bold;
+}
+
+.profile-name {
+    display: none;
+}
+
+img.profile-picture:hover ~ .profile-name {
+    display: block;
+}
+
+img.filled-star {
+    width: 20px;
+    height: 20px;
+    border-radius: 80%;
+    margin-top: 10px;
+}
+
+img.unfilled-star {
+    width: 20px;
+    height: 20px;
+    border-radius: 80%;
+    margin-top: 10px;
+}

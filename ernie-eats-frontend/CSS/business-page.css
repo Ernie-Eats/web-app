@@ -2,7 +2,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    max-width: 1200px;
+    max-width: 2400px;
     margin: 0 auto;
     padding: 20px;
 }
@@ -10,7 +10,7 @@
 .scroll-box {
     flex: 2;
     overflow-y: scroll;
-    max-height: 600px;
+    max-height: 770px;
     border: 1px solid #ccc;
     padding: 20px;
     margin-left: 20px;
@@ -19,6 +19,21 @@
     border-radius: 5px;
 }
 
+.scroll-box-post {
+    flex: 2;
+    overflow-y: scroll;
+    max-height: 600px;
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-left: 350px;
+    margin-right: 330px;
+    margin-bottom: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+}
+
+
 .scroll-content {
     padding: 10px;
     font-family: 'Helvetica Neue', sans-serif;
@@ -26,7 +41,10 @@
     color: #333;
     font-weight: normal;
     line-height: 1.6;
+    /* height: 800px; */
+    
 }
+
 
     .scroll-content hr {
         border: none;
@@ -47,13 +65,13 @@ img.restaurant-picture {
     height: 300px;
     object-fit: cover;
     margin-bottom: 10px;
-} 
+}
 
 body {
     margin: 0;
     background-color: #dcdcdc;
     font-family: 'Helvetica Neue', sans-serif;
-    color: #333;
+    color: #000000;
 }
 
 .restaurant-info h3 {
@@ -68,14 +86,23 @@ body {
     margin: 10px 0;
 }
 
+.restaurant-info span {
+    position: relative;
+    font-size: xx-large;
+    top: -2vw;
+    right: -6.5vw;
+}
+
 .restaurant-info {
     flex: 1;
     font-family: 'Helvetica Neue', sans-serif;
+    max-height: 770px;
     background-color: #ffffff;
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     margin-left: 20px;
+
 }
 
 .restaurant-stats {
@@ -100,10 +127,30 @@ body {
     margin: 10px 0;
 }
 
+.starWrapper {
+    position: relative;
+    right: -5vw;
+    top: -6.5vw;
+}
+
+img.filled-star {
+    width: 20px;
+    height: 20px;
+    border-radius: 80%;
+    margin-top: 10px;
+}
+
+img.unfilled-star {
+    width: 20px;
+    height: 20px;
+    border-radius: 80%;
+    margin-top: 10px;
+}
+
 .more-pictures {
     flex: 1;
     overflow-y: scroll;
-    max-height: 600px;
+    max-height: 770px;
     font-family: 'Helvetica Neue', sans-serif;
     background-color: #ffffff;
     padding: 20px;
@@ -222,7 +269,7 @@ img.pillar-sliders {
             height:400px;
             position:relative;
             display: inline-block;
-           margin-top: 15%;
+            margin-top: 15%;
             
             
             
@@ -284,9 +331,6 @@ img.pillar-sliders {
           
           .footer-section-contact-form h2{
             text-align: center;
-          
-          
-          
           }
           
           .footer-section-contact .about .content span{
@@ -294,41 +338,27 @@ img.pillar-sliders {
             font-size: 1.1em;
             margin-block: 8px;
           }
-          
-          input[type=text], select, textarea {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-            margin-top: 6px;
-            margin-bottom: 16px;
-            resize: vertical;
-            
+
+          .image-container {
+            position: relative;
+            text-align: center;
+            color: rgb(0, 0, 0);
+            font-family:'Times New Roman', Times, serif';
           }
           
-          input[type=submit] {
-            background-color: #bf1f3b;
-            color: white;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-          margin-bottom: 5px;
+          .overlay-text{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Arial', sans-serif;
+            font-size: 60px;
+            background: rgba(0, 0, 0, 0.65); /* Set background color */
+            color: #ffffff; /* Set text color */
+            padding: 20px; /* Add padding to create space inside the bubble */
+            border-radius: 20px; /* Adjust the border-radius to control the bubble effect */
+            opacity: .8;
           }
           
-          input[type=submit]:hover {
-            background-color: #bf1f3b;
-          }
+
           
-          .footer-section-contact-us{
-            border-radius: 5px;
-            background-color: #f2f2f2;
-            padding: 20px;
-          }
-          footer-section-contact-form{
-            padding-bottom: 30px;
-          }
-          footer-section-contact-form textarea{
-            padding-bottom: 10px;
-          }
