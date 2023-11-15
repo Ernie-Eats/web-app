@@ -107,7 +107,7 @@ class NavigationBar extends HTMLElement {
                     UserDatabase.findUserByAddress(address).then(result => {
                         if (result.success) {
                             window.close();
-                            window.open("generalSettings.html");
+                            window.open("generalsettings.html");
                         }
                     });
                 });
