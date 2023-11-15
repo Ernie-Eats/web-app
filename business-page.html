@@ -2,10 +2,11 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Ernie Eat's Business User Page</title> 
+    <title>Ernie Eat's Business User Page</title>
     <script type="module" src="./ernie-eats-backend/Elements/NavigationBar.js"></script>
     <script type="module" src="./ernie-eats-backend/Pages/BusinessPage.js"></script>
     <script type="module" src="./ernie-eats-backend/Elements/SmallCustomerReview.js"></script>
+    <script src="./ernie-eats-backend/Elements/CustomFooter.js"></script>
     <link rel="stylesheet" href="./ernie-eats-frontend/CSS/theme.css">
     <link rel="stylesheet" href="./ernie-eats-frontend/CSS/business-page.css">
     <script src="./ernie-eats-backend/Elements/CustomPost.js"></script>
@@ -40,7 +41,7 @@
             <h3>Website: </h3>
             <a href="https://www.thecrackedpillar.com/" target="_blank" id="website">thecrackedpillar.com</a>
             <h3>Average rating: </h3>
-            <div id="stars" class="stars"></div>
+            <div id="stars" class="stars"></div> 
             <span id="rating" class="rating-text"></span>
         </div>
         <div class="scroll-box">
@@ -71,6 +72,7 @@
             </div>
         </div>
     </div>
+    <custom-footer></custom-footer>
 </body>
 
 </html>

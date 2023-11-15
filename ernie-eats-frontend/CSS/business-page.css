@@ -10,7 +10,7 @@
 .scroll-box {
     flex: 2;
     overflow-y: scroll;
-    max-height: 680px;
+    max-height: 770px;
     border: 1px solid #ccc;
     padding: 20px;
     margin-left: 20px;
@@ -72,7 +72,6 @@ body {
     background-color: #dcdcdc;
     font-family: 'Helvetica Neue', sans-serif;
     color: #000000;
-    font-size: xx-large;
 }
 
 .restaurant-info h3 {
@@ -87,9 +86,17 @@ body {
     margin: 10px 0;
 }
 
+.restaurant-info span {
+    position: relative;
+    font-size: xx-large;
+    top: -2vw;
+    right: -6.5vw;
+}
+
 .restaurant-info {
     flex: 1;
     font-family: 'Helvetica Neue', sans-serif;
+    max-height: 770px;
     background-color: #ffffff;
     padding: 20px;
     border-radius: 5px;
@@ -143,7 +150,7 @@ img.unfilled-star {
 .more-pictures {
     flex: 1;
     overflow-y: scroll;
-    max-height: 680px;
+    max-height: 770px;
     font-family: 'Helvetica Neue', sans-serif;
     background-color: #ffffff;
     padding: 20px;

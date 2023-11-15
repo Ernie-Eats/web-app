@@ -100,8 +100,8 @@ profile.onchange = async (e) => {
 }
 
 // General Page
-const theme = document.getElementById("theme");
-const themeLabel = document.getElementById("themeLabel")
+const theme = document.getElementById("theme-switch");
+const themeLabel = document.getElementById("theme-display");
 
 theme.onclick = () => {
     general.darkTheme = !general.darkTheme;
