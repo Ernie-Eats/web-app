@@ -1,5 +1,5 @@
  .accordian{  
-    background-color: #eee;
+    background-color: #eee; 
     cursor: pointer;
     padding: 18px;
     width: 100%;
@@ -31,7 +31,7 @@
 .panel{
     
   display: none;
-  background-color: white;
+  background-color:white; 
   overflow: hidden;
   padding-left: 25px;
   padding-right: 25px;
@@ -58,7 +58,8 @@
     
   html,body{ 
    height:100%;
-   background-color: #f6f2f2;
+   background-color: #dcdcdc;
+   /* #f6f2f2; */
    font-family: 'Open Sans', sans-serif;
   
  }

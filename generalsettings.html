@@ -6,7 +6,8 @@
     <script type="module" src="./ernie-eats-backend/Elements/NavigationBar.js"></script>
     <script type="module" src="./ernie-eats-backend/Pages/UserSettingsPage.js"></script>
     <link rel="stylesheet" href="./ernie-eats-frontend/CSS/theme.css">
-    <link rel="stylesheet" href="./ernie-eats-frontend/CSS/generalSettings.css">
+    <link rel="stylesheet" href="./ernie-eats-frontend/CSS/generalsettings.css">
+    <script type="module" src = "./ernie-eats-backend/Elements/DarkThemeSettings.js"></script>
 </head>
 <body>
     <navigation-bar></navigation-bar>
@@ -45,24 +46,18 @@
 
         <div class="content" id="general">
             <h1> General Settings </h1>
-            <div class="theme-toggle">
-                <h2> Theme</h2>
-                <label class="switch">
-                    <input type="checkbox">
-                    <span class="slider"></span>
-                    
+            <div class="toggle-container">
+                <span class="toggle-label">Dark Mode</span>
+                <label class="theme-toggle" for="theme-switch">
+                   <input type="checkbox" id="theme-switch"> 
+                  <span class="theme-toggle-slider"></span>
                 </label>
-                <span class="label">Light Theme</span>
-                <label class="switch">
-                    <input type="checkbox">
-                    <span class="slider"></span>
-                </label>
-               
-                <span class="label">Dark Theme</span>
-            </div>
+              </div>
 
-            <button type="submit" class="save-button">Save</button>
+              <button type="submit" class="save-button">Save</button>
             <button type="reset" class="cancel-button">Cancel</button>
+
+
         </div>
 
         <div class="content" id="password">
