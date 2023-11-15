@@ -1,6 +1,6 @@
 import * as UserDatabase from '../Database/UserDatabase.js';
 import * as UserSettingsDatabase from '../Database/UserSettingsDatabase.js';
-import * as ResturantDatabase from '../Database/ResturantDatabase.js'
+import * as ResturantDatabase from '../Database/ResturantDatabase.js';
 import * as Function from '../Database/functions.js';
 
 class NavigationBar extends HTMLElement {
@@ -23,17 +23,18 @@ class NavigationBar extends HTMLElement {
 
         let account = "./ernie-eats-frontend/Images/defaultLogin.png";
 
+        console.log(account);
+
         this.shadowRoot.innerHTML = `
             <div class="navigation-wrapper">
                 <a href="index.html"><img src="./ernie-eats-frontend/Images/CoverLogo.jpg" id="homeLogoImg"></a>
-                <input type="text" placeholder="Search..." id="searchBar"> </input>
+                <input type="text" placeholder="Search..." id="searchBar"></input>
                 <button class="button"><img src=${account} id="profile-picture"></button>
                 <div id="hamburger-wrapper">
                     <button class="hamburger-button"><img src="./ernie-eats-frontend/Images/cake.jpg" id="hamburgerImg"></button>
                 </div>
             </div>
         `;
-
         this.shadowRoot.appendChild(css);
 
         document.addEventListener("keydown", async (e) => await this.search(this.shadowRoot.querySelector("#searchBar").value, e.key))
@@ -51,7 +52,6 @@ class NavigationBar extends HTMLElement {
                 }
             });
         });
-
         this.shadowRoot.querySelector("button").addEventListener("click", async () => await this.login());
 
         const hamburgerWrapper = this.shadowRoot.querySelector("#hamburger-wrapper");
@@ -59,6 +59,23 @@ class NavigationBar extends HTMLElement {
     }
 
     async search(result, key) {
+        if (result !== undefined && result.length !== 0 && key === "Enter") {
+            await ResturantDatabase.findAllResturants().then(resturants => {
+                if (resturants.success) {
+                    let found = resturants.model.find(value => value.name.toLowerCase() === result.toLowerCase());
+                    if (found !== undefined) {
+                        window.open(`business-page.html?page=${encodeURI(found.name)}&restaurant=${encodeURI(found.id)}`);
+                    } else {
+                        window.open(`search.html?result=${encodeURI(result)}`);
+                    }
+                    window.close();
+                }
+            });
+        }
+    }
+
+    async search(result, key) {
+        console.log(key)
         if (result !== undefined && result.length !== 0 && key === "Enter") {
             await ResturantDatabase.findAllResturants().then(resturants => {
                 if (resturants.success) {

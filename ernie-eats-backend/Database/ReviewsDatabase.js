@@ -89,10 +89,10 @@ async function deleteReview(review) {
 
 async function findReviewsByUserId(id) {
     let result = { success: false, model: undefined };
-    await findAllReviews().then(result => {
-        if (result.success) {
-            const reviews = result.model.filter(value => value.userId === id);
-            result = { success: true, model: reviews };
+    await findAllReviews().then(reviews => {
+        if (reviews.success) {
+            const filtered = reviews.model.filter(value => value.userId === id);
+            result = { success: true, model: filtered };
         }
     });
     return result;
@@ -100,10 +100,10 @@ async function findReviewsByUserId(id) {
 
 async function findReviewsByResturantId(id) {
     let result = { success: false, model: undefined };
-    await findAllReviews().then(result => {
-        if (result.success) {
-            const reviews = result.model.filter(value => value.resturantId === id);
-            result = { success: true, model: reviews };
+    await findAllReviews().then(reviews => {
+        if (reviews.success) {
+            const filtered = reviews.model.filter(value => value.resturantId === id);
+            result = { success: true, model: filtered };
         }
     });
     return result;
