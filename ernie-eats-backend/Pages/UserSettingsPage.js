@@ -39,8 +39,9 @@ const profilePicture = [...document.getElementsByClassName("profileImg")];
 await Function.getAddress().then(address => {
     UserDatabase.findUserByAddress(address).then(result => {
         if (result.success) {
-            if (!result.model.isBuisnessOwner()) { 
-                contentDivs.pop();
+            console.log(result.model);
+            if (!result.model.isBusinessOwner()) {
+                console.log("Not a business owner");
                 buisnessButton.style.display = "none";
             }
 
