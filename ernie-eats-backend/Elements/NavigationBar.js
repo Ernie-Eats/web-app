@@ -23,8 +23,6 @@ class NavigationBar extends HTMLElement {
 
         let account = "./ernie-eats-frontend/Images/defaultLogin.png";
 
-        console.log(account);
-
         this.shadowRoot.innerHTML = `
             <div class="navigation-wrapper">
                 <a href="index.html"><img src="./ernie-eats-frontend/Images/CoverLogo.jpg" id="homeLogoImg"></a>
