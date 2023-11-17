@@ -39,8 +39,9 @@ const profilePicture = [...document.getElementsByClassName("profileImg")];
 await Function.getAddress().then(address => {
     UserDatabase.findUserByAddress(address).then(result => {
         if (result.success) {
-            if (!result.model.isBuisnessOwner()) { 
-                contentDivs.pop();
+            console.log(result.model);
+            if (!result.model.isBusinessOwner()) {
+                console.log("Not a business owner");
                 buisnessButton.style.display = "none";
             }
 
@@ -105,6 +106,7 @@ const themeLabel = document.getElementById("theme-display");
 
 theme.onclick = () => {
     general.darkTheme = !general.darkTheme;
+    document.body.classList.toggle("dark-mode");
     themeLabel.innerText = general.darkTheme ? "Dark Theme" : "Light Theme";
 };
 
@@ -160,11 +162,14 @@ function viewBuisness() {
 }
 
 async function save() {
+    console.log("Save Button!");
     switch (activePage) {
         case "account":
             {
+                console.log("here!");
                 await Function.getAddress().then(address => {
                     UserDatabase.findUserByAddress(address).then(result => {
+                        console.log(result);
                         if (result.success) {
                             result.model.username = account.username.length === 0 ? result.model.username : account.username;
                             result.model.name = account.firstName.length === 0 && account.lastName.length === 0 ?
@@ -182,7 +187,7 @@ async function save() {
                                     });
                                 } else {
                                     const newPage = new Model.UserSettings(result.model.id, account.bio, false, "", account.profile);
-                                    UserSettingsDatabase.insertUserPage(newPage);
+                                    UserSettingsDatabase.insertUserPage(newPage).then(s => console.log(s));
                                 }
                             });
                         }

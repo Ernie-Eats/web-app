@@ -1,10 +1,10 @@
 class User {
-    constructor(name, username, email, password, isBuisness, resturantId, address) {
+    constructor(name, username, email, password, isBusiness, resturantId, address) {
         this.name = name;
         this.username = username;
         this.email = email;
         this.password = password;
-        this.isBuisness = isBuisness;
+        this.isBusiness = isBusiness;
         this.resturantId = resturantId;
         this.address = address;
     }
@@ -13,8 +13,8 @@ class User {
         this.id = id;
     }
 
-    isBuisnessOwner() {
-        return this.isBuisness && this.resturantId !== undefined;
+    isBusinessOwner() {
+        return this.isBusiness && this.resturantId !== undefined;
     }
 
     isValidUser() {

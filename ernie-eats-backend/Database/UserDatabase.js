@@ -63,7 +63,7 @@ async function updateUser(user) {
         for (const i of resources) {
             if (user.id === i.id) {
                 const { item } = await container.item(i.id).replace(user);
-                let model = new User(user.name, user.username, user.email, user.password, user.isBuisnessOwner, user.resturantId, user.address);
+                let model = new User(user.name, user.username, user.email, user.password, user.isBusinessOwner, user.resturantId, user.address);
                 model.setId(user.id);
                 return { success: true, model: model};
             }
@@ -117,7 +117,7 @@ async function findUserByAddress(address) {
         if (users.success) { 
             const found = users.model.find(value => value.address === address);
             if (found !== undefined) {
-                const model = new User(found.name, found.username, found.email, found.password, found.isBuisness, found.resturantId, found.address);
+                const model = new User(found.name, found.username, found.email, found.password, found.isBusiness, found.resturantId, found.address);
                 model.setId(found.id);
                 result = { success: true, model: model };
             }

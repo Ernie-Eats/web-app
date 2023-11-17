@@ -1,6 +1,6 @@
 async function getAddress() {
     return await fetch('https://api.ipify.org?format=json')
-        .then(response => response.json())
+        .then(response => response.json()) 
         .then(data => data.ip);
 }
 

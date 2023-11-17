@@ -27,6 +27,9 @@ await Function.getAddress().then(address => {
                         settings.model.profile : "../../ernie-eats-frontend/Images/defaultLogin.png";
                     profileBanner.src = settings.model.banner !== undefined && settings.model.banner.length !== 0 ?
                         settings.model.banner : "../../ernie-eats-frontend/Images/userCover.jpg";
+                } else {
+                    profilePicture.src = "../../ernie-eats-frontend/Images/defaultLogin.png";
+                    profileBanner.src = "../../ernie-eats-frontend/Images/userCover.jpg";
                 }
             });
 
