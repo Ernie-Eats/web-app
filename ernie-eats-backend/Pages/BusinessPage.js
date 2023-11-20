@@ -3,7 +3,7 @@ import * as UserDatabase from '../Database/UserDatabase.js';
  
 const urlParams = new URLSearchParams(window.location.search);
 const page = urlParams.get("page").replace("%20", " ");
-const id = urlParams.get("restaurant").replace("%20", " ");
+const id = urlParams.get("resturant").replace("%20", " ");
 document.getElementById("name").innerText = page;
 const reviewsDiv = document.getElementById("reviews");
 const rating = document.getElementById("rating");

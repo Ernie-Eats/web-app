@@ -33,13 +33,11 @@ class User {
 }
 
 class Resturant {
-    constructor(name, menu, ownerId, reviews) {
+    constructor(name, menu, ownerId, keywords) {
         this.name = name;
         this.menu = menu;
         this.ownerId = ownerId;
-        this.reviews = (Array.isArray(reviews)) 
-            ? reviews 
-            : undefined;
+        this.keywords = keywords;
     }
 
     setId(id) {
@@ -47,19 +45,18 @@ class Resturant {
     }
 
     isValidResturant() {
-        return this.name !== undefined && 
-                this.menu !== undefined && 
-                this.ownerId !== undefined && 
-                this.reviews !== undefined;
+        return this.name !== undefined &&
+            this.menu !== undefined &&
+            this.ownerId !== undefined &&
+            this.keywords !== undefined;
     }
 
     equals(resturant) {
         return resturant !== undefined &&
                 this.name === resturant.name && 
                 this.menu === resturant.menu && 
-                this.ownerId.equals(resturant.ownerId) && 
-                (Array.isArray(resturant.reviews) && 
-                resturant.reviews.every((value, index) => value.equals(this.reviews[index])));
+                this.ownerId === resturant.ownerId && 
+                this.keywords === resturant.keywords;
     }
 }
 
