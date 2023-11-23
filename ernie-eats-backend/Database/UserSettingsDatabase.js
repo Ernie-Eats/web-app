@@ -69,20 +69,16 @@ async function insertUserPage(userPage) {
     return {
         success: false,
         message: "Invalid Restuarant Page",
-        model: undefined
+        model: UserSettings.NULL
     };
 }
 
 async function updateUserPage(userPage) {
     let result = { success: false, model: undefined }
     if (isValidUserSettingsPage(userPage)) {
-        console.log("It is a valid User Page");
         const { resources } = await container.items.readAll().fetchAll();
         for (const i of resources) {
-            console.log(userPage.id);
-            console.log(i.id);
             if (userPage.id === i.id) {
-                console.log("Found a Page");
                 const { item } = await container.item(i.id).replace(userPage);
                 let model = new UserSettings(item.userId, item.bio, item.isDarkTheme, item.banner, item.profile);
                 model.setId(item.id);
@@ -104,7 +100,7 @@ async function deleteUserPage(userPage) {
                 model.setId(item.id);
                 return {
                     success: true,
-                    message: "Deleted Resturant Page from Database",
+                    message: "Deleted Restaurant Page from Database",
                     model: model
                 };
             }
@@ -114,15 +110,15 @@ async function deleteUserPage(userPage) {
         model.setId(userPage.id);
         return {
             success: true,
-            message: "Could not find Resturant Page in Database",
+            message: "Could not find Restaurant Page in Database",
             model: model
         };
     }
 
     return {
         success: false,
-        message: "Invalid Resturant Page",
-        model: undefined
+        message: "Invalid Restaurant Page",
+        model: UserSettings.NULL
     };
 }
 

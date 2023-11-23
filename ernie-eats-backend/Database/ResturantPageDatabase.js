@@ -1,40 +1,40 @@
 // https://cdn.jsdelivr.net/npm/@azure/cosmos@4.0.0/+esm @azure/cosmos
 import { CosmosClient } from "https://cdn.jsdelivr.net/npm/@azure/cosmos@4.0.0/+esm";
-import { ResturantPage } from './models.js';
+import { RestaurantPage } from './models.js';
 
 const endpoint = "https://ernie-eats-nosql-database.documents.azure.com:443/";
 const key = "jWWm092N6SwaFUQVY9zRuearTtupAn9tDcR7r3tIXe2cob9LWbXHogSqSt0KVYsVCpEFLrMY3zaAACDbEwyEbQ==";
 const client = new CosmosClient({ endpoint, key });
 const { database } = await client.databases.createIfNotExists({ id: "Ernie-Eats" });
-const { container } = await database.containers.createIfNotExists({ id: "resturantPage" });
+const { container } = await database.containers.createIfNotExists({ id: "restaurantPage" });
 
-function isValidResturantPage(resturantPage) {
-    console.log(resturantPage);
-    if (resturantPage !== undefined &&
-        resturantPage instanceof ResturantPage &&
-        resturantPage.isValidResturantPage()) {
+function isValidRestaurantPage(restaurantPage) {
+    console.log(restaurantPage);
+    if (restaurantPage !== undefined &&
+        restaurantPage instanceof RestaurantPage &&
+        restaurantPage.isValidRestaurantPage()) {
         return true;
     }
     return false;
 }
 
-async function findAllResturantPages() {
+async function findAllRestaurantPages() {
     let pages = [];
     const { resources } = await container.items.readAll().fetchAll();
     for (const item of resources) {
-        let resturantPage = new ResturantPage(item.resturant, item.photos);
-        resturantPage.setId(item.id);
-        pages.push(resturantPage);
+        let restaurantPage = new RestaurantPage(item.resturantId, item.photos, item.website, item.posts, item.events);Id, item.photos, item.website, item.posts, item.);
+        restaurantPage.setId(item.id);
+        pages.push(restaurantPage);
     }
     return { success: true, model: pages };
 }
 
-async function insertResturantPage(resturantPage) {
-    if (isValidResturantPage(resturantPage)) {
+async function insertRestaurantPage(restaurantPage) {
+    if (isValidRestaurantPage(restaurantPage)) {
         const { resources } = await container.items.readAll().fetchAll();
         for (const item of resources) {
-            if (resturantPage.equals(item)) {
-                let model = new ResturantPage(item.resturant, item.photos);
+            if (restaurantPage.equals(item)) {
+                let model = new RestaurantPage(item.resturantId, item.photos, item.website, item.posts, item.events);, item.photos);
                 model.setId(item.id);
                 return {
                     success: true,
@@ -44,8 +44,8 @@ async function insertResturantPage(resturantPage) {
             }
         }
 
-        const { item } = await container.items.create(resturantPage);
-        let model = new ResturantPage(item.resturant, item.photos);
+        const { item } = await container.items.create(restaurantPage);
+        let model = new RestaurantPage(item.resturantId, item.photos, item.website, item.posts, item.events);, item.photos);
         model.setId(item.id);
         return {
             success: true,
@@ -56,56 +56,56 @@ async function insertResturantPage(resturantPage) {
     return {
         success: false,
         message: "Invalid Restuarant Page",
-        model: undefined
+        model: RestaurantPage.NULL
     };
 }
 
-async function updateResturantPage(restuarantPage) {
+async function updateRestaurantPage(restuarantPage) {
     if (isValidUser(restuarantPage)) {
         const { resources } = await container.items.readAll().fetchAll();
         for (const i of resources) {
             if (restuarantPage.equals(i)) {
                 const { item } = await container.item(i.id).replace(restuarantPage);
-                let model = new ResturantPage(item.resturant, item.photos);
+                let model = new RestaurantPage(item.resturantId, item.photos, item.website, item.posts, item.events);
                 model.setId(item.id);
                 return { success: true, model: model };
             }
         }
     }
-    return { success: false, model: undefined };
+    return { success: false, model: RestaurantPage.NULL };
 }
 
-async function deleteRestuarantPage(resturantPage) {
-    if (isValidResturantPage(resturantPage)) {
+async function deleteRestuarantPage(restaurantPage) {
+    if (isValidRestaurantPage(restaurantPage)) {
         const { resources } = await container.items.readAll().fetchAll();
         for (const i of resources) {
-            if (resturantPage.equals(i)) {
+            if (restaurantPage.equals(i)) {
                 const { item } = await container.item(i.id).read();
                 await item.delete();
-                let model = new ResturantPage(item.resturant, item.photos);
+                let model = new RestaurantPage(item.resturantId, item.photos, item.website, item.posts, item.events);
                 model.setId(item.id);
                 return {
                     success: true,
-                    message: "Deleted Resturant Page from Database",
+                    message: "Deleted Restaurant Page from Database",
                     model: model
                 };
             }
         }
 
-        let model = new ResturantPage(resturantPage.resturant, resturantPage.photos);
-        model.setId(resturantPage.id);
+        let model = new RestaurantPage(restaurantPage.restaurant, restaurantPage.photos, restaurantPage.website, restaurantPage.posts, restaurantPage.events);
+        model.setId(restaurantPage.id);
         return {
             success: true,
-            message: "Could not find Resturant Page in Database",
+            message: "Could not find Restaurant Page in Database",
             model: model
         };
     }
 
     return {
         success: false,
-        message: "Invalid Resturant Page",
-        model: undefined
+        message: "Invalid Restaurant Page",
+        model: RestaurantPage.NULL
     };
 }
 
-export { deleteRestuarantPage, findAllResturantPages, insertResturantPage, updateResturantPage }
+export { deleteRestuarantPage, findAllRestaurantPages, insertRestaurantPage, updateRestaurantPage }

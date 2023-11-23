@@ -83,12 +83,12 @@ async function deleteReview(review) {
 
     return { success: false, 
                 message: "Invalid Review", 
-                model: undefined 
+                model: Review.NULL 
     };
 }
 
 async function findReviewsByUserId(id) {
-    let result = { success: false, model: undefined };
+    let result = { success: false, model: Review.NULL };
     await findAllReviews().then(reviews => {
         if (reviews.success) {
             const filtered = reviews.model.filter(value => value.userId === id);
@@ -99,7 +99,7 @@ async function findReviewsByUserId(id) {
 }
 
 async function findReviewsByResturantId(id) {
-    let result = { success: false, model: undefined };
+    let result = { success: false, model: Review.NULL };
     await findAllReviews().then(reviews => {
         if (reviews.success) {
             const filtered = reviews.model.filter(value => value.resturantId === id);

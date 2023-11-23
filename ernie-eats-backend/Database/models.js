@@ -9,6 +9,8 @@ class User {
         this.address = address;
     }
 
+    static NULL = new User(undefined, undefined, undefined, undefined, undefined, undefined, undefined);
+
     setId(id) {
         this.id = id;
     }
@@ -32,7 +34,7 @@ class User {
     }
 }
 
-class Resturant {
+class Restaurant {
     constructor(name, menu, ownerId, reviews) {
         this.name = name;
         this.menu = menu;
@@ -41,6 +43,8 @@ class Resturant {
             ? reviews 
             : undefined;
     }
+
+    static NULL = new Restaurant(undefined, undefined, undefined, undefined);
 
     setId(id) {
         this.id = id;
@@ -53,13 +57,13 @@ class Resturant {
                 this.reviews !== undefined;
     }
 
-    equals(resturant) {
-        return resturant !== undefined &&
-                this.name === resturant.name && 
-                this.menu === resturant.menu && 
-                this.ownerId.equals(resturant.ownerId) && 
-                (Array.isArray(resturant.reviews) && 
-                resturant.reviews.every((value, index) => value.equals(this.reviews[index])));
+    equals(restaurant) {
+        return restaurant !== undefined &&
+                this.name === restaurant.name && 
+                this.menu === restaurant.menu && 
+                this.ownerId.equals(restaurant.ownerId) && 
+                (Array.isArray(restaurant.reviews) && 
+                restaurant.reviews.every((value, index) => value.equals(this.reviews[index])));
     }
 }
 
@@ -71,6 +75,8 @@ class Review {
         this.resturantId = resturantId;
         this.userId = userId;
     }
+
+    static NULL = new Review(undefined, undefined, undefined, undefined, undefined);
 
     setId(id) {
         this.id = id;
@@ -94,25 +100,35 @@ class Review {
     }
 }
 
-class ResturantPage {
-    constructor(resturant, photos) {
-        this.resturant = resturant;
+class RestaurantPage {
+
+    constructor(resturantId, photos, website, posts, events) {
+        this.resturantId = resturantId;
         this.photos = Array.isArray(photos) ? photos : undefined;
+        this.website = website;
+        this.posts = Array.isArray(posts) ? posts : undefined;
+        this.events = Array.isArray(events) ? events : undefined;
     }
+
+    static NULL = new RestaurantPage(undefined, undefined, undefined, undefined, undefined);
 
     setId(id) {
         this.id = id;
     }
 
-    isValidResturantPage() {
-        return this.resturant !== undefined &&
-                this.photos !== undefined;
+    isValidRestaurantPage() {
+        return this.restaurant !== undefined &&
+            this.photos !== undefined &&
+            this.website !== undefined;
+
     }
 
-    equals(resturantPage) {
-        return resturantPage !== undefined &&
-            this.resturant.equals(resturantPage.resturant) &&
-            resturantPage.photos.every((value, index) => value === this.photos[index]);
+    equals(restaurantPage) {
+        return restaurantPage !== undefined &&
+            this.resturantId !== undefined &&
+            restaurantPage.photos.every((value, index) => value === this.photos[index]) &&
+            restaurantPage.posts.every((value, index) => value === this.posts[index]) &&
+            restaurantPage.events.every((value, index) => value === this.events[index]);
     }
 }
 
@@ -124,6 +140,8 @@ class UserSettings {
         this.banner = banner;
         this.profile = profile;
     }
+
+    static NULL = new UserSettings(undefined, undefined, undefined, undefined, undefined);
 
     setId(id) {
         this.id = id;
@@ -147,4 +165,4 @@ class UserSettings {
 
 }
 
-export { User, Resturant, Review, ResturantPage, UserSettings };
+export { User, Restaurant, Review, RestaurantPage, UserSettings };
