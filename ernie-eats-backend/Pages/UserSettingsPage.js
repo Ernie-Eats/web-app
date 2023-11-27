@@ -1,5 +1,7 @@
 import * as UserDatabase from '../Database/UserDatabase.js';
 import * as UserSettingsDatabase from '../Database/UserSettingsDatabase.js';
+import * as ResturantDatabase from '../Database/ResturantDatabase.js';
+import * as ResturantPageDatabase from '../Database/ResturantPageDatabase.js';
 import * as Model from '../Database/models.js';
 import * as Function from '../Database/functions.js';
 
@@ -7,7 +9,7 @@ let activePage = "account";
 const account = { firstName: "", lastName: "", email: "", username: "", bio: "", profile: undefined };
 const general = { darkTheme: false };
 const password = { currentPassword: "", newPassword: "", repeatPassword: "" };
-const buisness = {};
+const business = { banner: undefined, name: "", email: "", website: "", address: "", contact: "", hours: new Array(14).fill(""), description: "", others: new Array()};
 
 const contentDivs = [...document.getElementsByClassName("content")];
 contentDivs[0].style.display = "block";
@@ -26,15 +28,6 @@ buisnessButton.addEventListener("click", viewBuisness);
 
 const buttons = [...document.getElementsByClassName('save-button')];
 buttons.forEach(b => b.addEventListener('click', save));
-
-// Account Page 
-const fname = document.getElementById("fname");
-const lname = document.getElementById("lname");
-const email = document.getElementById("email");
-const username = document.getElementById("username");
-const bio = document.getElementById("Bio");
-const profile = document.getElementById("profile");
-const profilePicture = [...document.getElementsByClassName("profileImg")];
 
 await Function.getAddress().then(address => {
     UserDatabase.findUserByAddress(address).then(result => {
@@ -59,6 +52,15 @@ await Function.getAddress().then(address => {
         }
     });
 });
+
+// Account Page 
+const fname = document.getElementById("fname");
+const lname = document.getElementById("lname");
+const email = document.getElementById("email");
+const username = document.getElementById("username");
+const bio = document.getElementById("Bio");
+const profile = document.getElementById("profile");
+const profilePicture = [...document.getElementsByClassName("profileImg")];
 
 fname.oninput = (e) => {
     const value = e.target.value;
@@ -136,6 +138,87 @@ repeatPassword.oninput = (e) => {
         password.repeatPassword = value;
     }
 };
+
+// Business Page
+const banner = document.getElementById("banner");
+const bannerImg = document.getElementById("bannerImg");
+const bName = document.getElementById("bname");
+const bEmail = document.getElementById("bemail");
+const bWebsite = document.getElementById("bwebsite");
+const bAddress = document.getElementById("address");
+const bPhoneNumber = document.getElementById("phoneNumber");
+const bDescription = document.getElementById("bdescription");
+const bOthers = document.getElementById("others");
+const bOtherSelection = document.getElementById("otherSelection");
+const bHours = [...document.getElementById("hours").getElementsByClassName("time")];
+
+banner.onchange = async (e) => { 
+    bannerImg.src = URL.createObjectURL(e.target.files[0]);
+    await Function.convertImageToBase64(e.target.files[0]).then(result => business.banner = result);
+}
+
+bName.oninput = (e) => {
+    const value = e.target.value;
+    if (value !== undefined) {
+        business.name = value;
+    }
+}
+
+bEmail.oninput = (e) => {
+    const value = e.target.value;
+    if (value !== undefined) {
+        business.email = value;
+    }
+}
+
+bWebsite.oninput = (e) => {
+    const value = e.target.value;
+    if (value !== undefined) {
+        business.website = value;
+    }
+}
+
+bAddress.oninput = (e) => {
+    const value = e.target.value;
+    if (value !== undefined) {
+        business.address = value;
+    }
+}
+
+bPhoneNumber.oninput = (e) => { 
+    const value = e.target.value;
+    if (value !== undefined) {
+        business.contact = value;
+    }
+}
+
+bDescription.oninput = (e) => {
+    const value = e.target.value;
+    if (value !== undefined) {
+        business.description = value;
+    }
+}
+
+bOthers.onchange = async (e) => {
+    if (e.target.files !== undefined && e.target.files.length >= 1) {
+        for (const file of e.target.files) {
+            const photo = bOtherSelection.appendChild(document.createElement("img"));
+            photo.classList.add("otherImg");
+            photo.src = URL.createObjectURL(file);
+            await Function.convertImageToBase64(file).then(result => business.others.push(result));
+        }
+    }
+}
+
+bHours.forEach((elm, index) => {
+    elm.oninput = (e) => {
+        console.log(`There is input on the ${index} element.`);
+        const value = e.target.value;
+        if (value !== undefined) {
+            business.hours.fill(value, index, index + 1);
+        }
+    }
+});
 
 function viewAccount() {
     contentDivs.forEach((x) => x.style.display = "none");
@@ -226,6 +309,37 @@ async function save() {
                     });
                 }
 
+                return;
+            }
+        case "business":
+            { 
+                await Function.getAddress().then(address => {
+                    UserDatabase.findUserByAddress(address).then(user => {
+                        if (user.success) {
+                            ResturantDatabase.findResturantByOwnerId(user.model.id).then(restaurant => {
+                                if (restaurant.success) {
+                                    ResturantPageDatabase.findResturantPageByResturantId(restaurant.model.id).then(page => {
+                                        if (page.success) {
+                                            page.model.email = business.email.length === 0 ? page.model.email : business.email;
+                                            page.model.website = business.website.length === 0 ? page.model.website : business.website;
+                                            page.model.hours = business.hours.length;
+                                            page.model.address = business.address.length === 0 ? page.model.address : business.address;
+                                            page.model.contact = business.contact.length === 0 ? page.model.contact : business.contact;
+                                            page.model.description = business.description.length === 0 ? page.model.description : business.description;
+                                            page.model.banner = business.banner;
+                                            page.model.photos = business.others;
+                                            ResturantPageDatabase.updateResturantPage(page.model);
+                                        } else {
+                                            const newResturantPage = new Model.RestaurantPage(restaurant.model.id, business.email, business.website,
+                                                business.hours, business.address, business.contact, business.description, business.banner, business.others);
+                                            ResturantPageDatabase.insertResturantPage(newResturantPage);
+                                        }
+                                    })
+                                }
+                            })
+                        }
+                    });
+                });
                 return;
             }
         default:

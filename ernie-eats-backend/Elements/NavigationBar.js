@@ -58,9 +58,9 @@ class NavigationBar extends HTMLElement {
 
     async search(result, key) {
         if (result !== undefined && result.length !== 0 && key === "Enter") {
-            await ResturantDatabase.findAllResturants().then(resturants => {
-                if (resturants.success) {
-                    let found = resturants.model.find(value => value.name.toLowerCase() === result.toLowerCase());
+            await ResturantDatabase.findAllResturants().then(restaurants => {
+                if (restaurants.success) {
+                    let found = restaurants.model.find(value => value.name.toLowerCase() === result.toLowerCase());
                     if (found !== undefined) {
                         window.open(`business-page.html?page=${encodeURI(found.name)}&restaurant=${encodeURI(found.id)}`);
                     } else {

@@ -17,7 +17,7 @@ class CustomEvent extends HTMLElement {
 
         let title = this.getAttribute("event-name") || "Default Event";
         let description = this.getAttribute("event-description") || "Default Description";
-        const name = this.getAttribute("resturant-name") || "";
+        const name = this.getAttribute("restaurant-name") || "";
 
         if (name.length !== 0) {
             title += `- Hosted By ${name}`;
@@ -40,7 +40,7 @@ class CustomEvent extends HTMLElement {
     }
 
     static get observedAttributes() {
-        return ["resturant-name", "date", "event-name", "event-description"];
+        return ["restaurant-name", "date", "event-name", "event-description"];
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
