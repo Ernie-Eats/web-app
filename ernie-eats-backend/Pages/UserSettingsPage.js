@@ -29,30 +29,6 @@ buisnessButton.addEventListener("click", viewBuisness);
 const buttons = [...document.getElementsByClassName('save-button')];
 buttons.forEach(b => b.addEventListener('click', save));
 
-await Function.getAddress().then(address => {
-    UserDatabase.findUserByAddress(address).then(result => {
-        if (result.success) {
-            console.log(result.model);
-            if (!result.model.isBusinessOwner()) {
-                console.log("Not a business owner");
-                buisnessButton.style.display = "none";
-            }
-
-            fname.value = result.model.name.slice(0, result.model.name.indexOf(" "));
-            lname.value = result.model.name.slice(result.model.name.indexOf(" ") + 1);
-            email.value = result.model.email;
-            username.value = result.model.username;
-            UserSettingsDatabase.findUserSettingsPageById(result.model.id).then(page => {
-                if (page.success) {
-                    bio.value = page.model.bio;
-                    profilePicture.forEach(elm => elm.src = page.model.profile !== undefined && page.model.profile.length !== 0 ?
-                        page.model.profile : "../../ernie-eats-frontend/Images/defaultLogin.png");
-                }
-            });
-        }
-    });
-});
-
 // Account Page 
 const fname = document.getElementById("fname");
 const lname = document.getElementById("lname");
@@ -218,6 +194,45 @@ bHours.forEach((elm, index) => {
             business.hours.fill(value, index, index + 1);
         }
     }
+});
+
+await Function.getAddress().then(address => {
+    UserDatabase.findUserByAddress(address).then(result => {
+        if (result.success) {
+            if (!result.model.isBusinessOwner()) {
+                buisnessButton.style.display = "none";
+            } else {
+                ResturantDatabase.findResturantByOwnerId(result.model.id).then(rest => {
+                    if (rest.success) {
+                        ResturantPageDatabase.findResturantPageByResturantId(rest.model.id).then(page => {
+                            if (page.success) {
+                                bName.value = rest.model.name;
+                                bEmail.value = page.model.email;
+                                bWebsite.value = page.model.website;
+                                bAddress.value = page.model.address;
+                                bDescription.value = page.model.description;
+                                if (page.model.hours !== undefined && page.model.hours.length === 14) {
+                                    bHours.forEach((elm, index) => elm.value = page.model.hours[index]);
+                                }
+                            }
+                        });
+                    }
+                });
+            }
+
+            fname.value = result.model.name.slice(0, result.model.name.indexOf(" "));
+            lname.value = result.model.name.slice(result.model.name.indexOf(" ") + 1);
+            email.value = result.model.email;
+            username.value = result.model.username;
+            UserSettingsDatabase.findUserSettingsPageById(result.model.id).then(page => {
+                if (page.success) {
+                    bio.value = page.model.bio;
+                    profilePicture.forEach(elm => elm.src = page.model.profile !== undefined && page.model.profile.length !== 0 ?
+                        page.model.profile : "../../ernie-eats-frontend/Images/defaultLogin.png");
+                }
+            });
+        }
+    });
 });
 
 function viewAccount() {
