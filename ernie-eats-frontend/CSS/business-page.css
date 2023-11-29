@@ -1,3 +1,21 @@
+body {
+    position: relative;
+}
+
+.blur {
+    filter: blur(5px);
+    pointer-events: none;
+}
+
+.review {
+    position: absolute;
+    background-color: white;
+    filter: blur(0);
+    left: 35%;
+    top: 20%;
+    z-index: 999;
+}
+
 .container {
     display: flex;
     flex-wrap: wrap;
@@ -35,8 +53,7 @@
 
 
 .scroll-content {
-    display: flex;
-    align-content: center;
+    position: relative;
     padding: 10px;
     font-family: 'Helvetica Neue', sans-serif;
     font-size: 18px;
@@ -363,6 +380,9 @@ img.pillar-sliders {
           }
 
 #add-review {
+    position: absolute;
+    top: 0.7vh;
+    right: 1vw;
     margin-left: 35px;
     margin-top: 30px;
     background-color: #bf1f3b;
@@ -370,7 +390,7 @@ img.pillar-sliders {
     border: none;
     padding: 5px 10px;
     cursor: pointer;
-    transition: background-color 0.3s, color 0.3s, border 0.3s;
+    transition: background-color 0.3s, color 0.3s;
     font-size: 14px;
     font-weight: bold;
     height: 30px; 
