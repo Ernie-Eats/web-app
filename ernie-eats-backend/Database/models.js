@@ -144,7 +144,59 @@ class UserSettings {
             this.banner === userSettings.banner &&
             this.profile === userSettings.profile;
     }
-
 }
 
-export { User, Resturant, Review, ResturantPage, UserSettings };
+class Post {
+    constructor(title, description, restaurantId) {
+        this.title = title;
+        this.description = description;
+        this.restaurantId = restaurantId;
+    }
+
+    setId(id) {
+        this.id = id;
+    }
+
+    isValidPost() {
+        return this.title !== undefined &&
+            this.description !== undefined &&
+            this.restaurantId !== undefined;
+    }
+
+    equals(otherPost) {
+        return otherPost !== undefined &&
+            this.title === otherPost.title &&
+            this.description === otherPost.description &&
+            this.restaurantId === otherPost.restaurantId;
+    }
+}
+
+class Event {
+    constructor(title, description, dateTime, restauarntId) {
+        this.title = title;
+        this.description = description;
+        this.dateTime = dateTime;
+        this.restauarntId = restauarntId;
+    }
+
+    setId(id) {
+        this.id = id;
+    }
+
+    isValidEvent() {
+        return this.title !== undefined &&
+            this.description !== undefined &&
+            this.dateTime !== undefined &&
+            this.restauarntId !== undefined;
+    }
+
+    equals(otherEvent) {
+        return otherEvent !== undefined &&
+            this.title === otherEvent.title &&
+            this.description === otherEvent.description
+            this.dateTime === otherEvent.dateTime &&
+            this.restauarntId === otherEvent.restauarntId;
+    }
+}
+
+export { User, Resturant, Review, ResturantPage, UserSettings, Post, Event };

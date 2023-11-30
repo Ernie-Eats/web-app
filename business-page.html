@@ -6,12 +6,11 @@
     <script type="module" src="./ernie-eats-backend/Elements/NavigationBar.js"></script>
     <script type="module" src="./ernie-eats-backend/Pages/BusinessPage.js"></script>
     <script type="module" src="./ernie-eats-backend/Elements/SmallCustomerReview.js"></script>
+    <script type="module" src="./ernie-eats-backend/Elements/CustomPostingSection.js"></script>
     <script src="./ernie-eats-backend/Elements/CustomFooter.js"></script>
+    <script src="./ernie-eats-backend/Elements/CustomPost.js"></script>
     <link rel="stylesheet" href="./ernie-eats-frontend/CSS/theme.css">
     <link rel="stylesheet" href="./ernie-eats-frontend/CSS/business-page.css">
-    <script src="./ernie-eats-backend/Elements/CustomPost.js"></script>
-    <script src="./ernie-eats-backend/Elements/CustomPostingSection.js"></script>
-    <link rel="stylesheet" href="./ernie-eats-frontend/CSS/posting-section.css">
 </head>
 <body>
     <navigation-bar></navigation-bar>
@@ -72,19 +71,10 @@
     <div class="scroll-box-post">
         <div class="scroll-content">
             <h3>Posts: </h3>
-            <div id="posts-container">
-
-                <custom-post title="Post 1" description="This is a sample post." date="11-20-2023"></custom-post>
-
-                <custom-post title="Post 2" description="This is a sample post." date="11-20-2023"></custom-post>
-
-
-            </div>
+            <div id="posts-container"></div>
         </div>
     </div>
-    <div class="footer-container">
-        <custom-footer></custom-footer>
-    </div>
+    <custom-footer></custom-footer>
 </body>
 
 </html>

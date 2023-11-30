@@ -16,10 +16,10 @@
     <div class="body">
         <div class="sidebar">
             <img class="profileImg" src="./ernie-eats-frontend/Images/defaultLogin.png" />
-            <br><button id="account_button" class="tab active" onclick="selectTab('Account')"> Account </button>
-            <button id="general_button" class="tab" onclick="selectTab('General')"> General </button>
-            <button id="password_button" class="tab" onclick="selectTab('Password')"> Password </button>
-            <button id="business_button" class="tab" onclick="selectTab('Business')"> Business </button>
+            <br><button id="account_button" class="active"> Account </button>
+            <button id="general_button"> General </button>
+            <button id="password_button"> Password </button>
+            <button id="business_button"> Business </button>
         </div>
 
         <h1 id="user"></h1>
@@ -57,7 +57,7 @@
 
                 <div class="form-group ">
                     <label for="Bio">Bio</label><br />
-                    <textarea placeholder="Bio..." rows="5" cols="10" id="aboutDescription"
+                    <textarea id="Bio" placeholder="Bio..." rows="5" cols="10" id="aboutDescription"
                               style="resize: none;"></textarea>
                 </div>
 
@@ -137,17 +137,3 @@
 </body>
 
 </html>
-
-<script>
-    //makes active tab red
-    function selectTab(tabType) {
-        const tabs = document.querySelectorAll('.tab');
-        tabs.forEach(tab => {
-            tab.classList.remove('active');
-        });
-
-        const selectedTab = Array.from(tabs).find(tab => tab.innerText === tabType);
-        selectedTab.classList.add('active');
-    }
-
-</script>
