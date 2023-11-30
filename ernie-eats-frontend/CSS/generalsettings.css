@@ -24,7 +24,33 @@ body.dark-mode {
     grid-row-start: 1;
     grid-row-end: 4;
     background-color: #686868;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
     max-height: 100vh;
+}
+
+.sidebar * {
+    position: relative;
+    top: -25vh;
+}
+
+.sidebar img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #686868;
+}
+
+.sidebar button {
+    width: 100%;
+    padding: 25px;
+    margin-bottom: 0px;
+    background-color: #686868;
+    color: #fff;
+    border: none;
+    font-size: 16px;
 }
 
 .center {
@@ -42,34 +68,15 @@ body.dark-mode {
     display: none;
 }
 
-img {
-    scale: 48%;
-    margin-left: -35px;
-    position: relative;
-    top: -48px;
-    border-radius: 50%;
-    background-color: #686868;
+.profileImg {
+    width: 100px;
+    height: 100px;
+    border-radius: 30%;
 }
 
-.sidebar button {
-    display: flex;
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    display: block;
-    width: 100%;
-    padding: 25px;
-    position: relative;
-    top: -100px;
-    /* Add padding for spacing between buttons */
-    margin-bottom: 0px;
-    /* Add margin to separate buttons vertically */
-    background-color: #686868;
-    color: #fff;
-    border: none;
-    text-align: left;
-    font-size: 16px;
+.bannerImg {
+    width: 60%;
+    height: 100px;
 }
 
 
@@ -141,13 +148,6 @@ img {
 
 .cancel-button-profile:hover {
     background-color: #f1645a;
-}
-
-.profileImgSelection {
-    display: inline-block;
-    position: absolute;
-    top: 65vh;
-    left: 20vw;
 }
 
 input#theme-switch {

@@ -38,7 +38,7 @@ const bio = document.getElementById("Bio");
 const profile = document.getElementById("profile");
 const profilePicture = [...document.getElementsByClassName("profileImg")];
 const banner = document.getElementById("banner");
-const bannerPicture = document.querySelector(".profileBanner");
+const bannerPicture = document.querySelector(".bannerImg");
 
 await Function.getAddress().then(address => {
     UserDatabase.findUserByAddress(address).then(result => {
