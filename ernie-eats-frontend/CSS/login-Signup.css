@@ -89,7 +89,8 @@
 	.login-wrapper .signin:checked+.tab,
 	.login-wrapper .signup:checked+.tab {
 		color: #fff;
-		border-color: #8f6516;
+		border-color:#d4af37;
+		 /* #8f6516; */
 		cursor: pointer;
 	}
 

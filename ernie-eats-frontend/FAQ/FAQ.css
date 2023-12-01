@@ -41,9 +41,9 @@
 }
 
 .panel p {
-color: #000;
-font-size: 2rem;
-line-height: 1.4;
+  color: #000;
+  font-size: 2rem;
+  line-height: 1.4;
 }
 
 
@@ -62,7 +62,9 @@ line-height: 1.4;
    height:100%;
    background-color: #dcdcdc;
    /* #f6f2f2; */
-   font-family: 'Open Sans', sans-serif;
+   font-family: 600 16px/18px 'Open Sans', sans-serif;
+   /* Arial, Helvetica, sans-serif; */
+   /* 'Open Sans', sans-serif; */
   
  }
 
@@ -71,6 +73,8 @@ line-height: 1.4;
   .container h1{   
    color: #fff;
    text-align: center;
+   font-family: 600 16px/18px 'Open Sans', sans-serif;
+
   } 
 
  

@@ -1,38 +1,56 @@
-import * as ResturantDatabase from '../Database/ResturantDatabase.js';
-import * as ResturantPageDatabase from '../Database/ResturantPageDatabase.js';
+import * as RestaurantDatabase from '../Database/RestaurantDatabase.js';
+import * as RestaurantPageDatabase from '../Database/RestaurantPageDatabase.js';
 import * as ReviewsDatabase from '../Database/ReviewsDatabase.js';
 
 const urlParams = new URLSearchParams(window.location.search);
 const searchResults = urlParams.get("result").replace("%20", " ").split(",");
 const results = document.querySelector(".results");
+const restaurantResult = [];
 
-await ResturantDatabase.findAllResturants().then(resturants => {
-    if (resturants.success) {
+await RestaurantDatabase.findAllRestaurants().then(restaurants => {
+    if (restaurants.success) {
         for (const result of searchResults) {
-            resturants.model.forEach(async (resturant) => {
-                const keys = resturant.keywords.split(",").join("").split(" ");
+            restaurants.model.forEach(async (restaurant) => {
+                const keys = restaurant.keywords.split(",").join("").split(" ");
                 if (keys.find(value => value === result) !== undefined) {
-                    await createSearchResult(resturant);
+                    if (!restaurantResult.find(value => value.model === restaurant)) {
+                        restaurantResult.push({ valid: true, model: restaurant });
+                    }
+                } else {
+                    if (!restaurantResult.find(value => value.model === restaurant)) {
+                        restaurantResult.push({ valid: false, model: restaurant });
+                    }
                 }
             });
         }
     }
 });
 
-async function createSearchResult(resturant) {
+if (restaurantResult.length > 0) {
+    for (const r of restaurantResult.filter(value => value.valid)) {
+        console.log(r);
+        await createSearchResult(r.model);
+    }
+    results.appendChild(document.createElement("hr"));
+    restaurantResult.filter(value => !value.valid).forEach((r) => createSearchResult(r.model));
+}
+
+async function createSearchResult(restaurant) {
     let rating = 0;
     let image;
+    let description;
 
-    await ResturantPageDatabase.findResturantPageByResturantId(resturant.id).then(page => {
+    await RestaurantPageDatabase.findRestaurantPageByRestaurantId(restaurant.id).then(page => {
         if (page.success) {
             image = page.model.photos[0];
+            description = page.model.description;
         }
     });
 
-    await ReviewsDatabase.findReviewsByResturantId(resturant.id).then(reviews => {
+    await ReviewsDatabase.findReviewsByRestaurantId(restaurant.id).then(reviews => {
         if (reviews.success) {
             for (const review of reviews.model) {
-                rating = +(review.rating);
+                rating += +(review.rating);
             }
             rating /= reviews.model.length;
             rating = round(rating);
@@ -42,7 +60,7 @@ async function createSearchResult(resturant) {
     const wrapper = results.appendChild(document.createElement("div"));
     wrapper.classList.add("search-results-wrapper");
     wrapper.onclick = () => {
-        window.open(`business-page.html?page=${encodeURI(resturant.name)}&resturant=${encodeURI(resturant.id)}`);
+        window.open(`business-page.html?name=${encodeURIComponent(restaurant.name)}&restaurant=${encodeURI(restaurant.id)}`);
         window.close();
     };
 
@@ -50,7 +68,7 @@ async function createSearchResult(resturant) {
     result.classList.add("result-container");
 
     const resultImg = result.appendChild(document.createElement("img"));
-    resultImg.classList.add("resturant-picture");
+    resultImg.classList.add("restaurant-picture");
     resultImg.src = image !== undefined ? image : "./ernie-eats-frontend/Images/ErnieLogo.jpg";
 
     const infoContainer = result.appendChild(document.createElement("div"));
@@ -59,9 +77,9 @@ async function createSearchResult(resturant) {
     const nameAndRating = infoContainer.appendChild(document.createElement("div"));
     nameAndRating.classList.add("name-and-rating");
 
-    const resturantName = nameAndRating.appendChild(document.createElement("p"));
-    resturantName.classList.add("resturant-name");
-    resturantName.innerText = resturant.name;
+    const restaurantName = nameAndRating.appendChild(document.createElement("p"));
+    restaurantName.classList.add("restaurant-name");
+    restaurantName.innerText = restaurant.name;
 
     const ratingContainer = nameAndRating.appendChild(document.createElement("div"));
     ratingContainer.classList.add("rating-container");
@@ -73,9 +91,9 @@ async function createSearchResult(resturant) {
         star.classList.add("star");
     }
 
-    const description = infoContainer.appendChild(document.createElement("p"));
-    description.classList.add("description");
-    description.innerText = "This is a test description";
+    const descriptionElm = infoContainer.appendChild(document.createElement("p"));
+    descriptionElm.classList.add("description");
+    descriptionElm.innerText = description !== undefined ? description : "";
 }
 
 function round(num) {

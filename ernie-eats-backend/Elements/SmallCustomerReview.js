@@ -20,7 +20,7 @@ class SmallCustomerReview extends HTMLElement {
 
         const name = this.getAttribute("reviewer") || "Default Name";
         const title = this.getAttribute("reviewer-title") || "Default Title";
-        const resturantName = this.getAttribute("restaurant-name") || "Default Restaurant";
+        const restaurantName = this.getAttribute("restaurant-name") || "Default Restaurant";
         let review = this.getAttribute("reviewer-review") || "";
         const image = "./ernie-eats-frontend/Images/defaultLogin.png";
 
@@ -32,7 +32,7 @@ class SmallCustomerReview extends HTMLElement {
                     <img class="profile-picture" src=${image}>
                     <div class="profile-name">${name}</div>
                     <h3> ${title} </h3>
-                    <p id="restaurant-name"> ${resturantName} </p>
+                    <p id="restaurant-name"> ${restaurantName} </p>
                     <hr>
                     <p id="review"> ${review} </p>
                 </div>

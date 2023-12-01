@@ -4,13 +4,8 @@
     grid-template-columns: 10vw auto auto;
     grid-template-rows: auto auto auto;
     column-gap: 50px;
-    height: 120vh; 
+    height: 130vh; 
     background-color: white;
-}
-
-body.dark-mode {
-    background-color: #1a1a1a;
-    color: #ffffff;
 }
 
 .active {
@@ -24,7 +19,7 @@ body.dark-mode {
     grid-row-start: 1;
     grid-row-end: 4;
     background-color: #686868;
-    max-height: 120vh;
+    max-height: 130vh;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -66,6 +61,7 @@ body.dark-mode {
     grid-row-start: 1;
     grid-row-end: 4;
     display: none;
+    height: 140vh;
 }
 
 .profileImg {
@@ -74,10 +70,16 @@ body.dark-mode {
     border-radius: 30%;
 }
 
-.bannerImg {
+.bannerImg, #bbannerImg {
     width: 60%;
     height: 100px;
 }
+
+.otherImg {
+    width: 100px;
+    height: 100px;
+}
+
 
 
 .save-button {
@@ -170,7 +172,7 @@ input#theme-switch {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #ccc;
+    background-color:#ccc;
     -webkit-transition: .4s;
     transition: .4s;
     border-radius: 34px;

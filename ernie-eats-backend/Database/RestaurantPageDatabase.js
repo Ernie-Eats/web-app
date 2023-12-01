@@ -30,7 +30,7 @@ async function findAllRestaurantPages() {
 }
 
 async function insertRestaurantPage(restaurantPage) {
-    if (isValidResturantPage(restaurantPage)) {
+    if (isValidRestaurantPage(restaurantPage)) {
         const { resources } = await container.items.readAll().fetchAll();
         for (const item of resources) {
             if (restaurantPage.equals(item)) {
@@ -61,7 +61,7 @@ async function insertRestaurantPage(restaurantPage) {
 }
 
 async function updateRestaurantPage(restuarantPage) {
-    if (isValidUser(restuarantPage)) {
+    if (isValidRestaurantPage(restuarantPage)) {
         const { resources } = await container.items.readAll().fetchAll();
         for (const i of resources) {
             if (restuarantPage.id === i.id) {
@@ -108,8 +108,8 @@ async function deleteRestuarantPage(restaurantPage) {
     };
 }
 
-async function findResturantPageByResturantId(id) {
-    let returnObject = { success: false, model: undefined };
+async function findRestaurantPageByRestaurantId(id) {
+    let returnObject = { success: false, model: RestaurantPage.NULL };
     await findAllRestaurantPages().then(result => {
         if (result.success) {
             const found = result.model.find((page) => page.restaurantId === id);
@@ -121,4 +121,4 @@ async function findResturantPageByResturantId(id) {
     return returnObject;
 }
 
-export { deleteRestuarantPage, findAllResturantPages, findResturantPageByResturantId, insertResturantPage, updateResturantPage }
+export { deleteRestuarantPage, findAllRestaurantPages, findRestaurantPageByRestaurantId, insertRestaurantPage, updateRestaurantPage }

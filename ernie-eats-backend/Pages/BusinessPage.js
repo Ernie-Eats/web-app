@@ -1,21 +1,42 @@
 import * as ReviewDatabase from '../Database/ReviewsDatabase.js';
 import * as EventDatabase from '../Database/EventsDatabase.js';
+import * as RestaurantDatabase from '../Database/RestaurantDatabase.js';
+import * as RestaurantPageDatabase from '../Database/RestaurantPageDatabase.js';
 import * as PostDatabase from '../Database/PostDatabase.js';
 import * as UserDatabase from '../Database/UserDatabase.js';
 import * as Function from '../Database/functions.js';
 import { Review } from '../Database/models.js';
-import * as RestaurantDatabase from '../Database/ResturantDatabase.js';
+
  
 const urlParams = new URLSearchParams(window.location.search);
-const page = urlParams.get("page").replace("%20", " ");
-const id = urlParams.get("resturant").replace("%20", " ");
+const page = decodeURIComponent(urlParams.get("name"));
+const id = decodeURIComponent(urlParams.get("restaurant"));
 const reviewsDiv = document.getElementById("reviews");
 const rating = document.getElementById("rating");
 const stars = document.getElementById("stars");
 const addReview = document.getElementById("add-review");
+
+const address = document.getElementById("address");
+const hours = document.getElementById("hours");
+const phone = document.getElementById("phone");
+const website = document.getElementById("website");
+const banner = document.querySelector(".restaurant-picture");
+
+document.getElementById("name").innerText = page;
+document.querySelector(".overlay-text").innerText = page;
+document.getElementById("reviewHeader").innerText = `See ${page} Reviews: `;
+document.getElementById("imageHeader").innerText = `More images of ${page}: `;
+
 let userId = "";
 let starAverage = 0;
-document.getElementById("name").innerText = page;
+
+await Function.getAddress().then(address => {
+    UserDatabase.findUserByAddress(address).then(user => {
+        if (user.success) {
+            userId = user.model.id;
+        }
+    });
+});
 
 addReview.addEventListener("click", async () => {
     if (!document.querySelector(".container").classList.contains("blur")) {
@@ -73,7 +94,7 @@ addReview.addEventListener("click", async () => {
     }
 });
 
-await ReviewDatabase.findReviewsByResturantId(id).then(reviews => {
+await ReviewDatabase.findReviewsByRestaurantId(id).then(reviews => {
     if (reviews.success) {
         for (const review of reviews.model) { 
             UserDatabase.findUserById(review.userId).then(user => { 
@@ -106,14 +127,6 @@ await ReviewDatabase.findReviewsByResturantId(id).then(reviews => {
         rating.innerText = starAverage;
         createStars(starAverage, stars);
     }
-});
-
-await Function.getAddress().then(address => {
-    UserDatabase.findUserByAddress(address).then(user => {
-        if (user.success) {
-            userId = user.model.id;
-        }
-    });
 });
 
 function clickStar(ev, stars) {
@@ -154,16 +167,76 @@ function clickStar(ev, stars) {
     });
 }
 
-await RestaurantDatabase.findAllResturants().then(restaurants => {
-    if (restaurants.success) {
-        const found = restaurants.model.find(r => r.ownerId == userId) !== undefined;
-        if (found) {
+await RestaurantDatabase.findRestaurantByOwnerId(userId).then(restaurant => {
+    if (restaurant.success) {
+        console.log(restaurant);
+        console.log(restaurant.model.id === id);
+        if (restaurant.model.id === id) {
+            document.getElementById("add-review").style.display = "none";
+        } else {
             document.querySelector(".posting-section").style.display = "none";
             document.querySelector(".reviews-section").style.gridRowStart = 1;
             document.querySelector(".reviews-section").style.height = "810px"; 
-        } else {
-            document.getElementById("add-review").style.display = "none";
         }
+    } else {
+        document.querySelector(".posting-section").style.display = "none";
+        document.querySelector(".reviews-section").style.gridRowStart = 1;
+        document.querySelector(".reviews-section").style.height = "810px"; 
+    }
+});
+
+await RestaurantPageDatabase.findRestaurantPageByRestaurantId(id).then(p => {
+    if (p.success) {
+        address.innerHTML = `${p.model.address} <br> Bridgewater, VA 22812`;
+        banner.src = p.model.banner;
+        const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+        let html = '';
+
+        for (let i = 0; i < 7; i++) {
+            let starting = p.model.hours[2 * i];
+            let ending = p.model.hours[(2 * i) + 1];
+            html += `${days[i]}: `
+            if (starting.length === 0 && ending.length === 0) {
+                    html += `Closed <br>`;
+            } else {
+                if (+(starting.slice(0, 2)) < 12) {
+                    if (+(starting.slice(0, 2)) == 0) {
+                        starting = "12:00";
+                    }
+                    starting += "AM"
+                } else if (+(starting.slice(0, 2)) === 12) {
+                    starting += "PM"
+                } else {
+                    starting = `${(+(starting.slice(0,2)) - 12).toString()}${starting.slice(2)}PM`
+                }
+
+                if (+(ending.slice(0, 2)) <= 12) {
+                    if (+(ending.slice(0, 2)) == 0) {
+                        ending = "12:00";
+                    }
+                    ending += "AM"
+                } else if (+(ending.slice(0, 2)) === 12) {
+                    ending += "PM"
+                }  else {
+                    ending = `${(+(ending.slice(0,2)) - 12).toString()}${ending.slice(2)}PM`
+                }
+
+                html += `${starting} - ${ending} <br>`;
+            }
+        }
+
+        hours.innerHTML = html;
+        phone.innerText = `Phone: ${p.model.contact}`;
+        p.model.photos.forEach(photo => {
+            const pic = document.querySelector(".more-pictures").appendChild(document.createElement("img"));
+            pic.classList.add("pillar-food");
+            pic.src = photo;
+        });
+
+        website.href = p.model.website;
+        website.innerText = p.model.website;
+
+
     }
 });
 

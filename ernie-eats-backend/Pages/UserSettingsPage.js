@@ -1,15 +1,15 @@
 import * as UserDatabase from '../Database/UserDatabase.js';
 import * as UserSettingsDatabase from '../Database/UserSettingsDatabase.js';
-import * as ResturantDatabase from '../Database/ResturantDatabase.js';
-import * as ResturantPageDatabase from '../Database/ResturantPageDatabase.js';
+import * as RestaurantDatabase from '../Database/RestaurantDatabase.js';
+import * as RestaurantPageDatabase from '../Database/RestaurantPageDatabase.js';
 import * as Model from '../Database/models.js';
 import * as Function from '../Database/functions.js';
 
 let activePage = "account";
-const account = { firstName: "", lastName: "", email: "", username: "", bio: "", profile: undefined, banner: undefined };
+const account = { firstName: "", lastName: "", email: "", username: "", bio: "", profile: "", banner: "" };
 const general = { darkTheme: false };
 const password = { currentPassword: "", newPassword: "", repeatPassword: "" };
-const business = { banner: undefined, name: "", email: "", website: "", address: "", contact: "", hours: new Array(14).fill(""), description: "", others: new Array()};
+const business = { banner: "", name: "", email: "", website: "", address: "", contact: "", hours: new Array(14).fill(""), description: "", others: new Array()};
 
 const contentDivs = [...document.getElementsByClassName("content")];
 contentDivs[0].style.display = "block";
@@ -94,6 +94,7 @@ const themeLabel = document.getElementById("theme-display");
 theme.onclick = () => {
     general.darkTheme = !general.darkTheme;
     document.body.classList.toggle("dark-mode");
+    localStorage.setItem('darkTheme', !general.darkTheme);
     themeLabel.innerText = general.darkTheme ? "Dark Theme" : "Light Theme";
 };
 
@@ -125,8 +126,8 @@ repeatPassword.oninput = (e) => {
 };
 
 // Business Page
-const banner = document.getElementById("banner");
-const bannerImg = document.getElementById("bannerImg");
+const bbanner = document.getElementById("bbanner");
+const bbannerImg = document.getElementById("bbannerImg");
 const bName = document.getElementById("bname");
 const bEmail = document.getElementById("bemail");
 const bWebsite = document.getElementById("bwebsite");
@@ -137,8 +138,8 @@ const bOthers = document.getElementById("others");
 const bOtherSelection = document.getElementById("otherSelection");
 const bHours = [...document.getElementById("hours").getElementsByClassName("time")];
 
-banner.onchange = async (e) => { 
-    bannerImg.src = URL.createObjectURL(e.target.files[0]);
+bbanner.onchange = async (e) => { 
+    bbannerImg.src = URL.createObjectURL(e.target.files[0]);
     await Function.convertImageToBase64(e.target.files[0]).then(result => business.banner = result);
 }
 
@@ -211,11 +212,13 @@ await Function.getAddress().then(address => {
             if (!result.model.isBusinessOwner()) {
                 buisnessButton.style.display = "none";
             } else {
-                ResturantDatabase.findResturantByOwnerId(result.model.id).then(rest => {
+                RestaurantDatabase.findRestaurantByOwnerId(result.model.id).then(rest => {
+                    console.log(rest);
                     if (rest.success) {
-                        ResturantPageDatabase.findResturantPageByResturantId(rest.model.id).then(page => {
+                        bName.value = rest.model.name;
+                        RestaurantPageDatabase.findRestaurantPageByRestaurantId(rest.model.id).then(page => {
+                            console.log(page);
                             if (page.success) {
-                                bName.value = rest.model.name;
                                 bEmail.value = page.model.email;
                                 bWebsite.value = page.model.website;
                                 bAddress.value = page.model.address;
@@ -290,11 +293,14 @@ async function save() {
                             result.model.email = account.email.length === 0 ? result.model.email : account.email;
                             UserDatabase.updateUser(result.model);
                             UserSettingsDatabase.findUserSettingsPageById(result.model.id).then(page => {
+                                console.log(page);
                                 if (page.success) {
+                                    console.log(account);
                                     page.model.bio = account.bio;
                                     page.model.profile = account.profile;
                                     page.model.banner = account.banner;
                                     UserSettingsDatabase.updateUserPage(page.model).then(r => {
+                                        console.log(r);
                                         if (r.success) {
                                             history.go();
                                         }
@@ -317,7 +323,7 @@ async function save() {
                             UserSettingsDatabase.findUserSettingsPageById(result.model.id).then(page => {
                                 if (page.success) {
                                     page.model.isDarkTheme = general.lightMode;
-                                    UserSettingsDatabase.updateUserPage(page.model);
+                                    UserSettingsDatabase.updateUserPage(page.model).then(p => history.go());
                                 }
                             });
                         }
@@ -347,23 +353,23 @@ async function save() {
                 await Function.getAddress().then(address => {
                     UserDatabase.findUserByAddress(address).then(user => {
                         if (user.success) {
-                            ResturantDatabase.findResturantByOwnerId(user.model.id).then(restaurant => {
+                            RestaurantDatabase.findRestaurantByOwnerId(user.model.id).then(restaurant => {
                                 if (restaurant.success) {
-                                    ResturantPageDatabase.findResturantPageByResturantId(restaurant.model.id).then(page => {
+                                    RestaurantPageDatabase.findRestaurantPageByRestaurantId(restaurant.model.id).then(page => {
                                         if (page.success) {
                                             page.model.email = business.email.length === 0 ? page.model.email : business.email;
                                             page.model.website = business.website.length === 0 ? page.model.website : business.website;
-                                            page.model.hours = business.hours.length;
+                                            page.model.hours = business.hours;
                                             page.model.address = business.address.length === 0 ? page.model.address : business.address;
                                             page.model.contact = business.contact.length === 0 ? page.model.contact : business.contact;
                                             page.model.description = business.description.length === 0 ? page.model.description : business.description;
                                             page.model.banner = business.banner;
                                             page.model.photos = business.others;
-                                            ResturantPageDatabase.updateResturantPage(page.model);
+                                            RestaurantPageDatabase.updateRestaurantPage(page.model);
                                         } else {
-                                            const newResturantPage = new Model.RestaurantPage(restaurant.model.id, business.email, business.website,
+                                            const newRestaurantPage = new Model.RestaurantPage(restaurant.model.id, business.email, business.website,
                                                 business.hours, business.address, business.contact, business.description, business.banner, business.others);
-                                            ResturantPageDatabase.insertResturantPage(newResturantPage);
+                                            RestaurantPageDatabase.insertRestaurantPage(newRestaurantPage);
                                         }
                                     })
                                 }

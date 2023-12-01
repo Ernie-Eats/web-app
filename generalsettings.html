@@ -7,12 +7,15 @@
     <script type="module" src="./ernie-eats-backend/Elements/NavigationBar.js"></script>
     <script type="module" src="./ernie-eats-backend/Pages/UserSettingsPage.js"></script>
     <script type="module" src="./ernie-eats-backend/Elements/CustomFooter.js"></script>
+    <script src="./ernie-eats-backend/Elements/DarkTheme.js"></script>
     <link rel="stylesheet" href="./ernie-eats-frontend/CSS/theme.css">
     <link rel="stylesheet" href="./ernie-eats-frontend/CSS/generalsettings.css">
+    <link rel="stylesheet" href="./ernie-eats-frontend/CSS/theme.css"> 
 </head>
 
 <body>
     <navigation-bar></navigation-bar>
+    <!-- <button id="themeToggle">Theme</button> -->
     <div class="body">
         <div class="sidebar">
             <img class="profileImg" src="./ernie-eats-frontend/Images/defaultLogin.png" />
@@ -39,7 +42,6 @@
                     <label for="Email">Email</label>
                     <input type="text" id="email" name="email" placeholder="Email..">
                 </div>
-
                 <div class="form-group">
                     <label for="Username">Username</label>
                     <input type="text" id="username" name="username" placeholder="Username..">
@@ -54,14 +56,10 @@
                     <input type="file" id="banner" name="banner">
                     <div class="bannerImgSelection"> <img class="bannerImg" /> </div>
                 </div>
-
                 <div class="form-group">
                     <label for="Bio">Bio</label><br />
-                    <textarea id="Bio" placeholder="Bio..." rows="5" cols="10" id="aboutDescription"
-                              style="resize: none;"></textarea>
+                    <textarea id="Bio" placeholder="Bio..." rows="5" cols="10" style="resize: none;"></textarea>
                 </div>
-
-
             </div>
 
             <button type="submit" class="save-button">Save</button>
@@ -71,6 +69,8 @@
 
         <div class="content" id="general">
             <h1> General Settings </h1>
+            <!-- <button id="themeToggle">Theme</button> -->
+           
             <div class="toggle-container">
                 <span class="toggle-label"></span>
                 <label class="theme-toggle" for="theme-switch">
@@ -86,7 +86,13 @@
             <button type="reset" class="cancel-button">Cancel</button>
 
 
+            
         </div>
+
+
+       
+    
+        
 
         <div class="content" id="password">
             <h1> Password Settings </h1>
@@ -111,9 +117,9 @@
 
         <div class="content" id="business">
             <h1> Business Settings Page </h1>
-            <label for="banner"> Update Business Banner </label>
-            <input type="file" id="banner" name="banner">
-            <div id="bannerSelection"> <img id="bannerImg" /> </div>
+            <label for="bbanner"> Update Business Banner </label>
+            <input type="file" id="bbanner" name="bbanner">
+            <div id="bbannerSelection"> <img id="bbannerImg" /> </div>
 
             <label for="bname">Business Name</label>
             <input type="text" id="bname" name="businessName" placeholder="Business name...">

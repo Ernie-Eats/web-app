@@ -48,7 +48,7 @@ class Restaurant {
         this.id = id;
     }
 
-    isValidResturant() {
+    isValidRestaurant() {
         return this.name !== undefined &&
             this.menu !== undefined &&
             this.ownerId !== undefined &&
@@ -59,8 +59,8 @@ class Restaurant {
         return restaurant !== undefined &&
                 this.name === restaurant.name && 
                 this.menu === restaurant.menu && 
-                this.ownerId === resturant.ownerId && 
-                this.keywords === resturant.keywords;
+                this.ownerId === restaurant.ownerId && 
+                this.keywords === restaurant.keywords;
     }
 }
 
@@ -116,7 +116,7 @@ class RestaurantPage {
         this.id = id;
     }
 
-    isValidResturantPage() {
+    isValidRestaurantPage() {
         return this.restaurantId !== undefined;
     }
 
@@ -218,4 +218,4 @@ class Event {
     }
 }
 
-export { User, Restaurant, Review, RestaurantPage, UserSettings };
+export { User, Restaurant, Review, RestaurantPage, UserSettings, Event, Post };

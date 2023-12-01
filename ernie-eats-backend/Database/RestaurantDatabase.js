@@ -8,10 +8,10 @@ const client = new CosmosClient({ endpoint, key });
 const { database } = await client.databases.createIfNotExists({ id: "Ernie-Eats" });
 const { container } = await database.containers.createIfNotExists({ id: "restaurants" }); 
 
-function isValidResturant(restaurant) {
+function isValidRestaurant(restaurant) {
     if (restaurant !== undefined &&
         restaurant instanceof Restaurant &&
-        restaurant.isValidResturant()) {
+        restaurant.isValidRestaurant()) {
             return true;
     }
     return false;
@@ -21,18 +21,18 @@ async function findAllRestaurants() {
     let restaurants = [];
     const { resources } = await container.items.readAll().fetchAll();
     for (const item of resources) {
-        let resturant = new Restaurant(item.name, item.menu, item.ownerId, item.keywords);
-        resturant.id = item.id
-        restaurants.push(resturant);
+        let restaurant = new Restaurant(item.name, item.menu, item.ownerId, item.keywords);
+        restaurant.id = item.id
+        restaurants.push(restaurant);
     }
     return { success: true, model: restaurants };
 }
 
 async function insertRestaurant(restaurant) {
-    if (isValidResturant(restaurant)) {
+    if (isValidRestaurant(restaurant)) {
         const { resources } = await container.items.readAll().fetchAll();
         for (const item of resources) {
-            if (resturant.equals(item)) {
+            if (restaurant.equals(item)) {
                 let model = new Restaurant(item.name, item.menu, item.ownerId, item.keywords);
                 model.id = item.id
                 return {
@@ -43,8 +43,8 @@ async function insertRestaurant(restaurant) {
             }
         }
 
-        const { item } = await container.items.create(resturant);
-        let model = new Resturant(item.name, item.menu, item.ownerId, item.keywords);
+        const { item } = await container.items.create(restaurant);
+        let model = new Restaurant(item.name, item.menu, item.ownerId, item.keywords);
         model.id = item.id
         return { success: true, 
             message: "Created restaurant in Database", 
@@ -58,7 +58,7 @@ async function insertRestaurant(restaurant) {
 }
 
 async function deleteRestaurant(restaurant) {
-    if (isValidResturant(restaurant)) {
+    if (isValidRestaurant(restaurant)) {
         const { resources } = await container.items.readAll().fetchAll();
         for (const i of resources) {
             if (restaurant.equals(i)) {
@@ -88,10 +88,11 @@ async function deleteRestaurant(restaurant) {
 }
 
 async function findRestaurantByOwnerId(id) {
-    let returnObject = { success: false, model: undefined };
+    let returnObject = { success: false, model: Restaurant.NULL };
     await findAllRestaurants().then(result => {
         if (result.success) {
             console.log(result.model);
+            console.log(id);
             const found = result.model.find((restaurant) => restaurant.ownerId === id);
             if (found !== undefined) {
                 returnObject = { success: true, model: found };

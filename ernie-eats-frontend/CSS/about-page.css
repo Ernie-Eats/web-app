@@ -5,13 +5,16 @@
     max-width: 892px;
     margin: 0 auto;
     padding: 20px;
-    padding-top: 50px;
+    padding-top: 5px;
+    /* 50px; */
     font-size: 120%;
 }
 
 body {
     background-color: #dcdcdc;
-    font-family: 'Helvetica Neue', sans-serif;
+    font-family:Arial, Helvetica, sans-serif;
+    /* 'Open Sans', sans-serif; */
+    /* 'Helvetica Neue', sans-serif; */
     margin: 0;
 }
 
@@ -60,7 +63,7 @@ body {
 
     .contact-info a {
         text-decoration: none;
-        color: #e4ce52;
+        color:#e4ce52; 
     }
 
 .copyright {
@@ -70,7 +73,8 @@ body {
 }
 
     .copyright p {
-        font-family: 'Helvetica Neue', sans-serif;
+        font-family: Arial, Helvetica, sans-serif;
+        /* 'Helvetica Neue', sans-serif; */
         position: absolute;
         width: 100%;
         text-align: center;
@@ -195,3 +199,31 @@ body {
       footer-section-contact-form textarea{
         padding-bottom: 10px;
       }
+
+      .dark-theme {
+        background-color: #111;
+        color: #fff;
+
+    }
+
+   .dark-theme .about-title {
+      color: rgb(255, 255, 255);
+      padding: 10px;
+  }
+
+  .dark-theme .about-info {
+    color: rgb(255, 255, 255);
+}
+
+.dark-theme.who-title {
+  color: rgb(255, 255, 255);
+}
+
+.dark-theme.who-info {
+  color: rgb(255, 255, 255);
+}
+
+.dark-theme .contact-title {
+    color: white;
+  
+}

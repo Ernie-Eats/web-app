@@ -1,3 +1,7 @@
+.results {
+    min-height: 100vh;
+}
+
 .search-results-wrapper {
     display: flex;
     align-items: center;
@@ -56,6 +60,8 @@
 .rating-container {
     display: flex;
     align-items: center;
+    position: relative;
+    top: 10px;
     margin-right: 10px;
 }
 
@@ -63,7 +69,6 @@
     width: 20px;
     height: 20px;
     border-radius: 80%;
-    margin-bottom: 2px;
 }
 
 .description {
