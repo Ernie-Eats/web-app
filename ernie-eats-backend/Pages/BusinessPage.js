@@ -1,18 +1,21 @@
 import * as ReviewDatabase from '../Database/ReviewsDatabase.js';
+import * as EventDatabase from '../Database/EventsDatabase.js';
+import * as PostDatabase from '../Database/PostDatabase.js';
 import * as UserDatabase from '../Database/UserDatabase.js';
 import * as Function from '../Database/functions.js';
 import { Review } from '../Database/models.js';
+import * as RestaurantDatabase from '../Database/ResturantDatabase.js';
  
 const urlParams = new URLSearchParams(window.location.search);
 const page = urlParams.get("page").replace("%20", " ");
-const id = urlParams.get("restaurant").replace("%20", " ");
-document.getElementById("name").innerText = page;
+const id = urlParams.get("resturant").replace("%20", " ");
 const reviewsDiv = document.getElementById("reviews");
 const rating = document.getElementById("rating");
 const stars = document.getElementById("stars");
 const addReview = document.getElementById("add-review");
 let userId = "";
 let starAverage = 0;
+document.getElementById("name").innerText = page;
 
 addReview.addEventListener("click", async () => {
     if (!document.querySelector(".container").classList.contains("blur")) {
@@ -151,6 +154,36 @@ function clickStar(ev, stars) {
     });
 }
 
+await RestaurantDatabase.findAllResturants().then(restaurants => {
+    if (restaurants.success) {
+        const found = restaurants.model.find(r => r.ownerId == userId) !== undefined;
+        if (found) {
+            document.querySelector(".posting-section").style.display = "none";
+            document.querySelector(".reviews-section").style.gridRowStart = 1;
+            document.querySelector(".reviews-section").style.height = "810px"; 
+        } else {
+            document.getElementById("add-review").style.display = "none";
+        }
+    }
+});
+
+await PostDatabase.findAllPosts().then(posts => {
+    if (posts.success) {
+        const restaurantPosts = posts.model.filter(value => value.restaurantId === id);
+        restaurantPosts.forEach(p => {
+            const post = document.getElementById("posts-container").appendChild(document.createElement("custom-post"));
+
+            const date = (new Date().getMonth() + 1).toString() + "-" +
+                new Date().getDate().toString() + "-" +
+                new Date().getFullYear().toString();
+
+            post.setAttribute("title", p.title);
+            post.setAttribute("description", p.description);
+            post.setAttribute("date", date);
+        });
+    }
+});
+
 function round(num) {
     let rounded = (Number)(num.toFixed(1));
     if (rounded - Math.trunc(num) === 0) {
@@ -164,14 +197,9 @@ function round(num) {
 
 function createStars(filledCount, wrapper) {
     for (let i = 0; i < 5; i++) {
-        if (i < Math.trunc(filledCount)) {
-            let star = wrapper.appendChild(document.createElement("img"));
-            star.src = "./ernie-eats-frontend/Images/filledStar.jpg";
-            star.setAttribute("class", "filled-star");
-        } else {
-            let star = wrapper.appendChild(document.createElement("img"));
-            star.src = "./ernie-eats-frontend/Images/unfilledStar.jpg";
-            star.setAttribute("class", "unfilled-star");
-        }
+        let star = wrapper.appendChild(document.createElement("img"));
+        star.src = i < Math.trunc(filledCount) ? "./ernie-eats-frontend/Images/filledStar.jpg"
+            : "./ernie-eats-frontend/Images/unfilledStar.jpg";
+        star.setAttribute("class", "filled-star");
     }
 }

@@ -21,7 +21,7 @@ async function findAllResturants() {
     let resturants = [];
     const { resources } = await container.items.readAll().fetchAll();
     for (const item of resources) {
-        let resturant = new Resturant(item.name, item.menu, item.owner, item.reviews);
+        let resturant = new Resturant(item.name, item.menu, item.owner, item.keywords);
         resturant.id = item.id
         resturants.push(resturant);
     }
@@ -33,7 +33,7 @@ async function insertResturant(resturant) {
         const { resources } = await container.items.readAll().fetchAll();
         for (const item of resources) {
             if (resturant.equals(item)) {
-                let model = new Resturant(item.name, item.menu, item.owner, item.reviews);
+                let model = new Resturant(item.name, item.menu, item.owner, items.keywords);
                 model.id = item.id
                 return {
                     success: true,
@@ -44,7 +44,7 @@ async function insertResturant(resturant) {
         }
 
         const { item } = await container.items.create(resturant);
-        let model = new Resturant(item.name, item.menu, item.owner, item.reviews);
+        let model = new Resturant(item.name, item.menu, item.owner, item.keywords);
         model.id = item.id
         return { success: true, 
             message: "Created resturant in Database", 
@@ -64,7 +64,7 @@ async function deleteResturant(resturant) {
             if (resturant.equals(i)) {
                 const { item } = await container.item(i.id).read();
                 await item.delete();
-                let model = new Resturant(item.name, item.menu, item.owner, item.reviews);
+                let model = new Resturant(item.name, item.menu, item.owner, item.keywords);
                 model.id = item.id
                 return { success: true, 
                             message: "Deleted Resturant from Database", 
@@ -73,7 +73,7 @@ async function deleteResturant(resturant) {
             } 
         }
 
-        let model = new Resturant(resturant.name, resturant.menu, resturant.owner, resturant.reviews);
+        let model = new Resturant(resturant.name, resturant.menu, resturant.owner, resturant.keywords);
         model.id = resturant.id
         return { success: true, 
                     message: "Could not find Resturant in Database", 

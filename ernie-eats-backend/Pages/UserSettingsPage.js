@@ -4,7 +4,7 @@ import * as Model from '../Database/models.js';
 import * as Function from '../Database/functions.js';
 
 let activePage = "account";
-const account = { firstName: "", lastName: "", email: "", username: "", bio: "", profile: undefined };
+const account = { firstName: "", lastName: "", email: "", username: "", bio: "", profile: undefined, banner: undefined };
 const general = { darkTheme: false };
 const password = { currentPassword: "", newPassword: "", repeatPassword: "" };
 const buisness = {};
@@ -24,6 +24,8 @@ passwordButton.addEventListener("click", viewPassword);
 const buisnessButton = document.getElementById("business_button");
 buisnessButton.addEventListener("click", viewBuisness);
 
+const sidebarButtons = [accountButton, generalButton, passwordButton, buisnessButton];
+
 const buttons = [...document.getElementsByClassName('save-button')];
 buttons.forEach(b => b.addEventListener('click', save));
 
@@ -35,6 +37,8 @@ const username = document.getElementById("username");
 const bio = document.getElementById("Bio");
 const profile = document.getElementById("profile");
 const profilePicture = [...document.getElementsByClassName("profileImg")];
+const banner = document.getElementById("banner");
+const bannerPicture = document.querySelector(".bannerImg");
 
 await Function.getAddress().then(address => {
     UserDatabase.findUserByAddress(address).then(result => {
@@ -100,6 +104,11 @@ profile.onchange = async (e) => {
     await Function.convertImageToBase64(e.target.files[0]).then(result => account.profile = result);
 }
 
+banner.onchange = async (e) => {
+    bannerPicture.src = URL.createObjectURL(e.target.files[0]);
+    await Function.convertImageToBase64(e.target.files[0]).then(result => account.banner = result);
+}
+
 // General Page
 const theme = document.getElementById("theme-switch");
 const themeLabel = document.getElementById("theme-display");
@@ -139,34 +148,40 @@ repeatPassword.oninput = (e) => {
 
 function viewAccount() {
     contentDivs.forEach((x) => x.style.display = "none");
+    sidebarButtons.forEach((x) => x.classList.remove('active'));
     document.getElementById("account").style.display = "block";
+    document.getElementById("account_button").classList.add("active");
     activePage = "account";
 }
 
 function viewGeneral() {
     contentDivs.forEach((x) => x.style.display = "none");
+    sidebarButtons.forEach((x) => x.classList.remove('active'));
     document.getElementById("general").style.display = "block";
+    document.getElementById("general_button").classList.add("active");
     activePage = "general";
 }
 
 function viewPassword() {
     contentDivs.forEach((x) => x.style.display = "none");
+    sidebarButtons.forEach((x) => x.classList.remove('active'));
     document.getElementById("password").style.display = "block";
+    document.getElementById("password_button").classList.add("active");
     activePage = "password";
 }
 
 function viewBuisness() {
     contentDivs.forEach((x) => x.style.display = "none");
+    sidebarButtons.forEach((x) => x.classList.remove('active'));
     document.getElementById("business").style.display = "block";
+    document.getElementById("business_button").classList.add("active");
     activePage = "business";
 }
 
 async function save() {
-    console.log("Save Button!");
     switch (activePage) {
         case "account":
             {
-                console.log("here!");
                 await Function.getAddress().then(address => {
                     UserDatabase.findUserByAddress(address).then(result => {
                         console.log(result);
@@ -180,13 +195,14 @@ async function save() {
                                 if (page.success) {
                                     page.model.bio = account.bio;
                                     page.model.profile = account.profile;
+                                    page.model.banner = account.banner;
                                     UserSettingsDatabase.updateUserPage(page.model).then(r => {
                                         if (r.success) {
                                             history.go();
                                         }
                                     });
                                 } else {
-                                    const newPage = new Model.UserSettings(result.model.id, account.bio, false, "", account.profile);
+                                    const newPage = new Model.UserSettings(result.model.id, account.bio, false, account.banner, account.profile);
                                     UserSettingsDatabase.insertUserPage(newPage).then(s => console.log(s));
                                 }
                             });

@@ -4,7 +4,6 @@
 		color: #6e6e6e;
 		background: #c8c8c8;
 		font: 600 16px/18px 'Open Sans', sans-serif;
-
 	}
 
 	*,
@@ -47,8 +46,6 @@
         transform: rotateY(180deg);
 		position: absolute;
 		backface-visibility: hidden;
-
-
 	}
 
 	.login-wrapper .tab,
@@ -94,7 +91,6 @@
 		color: #fff;
 		border-color: #8f6516;
 		cursor: pointer;
-		
 	}
 
 	.login-form {

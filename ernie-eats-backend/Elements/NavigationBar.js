@@ -62,9 +62,9 @@ class NavigationBar extends HTMLElement {
                 if (resturants.success) {
                     let found = resturants.model.find(value => value.name.toLowerCase() === result.toLowerCase());
                     if (found !== undefined) {
-                        window.open(`business-page.html?page=${encodeURI(found.name)}&restaurant=${encodeURI(found.id)}`);
+                        window.open(`business-page.html?page=${encodeURI(found.name)}&resturant=${encodeURI(found.id)}`);
                     } else {
-                        window.open(`search-results.html?result=${encodeURI(result)}`);
+                        window.open(`search-results.html?result=${encodeURI(result.split(" "))}`);
                     }
                     window.close();
                 }
