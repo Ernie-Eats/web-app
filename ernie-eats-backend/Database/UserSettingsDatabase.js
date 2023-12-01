@@ -39,7 +39,7 @@ async function findUserSettingsPageById(id) {
             }
         }
     }
-    return { success: false, model: undefined };
+    return { success: false, model: UserSettings.NULL };
 }
 
 async function insertUserPage(userPage) {
@@ -69,20 +69,16 @@ async function insertUserPage(userPage) {
     return {
         success: false,
         message: "Invalid Restuarant Page",
-        model: undefined
+        model: UserSettings.NULL
     };
 }
 
 async function updateUserPage(userPage) {
-    let result = { success: false, model: undefined }
+    let result = { success: false, model: UserSettings.NULL }
     if (isValidUserSettingsPage(userPage)) {
-        console.log("It is a valid User Page");
         const { resources } = await container.items.readAll().fetchAll();
         for (const i of resources) {
-            console.log(userPage.id);
-            console.log(i.id);
             if (userPage.id === i.id) {
-                console.log("Found a Page");
                 const { item } = await container.item(i.id).replace(userPage);
                 let model = new UserSettings(item.userId, item.bio, item.isDarkTheme, item.banner, item.profile);
                 model.setId(item.id);
@@ -122,7 +118,7 @@ async function deleteUserPage(userPage) {
     return {
         success: false,
         message: "Invalid Restaurant Page",
-        model: undefined
+        model: UserSettings.NULL
     };
 }
 

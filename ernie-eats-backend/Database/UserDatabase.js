@@ -53,7 +53,7 @@ async function insertUser(user) {
     }
     return { success: false, 
                 message: "Invalid User", 
-                model: undefined 
+                model: User.NULL 
     };
 }
 
@@ -69,7 +69,7 @@ async function updateUser(user) {
             }
         }
     }
-    return { success: false, model: undefined };
+    return { success: false, model: User.NULL };
 }
 
 async function deleteUser(user) {
@@ -98,7 +98,7 @@ async function deleteUser(user) {
 
     return { success: false, 
                 message: "Invalid User", 
-                model: undefined 
+                model: User.NULL 
     };
 }
 
@@ -112,7 +112,7 @@ async function deleteAllUsers() {
 }
 
 async function findUserByAddress(address) {
-    let result = { success: false, model: undefined }
+    let result = { success: false, model: User.NULL }
     await findAllUsers().then(users => {
         if (users.success) { 
             const found = users.model.find(value => value.address === address);
@@ -127,7 +127,7 @@ async function findUserByAddress(address) {
 }
 
 async function findUserByUsernamePassword(username, password) {
-    let returnObject = { success: false, model: undefined };
+    let returnObject = { success: false, model: User.NULL };
 
     await findAllUsers().then(result => {
         if (result.success) {
@@ -141,7 +141,7 @@ async function findUserByUsernamePassword(username, password) {
 }
 
 async function findUserByUsername(username) {
-    let returnObject = { success: false, model: undefined };
+    let returnObject = { success: false, model: User.NULL };
     await findAllUsers().then(result => {
         if (result.success) {
             const found = result.model.find((user) => user.username === username);
@@ -154,7 +154,7 @@ async function findUserByUsername(username) {
 }
 
 async function findUserById(id) {
-    let returnObject = { success: false, model: undefined };
+    let returnObject = { success: false, model: User.NULL };
     await findAllUsers().then(result => {
         if (result.success) {
             const found = result.model.find((user) => user.id === id);
@@ -167,7 +167,7 @@ async function findUserById(id) {
 }
 
 async function findUserByName(name) {
-    let returnObject = { success: false, model: undefined };
+    let returnObject = { success: false, model: User.NULL };
     await findAllUsers().then(result => {
         if (result.success) {
             const found = result.model.find((user) => user.name === name);

@@ -17,18 +17,18 @@ function isValidResturant(restaurant) {
     return false;
 }
 
-async function findAllResturants() {
+async function findAllRestaurants() {
     let restaurants = [];
     const { resources } = await container.items.readAll().fetchAll();
     for (const item of resources) {
         let resturant = new Restaurant(item.name, item.menu, item.ownerId, item.keywords);
         resturant.id = item.id
-        resturants.push(resturant);
+        restaurants.push(resturant);
     }
     return { success: true, model: restaurants };
 }
 
-async function insertResturant(restaurant) {
+async function insertRestaurant(restaurant) {
     if (isValidResturant(restaurant)) {
         const { resources } = await container.items.readAll().fetchAll();
         for (const item of resources) {
@@ -53,11 +53,11 @@ async function insertResturant(restaurant) {
     }
     return { success: false, 
                 message: "Invalid Restaurant", 
-                model: undefined 
+                model: Restaurant.NULL 
     };
 }
 
-async function deleteResturant(restaurant) {
+async function deleteRestaurant(restaurant) {
     if (isValidResturant(restaurant)) {
         const { resources } = await container.items.readAll().fetchAll();
         for (const i of resources) {
@@ -83,13 +83,13 @@ async function deleteResturant(restaurant) {
 
     return { success: false, 
                 message: "Invalid Restaurant", 
-                model: undefined 
+                model: Restaurant.NULL 
     };
 }
 
-async function findResturantByOwnerId(id) {
+async function findRestaurantByOwnerId(id) {
     let returnObject = { success: false, model: undefined };
-    await findAllResturants().then(result => {
+    await findAllRestaurants().then(result => {
         if (result.success) {
             console.log(result.model);
             const found = result.model.find((restaurant) => restaurant.ownerId === id);
@@ -101,7 +101,7 @@ async function findResturantByOwnerId(id) {
     return returnObject;
 }
 
-async function deleteAllResturants() {
+async function deleteAllRestaurants() {
     const { resources } = await container.items.readAll().fetchAll();
     for (const i of resources) {
         const { item } = await container.item(i.id).read();
@@ -110,4 +110,4 @@ async function deleteAllResturants() {
     return true;
 }
 
-export { insertResturant, findAllResturants, findResturantByOwnerId, deleteResturant, deleteAllResturants }
+export { insertRestaurant, findAllRestaurants, findRestaurantByOwnerId, deleteRestaurant, deleteAllRestaurants }

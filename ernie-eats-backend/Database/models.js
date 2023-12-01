@@ -9,6 +9,8 @@ class User {
         this.address = address;
     }
 
+    static NULL = new User(undefined, undefined, undefined, undefined, undefined, undefined, undefined);
+
     setId(id) {
         this.id = id;
     }
@@ -40,6 +42,8 @@ class Restaurant {
         this.keywords = keywords;
     }
 
+    static NULL = new Restaurant(undefined, undefined, undefined, undefined);
+
     setId(id) {
         this.id = id;
     }
@@ -68,6 +72,8 @@ class Review {
         this.restaurantId = restaurantId;
         this.userId = userId;
     }
+
+    static NULL = new Review(undefined, undefined, undefined, undefined, undefined);
 
     setId(id) {
         this.id = id;
@@ -104,6 +110,8 @@ class RestaurantPage {
         this.photos = Array.isArray(photos) ? photos : undefined;
     }
 
+    static NULL = new RestaurantPage(undefined, undefined, undefined, undefined, undefined);
+
     setId(id) {
         this.id = id;
     }
@@ -120,7 +128,8 @@ class RestaurantPage {
             this.address === restaurantPage.address &&
             this.contact === restaurantPage.contact &&
             this.description === restaurantPage.description &&
-            this.banner === restaurantPage.banner;
+            this.banner === restaurantPage.banner &&
+            restaurantPage.photos.every((value, index) => value === this.photos[index])
     }
 }
 
@@ -132,6 +141,8 @@ class UserSettings {
         this.banner = banner;
         this.profile = profile;
     }
+
+    static NULL = new UserSettings(undefined, undefined, undefined, undefined, undefined);
 
     setId(id) {
         this.id = id;

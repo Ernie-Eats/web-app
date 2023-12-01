@@ -8,17 +8,17 @@ const client = new CosmosClient({ endpoint, key });
 const { database } = await client.databases.createIfNotExists({ id: "Ernie-Eats" });
 const { container } = await database.containers.createIfNotExists({ id: "restaurantPage" });
 
-function isValidResturantPage(restaurantPage) {
+function isValidRestaurantPage(restaurantPage) {
     console.log(restaurantPage);
     if (restaurantPage !== undefined &&
         restaurantPage instanceof RestaurantPage &&
-        restaurantPage.isValidResturantPage()) {
+        restaurantPage.isValidRestaurantPage()) {
         return true;
     }
     return false;
 }
 
-async function findAllResturantPages() {
+async function findAllRestaurantPages() {
     let pages = [];
     const { resources } = await container.items.readAll().fetchAll();
     for (const item of resources) {
@@ -29,7 +29,7 @@ async function findAllResturantPages() {
     return { success: true, model: pages };
 }
 
-async function insertResturantPage(restaurantPage) {
+async function insertRestaurantPage(restaurantPage) {
     if (isValidResturantPage(restaurantPage)) {
         const { resources } = await container.items.readAll().fetchAll();
         for (const item of resources) {
@@ -56,11 +56,11 @@ async function insertResturantPage(restaurantPage) {
     return {
         success: false,
         message: "Invalid Restuarant Page",
-        model: undefined
+        model: RestaurantPage.NULL
     };
 }
 
-async function updateResturantPage(restuarantPage) {
+async function updateRestaurantPage(restuarantPage) {
     if (isValidUser(restuarantPage)) {
         const { resources } = await container.items.readAll().fetchAll();
         for (const i of resources) {
@@ -72,11 +72,11 @@ async function updateResturantPage(restuarantPage) {
             }
         }
     }
-    return { success: false, model: undefined };
+    return { success: false, model: RestaurantPage.NULL };
 }
 
 async function deleteRestuarantPage(restaurantPage) {
-    if (isValidResturantPage(restaurantPage)) {
+    if (isValidRestaurantPage(restaurantPage)) {
         const { resources } = await container.items.readAll().fetchAll();
         for (const i of resources) {
             if (restaurantPage.equals(i)) {
@@ -104,13 +104,13 @@ async function deleteRestuarantPage(restaurantPage) {
     return {
         success: false,
         message: "Invalid Restaurant Page",
-        model: undefined
+        model: RestaurantPage.NULL
     };
 }
 
 async function findResturantPageByResturantId(id) {
     let returnObject = { success: false, model: undefined };
-    await findAllResturantPages().then(result => {
+    await findAllRestaurantPages().then(result => {
         if (result.success) {
             const found = result.model.find((page) => page.restaurantId === id);
             if (found !== undefined) {
