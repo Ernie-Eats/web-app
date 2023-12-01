@@ -13,7 +13,7 @@ class CustomPost extends HTMLElement {
     
         const title = this.getAttribute('title') || 'Default Title';
         const description = this.getAttribute('description') || 'Default Description';
-        const date = this.getAttribute('date') || 'Unknown Date';
+        const date = this.getAttribute('date') || "Unknown Date";
 
         this.shadowRoot.innerHTML = `
             <div class="post">
