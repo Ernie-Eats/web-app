@@ -1,7 +1,7 @@
 class User {
     constructor(name, username, email, password, isBusiness, restaurantId, address) {
         this.name = name;
-        this.username = username;
+        this.username = username; 
         this.email = email;
         this.password = password;
         this.isBusiness = isBusiness;
