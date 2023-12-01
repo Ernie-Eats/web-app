@@ -84,6 +84,10 @@ class LoginPage extends HTMLElement {
         signinLabel.setAttribute("class", "label");
         signinLabel.innerText = "Keep me Signed in";
 
+        const toggleVisibilityLabel = signupPageWrapper.appendChild(document.createElement("label"));
+        toggleVisibilityLabel.setAttribute("for", "toggleVisibility");
+        toggleVisibilityLabel.innerText = "Show Password";
+
         const signinInput = keepSignedInGroup.appendChild(document.createElement("input"));
         signinInput.setAttribute("id", "check");
         signinInput.setAttribute("type", "checkbox");
