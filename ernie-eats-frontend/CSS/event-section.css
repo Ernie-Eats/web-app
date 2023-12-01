@@ -24,3 +24,7 @@ h4 {
     margin: 20px 20px 0 20px;
     font-size: 24px;
 }
+
+.dark-theme.div{
+    background-color: #111;
+}

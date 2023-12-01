@@ -12,7 +12,8 @@
 h3 {
     font: 600 18px 'Open Sans', sans-serif;
     margin: 0 40px 0 40px;
-    color: #4d4a4a;
+    color:black;
+    /* #4d4a4a; */
     font-size: 18px;
 }
 
@@ -20,4 +21,13 @@ p {
     margin: 10px 40px 10px 40px;
     font: 600 14px 'Open Sans', sans-serif;
     color: #4d4a4a
+}
+
+.dark-theme div{
+    background-color: #111;
+    color: #fff;
+}
+
+.dark-theme.div{
+    background-color: #111;
 }

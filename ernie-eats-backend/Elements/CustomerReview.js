@@ -20,7 +20,7 @@ class CustomerReview extends HTMLElement {
 
         const name = this.getAttribute("reviewer") || "Default Name";
         const title = this.getAttribute("reviewer-title") || "Default Title";
-        const resturantName = this.getAttribute("resturant-name") || "Default Resturant";
+        const restaurantName = this.getAttribute("restaurant-name") || "Default Restaurant";
         const rating = this.getAttribute("reviewer-rating") || 1;
         let review = this.getAttribute("reviewer-review") || "";
         const image = "./ernie-eats-frontend/Images/defaultLogin.png";
@@ -38,7 +38,7 @@ class CustomerReview extends HTMLElement {
                     <img class="profile-picture" src=${image}>
                     <div class="profile-name">${name}</div>
                     <h3> ${title} </h3>
-                    <p id="resturant-name"> ${resturantName} </p><hr>
+                    <p id="restaurant-name"> ${restaurantName} </p><hr>
                     <div id=star-wrapper></div>
                     <p> ${review} </p>
                 </div>
@@ -80,7 +80,7 @@ class CustomerReview extends HTMLElement {
     }
 
     static get observedAttributes() {
-        return ["resturant-name", "reviwer-title", "reviewer", "reviewer-date", "reviewer-rating", "reviewer-review"];
+        return ["restaurant-name", "reviwer-title", "reviewer", "reviewer-date", "reviewer-rating", "reviewer-review"];
     }
 
     async attributeChangedCallback(name, oldValue, newValue) {

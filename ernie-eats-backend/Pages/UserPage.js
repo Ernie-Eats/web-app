@@ -22,6 +22,7 @@ await Function.getAddress().then(address => {
             }
 
             UserSettingsDatabase.findUserSettingsPageById(user.model.id).then(settings => {
+                console.log(settings);
                 if (settings.success) {
                     profilePicture.src = settings.model.profile !== undefined && settings.model.profile.length !== 0 ?
                         settings.model.profile : "../../ernie-eats-frontend/Images/defaultLogin.png";

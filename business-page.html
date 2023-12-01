@@ -6,70 +6,57 @@
     <script type="module" src="./ernie-eats-backend/Elements/NavigationBar.js"></script>
     <script type="module" src="./ernie-eats-backend/Pages/BusinessPage.js"></script>
     <script type="module" src="./ernie-eats-backend/Elements/SmallCustomerReview.js"></script>
+    <script type="module" src="./ernie-eats-backend/Elements/CustomPostingSection.js"></script>
     <script src="./ernie-eats-backend/Elements/CustomFooter.js"></script>
+    <script src="./ernie-eats-backend/Elements/CustomPost.js"></script>
+    <script src="./ernie-eats-backend/Elements/DarkTheme.js"></script>
     <link rel="stylesheet" href="./ernie-eats-frontend/CSS/theme.css">
     <link rel="stylesheet" href="./ernie-eats-frontend/CSS/business-page.css">
-    <script src="./ernie-eats-backend/Elements/CustomPost.js"></script>
 </head>
 <body>
     <navigation-bar></navigation-bar>
-    <div class = "image-container">
+    <div class="image-container">
         <img class="restaurant-picture" src="./ernie-eats-frontend/Images/pillarCover.webp" img>
-        <div class = "overlay-text"> The Cracked Pillar</div>
+        <div class="overlay-text"> The Cracked Pillar</div>
     </div>
     <div class="container">
         <div class="restaurant-info">
             <h3>Restaurant Name: </h3>
             <p id="name"></p>
             <h3>Address: </h3>
-            <p>
-                403 N Main St <br />
-                Bridgewater, VA 22812
-            </p>
+            <p id="address"></p>
             <h3>Business Hours: </h3>
-            <p>
-                Monday: Closed <br />
-                Tuesday: Closed <br />
-                Wednesday: 11:00 AM - 10:00 PM <br />
-                Thursday: 11:00 AM - 12:00 AM <br />
-                Friday: 11:00 AM - 12:00 AM <br />
-                Saturday: 11:00 AM - 12:00 AM <br />
-                Sunday: 11:00 AM - 9:00 PM <br />
-            </p>
+            <p id="hours"></p>
             <h3>Contact Info: </h3>
-            <p id="phone"> Phone: (540)237-4563</p>
+            <p id="phone"> Phone: (540) 237-4563</p>
             <h3>Website: </h3>
-            <a href="https://www.thecrackedpillar.com/" target="_blank" id="website">thecrackedpillar.com</a>
+            <a target="_blank" id="website"></a>
             <h3>Average rating: </h3>
-            <div id="stars" class="stars"></div> 
+            <div id="stars" class="stars"></div>
             <span id="rating" class="rating-text"></span>
         </div>
-        <div class="scroll-box">
-            <div id="reviews" class="scroll-content">
-                <h3> See The Cracked Pillar's Reviews: </h3>
+
+        <div class="posting-section">
+            <post-section></post-section>
+        </div>
+        <div class="reviews-section">
+            <div class="scroll-box">
+                <div id="reviews" class="scroll-content">
+                    <h3 id="reviewHeader"> See The Cracked Pillar's Reviews: </h3>
+                    <button id="add-review">+</button>
+                </div>
             </div>
         </div>
+
         <div class="more-pictures">
-            <h3>More images of The Cracked Pillar: </h3>
-            <img class="pillar-food" src="./ernie-eats-frontend/Images/pillarFood.jpg" />
-            <img class="pillar-outside" src="./ernie-eats-frontend/Images/pillarOutside.jpg" />
-            <img class="pillar-sign" src="./ernie-eats-frontend/Images/pillarSign.jpg" />
-            <img class="pillar-sliders" src="./ernie-eats-frontend/Images/pillarSliders.jpg" />
-            <img class="pillar-decor" src="./ernie-eats-frontend/Images/pillarDecor.jpg" />
+            <h3 id="imageHeader"></h3>
         </div>
     </div>
+
     <div class="scroll-box-post">
         <div class="scroll-content">
             <h3>Posts: </h3>
-            <div id="posts-container">
-              
-                <custom-post title="Post 1" description="This is a sample post."
-                                date="2023-11-09"></custom-post>
-
-                <custom-post title="Post 2" description="This is a sample post."
-                                date="2023-11-10"></custom-post>
-
-            </div>
+            <div id="posts-container"></div>
         </div>
     </div>
     <custom-footer></custom-footer>

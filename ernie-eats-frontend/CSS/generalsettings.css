@@ -4,12 +4,13 @@
     grid-template-columns: 10vw auto auto;
     grid-template-rows: auto auto auto;
     column-gap: 50px;
-    height: 100vh; 
+    height: 130vh; 
+    background-color: white;
 }
 
-body.dark-mode {
-    background-color: #1a1a1a;
-    color: #ffffff;
+.active {
+    background-color: #94270c !important;
+    color: #fff !important;
 }
 
 .sidebar {
@@ -18,8 +19,33 @@ body.dark-mode {
     grid-row-start: 1;
     grid-row-end: 4;
     background-color: #686868;
-    max-height: 100vh;
-    
+    max-height: 130vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.sidebar * {
+    position: relative;
+    top: -25vh;
+}
+
+.sidebar img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #686868;
+}
+
+.sidebar button {
+    width: 100%;
+    padding: 25px;
+    margin-bottom: 0px;
+    background-color: #686868;
+    color: #fff;
+    border: none;
+    font-size: 16px;
 }
 
 .center {
@@ -35,40 +61,29 @@ body.dark-mode {
     grid-row-start: 1;
     grid-row-end: 4;
     display: none;
+    height: 140vh;
 }
 
-img {
-    height:100px;
-    width:100px;
-    padding-left: 35px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+.profileImg {
+    width: 100px;
+    height: 100px;
+    border-radius: 30%;
 }
 
-.sidebar button {
-    display: flex;
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    display: block; 
-    width: 100%; 
-    padding: 10px; /* Add padding for spacing between buttons */
-    margin-bottom: 10px; /* Add margin to separate buttons vertically */
-    background-color: #555; 
-    color: #fff; 
-    border: none;
-    text-align: left; 
+.bannerImg, #bbannerImg {
+    width: 60%;
+    height: 100px;
 }
-    
-.sidebar button:hover {
-    background-color: #94270c;
-    color:white
+
+.otherImg {
+    width: 100px;
+    height: 100px;
 }
+
+
 
 .save-button {
-    background-color: #4CAF50; 
+    background-color: #4CAF50;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -82,7 +97,7 @@ img {
 }
 
 .cancel-button {
-    background-color: #f44336; 
+    background-color: #f44336;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -94,8 +109,9 @@ img {
     cursor: pointer;
     border-radius: 5px;
 }
+
 .save-button-profile {
-    background-color: #4CAF50; 
+    background-color: #4CAF50;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -112,7 +128,7 @@ img {
 }
 
 .cancel-button-profile {
-    background-color: #f44336; 
+    background-color: #f44336;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -126,7 +142,6 @@ img {
     position: absolute;
     left: 25%;
     top: 93%;
-    
 }
 
 .save-button-profile:hover {
@@ -135,13 +150,6 @@ img {
 
 .cancel-button-profile:hover {
     background-color: #f1645a;
-}
-
-.profileImgSelection {
-    display: inline-block;
-    position: absolute;
-    top: 65vh;
-    left: 20vw;
 }
 
 input#theme-switch {
@@ -164,24 +172,24 @@ input#theme-switch {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #ccc;
+    background-color:#ccc;
     -webkit-transition: .4s;
     transition: .4s;
     border-radius: 34px;
 }
 
-#themeLabel:before {
-    position: absolute;
-    content: "";
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
-    -webkit-transition: .4s;
-    transition: .4s;
-    border-radius: 50%;
-}
+    #themeLabel:before {
+        position: absolute;
+        content: "";
+        height: 26px;
+        width: 26px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        -webkit-transition: .4s;
+        transition: .4s;
+        border-radius: 50%;
+    }
 
 input:checked + #themeLabel {
     background-color: #2196F3;
@@ -190,7 +198,7 @@ input:checked + #themeLabel {
 input:focus + #themeLabel {
     box-shadow: 0 0 1px #2196F3;
 }
-  
+
 input:checked + #themeLabel:before {
     -webkit-transform: translateX(26px);
     -ms-transform: translateX(26px);
@@ -202,12 +210,11 @@ input:checked + #themeLabel:before {
     position: relative;
     width: 60px;
     height: 30px;
-    
 }
 
-.switch input {
-    display: none;
-}
+    .switch input {
+        display: none;
+    }
 
 .slider {
     position: absolute;
@@ -221,25 +228,26 @@ input:checked + #themeLabel:before {
     transition: 0.4s;
 }
 
-.slider:before {
-    position: absolute;
-    content: "";
-    height: 26px;
-    width: 26px;
-    left: 2px;
-    bottom: 2px;
-    background-color: white;
-    border-radius: 50%;
-    transition: 0.4s;
-}
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 26px;
+        width: 26px;
+        left: 2px;
+        bottom: 2px;
+        background-color: white;
+        border-radius: 50%;
+        transition: 0.4s;
+    }
 
 input:checked + .slider {
     background-color: #2196F3;
 }
 
-input:checked + .slider:before {
-    transform: translateX(26px);
-}
+    input:checked + .slider:before {
+        transform: translateX(26px);
+    }
+
 
 .label {
     margin-left: 10px;
@@ -247,6 +255,43 @@ input:checked + .slider:before {
     vertical-align: middle;
 }
 
-.theme-toggle h2{
+.theme-toggle h2 {
     text-align: left;
+}
+
+input[type=text] {
+    border: none;
+    border-bottom: 2px solid #94270c;
+}
+
+input[type=textarea] {
+    border: none;
+    border: 2px solid #94270c;
+    width: 400px;
+    height: 100px;
+    border-radius: 3px;
+}
+
+input[type=text]:focus {
+    outline: none;
+}
+
+input[type=textarea]:focus {
+    outline: none;
+}
+
+
+.content-alignment {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 50px 100px;
+}
+
+.form-group {
+    width: 400px
+}
+
+#aboutDescription {
+    font-family: 'Open Sans', sans-serif;
+    border: 2px solid #94270c;
 }

@@ -28,18 +28,19 @@ async function findAllUserPages() {
     return { success: true, model: pages };
 }
 
-async function findUserSettingsPageById(id) {
-    if (id !== undefined || id !== null) {
-        const { resources } = await container.items.readAll().fetchAll();
-        for (const item of resources) {
-            if (item.userId === id) {
-                const model = new UserSettings(item.userId, item.bio, item.isDarkTheme, item.banner, item.profile);
-                model.setId(item.id);
-                return { success: true, model: model };
+async function findUserSettingsPageById(userId) {
+    let result = { success: false, model: UserSettings.NULL }
+    await findAllUserPages().then(pages => {
+        if (pages.success) { 
+            const found = pages.model.find(value => value.userId === userId);
+            if (found !== undefined) {
+                const model = new UserSettings(found.userId, found.bio, found.isDarkTheme, found.banner, found.profile);
+                model.setId(found.id);
+                result = { success: true, model: model };
             }
         }
-    }
-    return { success: false, model: undefined };
+    });
+    return result;
 }
 
 async function insertUserPage(userPage) {
@@ -69,23 +70,22 @@ async function insertUserPage(userPage) {
     return {
         success: false,
         message: "Invalid Restuarant Page",
-        model: undefined
+        model: UserSettings.NULL
     };
 }
 
 async function updateUserPage(userPage) {
-    let result = { success: false, model: undefined }
+    let result = { success: false, model: UserSettings.NULL }
+    console.log(isValidUserSettingsPage(userPage));
     if (isValidUserSettingsPage(userPage)) {
-        console.log("It is a valid User Page");
         const { resources } = await container.items.readAll().fetchAll();
         for (const i of resources) {
-            console.log(userPage.id);
-            console.log(i.id);
+            console.log(userPage.id === i.id);
             if (userPage.id === i.id) {
-                console.log("Found a Page");
                 const { item } = await container.item(i.id).replace(userPage);
-                let model = new UserSettings(item.userId, item.bio, item.isDarkTheme, item.banner, item.profile);
-                model.setId(item.id);
+                console.log(item);
+                let model = new UserSettings(userPage.userId, userPage.bio, userPage.isDarkTheme, userPage.banner, userPage.profile);
+                model.setId(userPage.id);
                 result = { success: true, model: model };
             }
         }
@@ -104,7 +104,7 @@ async function deleteUserPage(userPage) {
                 model.setId(item.id);
                 return {
                     success: true,
-                    message: "Deleted Resturant Page from Database",
+                    message: "Deleted Restaurant Page from Database",
                     model: model
                 };
             }
@@ -114,15 +114,15 @@ async function deleteUserPage(userPage) {
         model.setId(userPage.id);
         return {
             success: true,
-            message: "Could not find Resturant Page in Database",
+            message: "Could not find Restaurant Page in Database",
             model: model
         };
     }
 
     return {
         success: false,
-        message: "Invalid Resturant Page",
-        model: undefined
+        message: "Invalid Restaurant Page",
+        model: UserSettings.NULL
     };
 }
 

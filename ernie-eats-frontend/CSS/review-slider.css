@@ -6,6 +6,15 @@
     padding-top: 100px;
 }
 
+.dark-theme .slider{
+    box-shadow: #111;
+    color: #fff;
+}
+.dark-theme {
+    background-color: #111;
+    color: #fff;
+}
+
 #slider input[type=radio] {
     display: none;
 }
@@ -126,7 +135,8 @@
 #slide2:checked ~ #slides #bullets label:nth-child(2),
 #slide3:checked ~ #slides #bullets label:nth-child(3),
 #slide4:checked ~ #slides #bullets label:nth-child(4) {
-    background-color: #ffd700;
+    background-color: #d4af37;
+    /* #ffd700; */
 }
 
 @media screen and (max-width: 900px) {
