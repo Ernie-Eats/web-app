@@ -98,7 +98,7 @@ async function findReviewsByUserId(id) {
     return result;
 }
 
-async function findReviewsByResturantId(id) {
+async function findReviewsByRestaurantId(id) {
     let result = { success: false, model: Review.NULL };
     await findAllReviews().then(reviews => {
         if (reviews.success) {
@@ -109,4 +109,4 @@ async function findReviewsByResturantId(id) {
     return result;
 } 
 
-export { insertReview, findAllReviews, findReviewsByResturantId, findReviewsByUserId, deleteReview }
+export { insertReview, findAllReviews, findReviewsByRestaurantId, findReviewsByUserId, deleteReview }

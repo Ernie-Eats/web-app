@@ -1,6 +1,6 @@
 import * as UserDatabase from '../Database/UserDatabase.js';
 import * as UserSettingsDatabase from '../Database/UserSettingsDatabase.js';
-import * as ResturantDatabase from '../Database/ResturantDatabase.js';
+import * as RestaurantDatabase from '../Database/RestaurantDatabase.js';
 import * as Function from '../Database/functions.js';
 
 class NavigationBar extends HTMLElement {
@@ -58,11 +58,11 @@ class NavigationBar extends HTMLElement {
 
     async search(result, key) {
         if (result !== undefined && result.length !== 0 && key === "Enter") {
-            await ResturantDatabase.findAllResturants().then(restaurants => {
+            await RestaurantDatabase.findAllRestaurants().then(restaurants => {
                 if (restaurants.success) {
                     let found = restaurants.model.find(value => value.name.toLowerCase() === result.toLowerCase());
                     if (found !== undefined) {
-                        window.open(`business-page.html?page=${encodeURI(found.name)}&resturant=${encodeURI(found.id)}`);
+                        window.open(`business-page.html?page=${encodeURI(found.name)}&restaurant=${encodeURI(found.id)}`);
                     } else {
                         window.open(`search-results.html?result=${encodeURI(result.split(" "))}`);
                     }
