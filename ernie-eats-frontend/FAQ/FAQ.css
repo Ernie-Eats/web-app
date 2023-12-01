@@ -25,7 +25,10 @@
 }
 
 .active, .accordian:hover{
-  background-color: #bf1f3b;
+  background-color: #d4af37;
+  /* #ffd700; */
+  /* #8f6516; */
+  /* #bf1f3b; */
 }
 
 .panel{
@@ -60,7 +63,9 @@
    height:100%;
    background-color: #dcdcdc;
    /* #f6f2f2; */
-   font-family: 'Open Sans', sans-serif;
+   font-family: 600 16px/18px 'Open Sans', sans-serif;
+   /* Arial, Helvetica, sans-serif; */
+   /* 'Open Sans', sans-serif; */
   
  }
 
@@ -69,6 +74,8 @@
   .container h1{   
    color: #fff;
    text-align: center;
+   font-family: 600 16px/18px 'Open Sans', sans-serif;
+
   } 
 
  

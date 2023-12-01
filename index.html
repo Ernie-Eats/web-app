@@ -12,9 +12,26 @@
     <script src="./ernie-eats-backend/Elements/CustomEventSection.js"></script>
     <script src="./ernie-eats-backend/Elements/CustomFooter.js"></script>
     <link rel="stylesheet" href="./ernie-eats-frontend/CSS/theme.css">
+    <link rel="stylesheet" href = "ernie-eats-frontend/CSS/DarkTheme.css">
+    <script src="./ernie-eats-backend/Elements/DarkThemeSettings.js"></script>
+   
 </head>
 <body>
     <navigation-bar></navigation-bar>
+    <!-- <div class="toggle-container">
+        <span class="toggle-label"></span>
+        <label class="theme-toggle" for="theme-switch">
+           <input type="checkbox" id="theme-switch"> 
+           <span class="theme-toggle-slider" id="themeLabel"></span>
+        </label>
+      </div>
+      <br> <br>
+      <div id="theme-display"> Light Theme </div> -->
+      
+
+
+    <button id="themeToggle">Dark Mode</button>
+    
     <img class="home-cover" src="./ernie-eats-frontend/Images/ErnieLogoCover.jpg"> 
     <customer-review-slider id="review-slider" data-current-review="0"> 
         <customer-review class="review"
