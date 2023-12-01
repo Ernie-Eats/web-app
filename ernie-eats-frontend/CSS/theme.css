@@ -1,6 +1,20 @@
 .dark-mode {
   background-color: #111 !important;
-  color: #fff !important;
+   color:grey !important; 
+}
+
+.dark-mode div {
+  background-color: #111 !important;
+  color: white;
+}
+
+.dark-mode a {
+  color: #d4af37;
+}
+
+.dark-mode .body {
+  background-color: #111 !important;
+  color: white;
 }
 
 img.home-cover {
@@ -236,11 +250,7 @@ hr {
     color: #ffffff;
 }
 
-/* .dark-mode .container{
-  background-color: #1a1a1a;
-  color: white;
-    color: #ffffff;
-} */
+
 
 .dark-mode .top-restaurants-title {
   background-color: black;
@@ -263,13 +273,13 @@ hr {
   background-color: black;
 }
 
-.dark-mode .customer-event-section{
+.dark-theme .customer-event-section{
   background-color: black;
   color: white;
 }
-.dark-mode .body{
+.dark-theme .body{
   background-color: black;
-  color: white;
+  color:white;
 }
 
 .dark-mode .customer-event{

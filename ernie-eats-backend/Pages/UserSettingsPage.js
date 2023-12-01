@@ -94,7 +94,7 @@ const themeLabel = document.getElementById("theme-display");
 theme.onclick = () => {
     general.darkTheme = !general.darkTheme;
     document.body.classList.toggle("dark-mode");
-    localStorage.setItem('darkTheme', general.darkTheme);
+    localStorage.setItem('darkTheme', !general.darkTheme);
     themeLabel.innerText = general.darkTheme ? "Dark Theme" : "Light Theme";
 };
 

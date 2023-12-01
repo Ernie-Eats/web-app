@@ -8,19 +8,6 @@
     background-color: white;
 }
 
-.dark-theme body {
-    background-color: #1a1a1a;
-    color: #ffffff;
-}
-/* .dark-mode .sidebar{
-    background-color:white;
-    color: #ffffff;
-} */
-/* .dark-mode .save-button{
-    background-color:white;
-    color: #ffffff;
-} */
-
 .active {
     background-color: #94270c !important;
     color: #fff !important;
