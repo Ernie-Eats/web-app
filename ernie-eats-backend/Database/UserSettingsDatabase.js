@@ -104,7 +104,7 @@ async function deleteUserPage(userPage) {
                 model.setId(item.id);
                 return {
                     success: true,
-                    message: "Deleted Resturant Page from Database",
+                    message: "Deleted Restaurant Page from Database",
                     model: model
                 };
             }
@@ -114,14 +114,14 @@ async function deleteUserPage(userPage) {
         model.setId(userPage.id);
         return {
             success: true,
-            message: "Could not find Resturant Page in Database",
+            message: "Could not find Restaurant Page in Database",
             model: model
         };
     }
 
     return {
         success: false,
-        message: "Invalid Resturant Page",
+        message: "Invalid Restaurant Page",
         model: undefined
     };
 }

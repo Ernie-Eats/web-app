@@ -1,11 +1,11 @@
 class User {
-    constructor(name, username, email, password, isBusiness, resturantId, address) {
+    constructor(name, username, email, password, isBusiness, restaurantId, address) {
         this.name = name;
         this.username = username;
         this.email = email;
         this.password = password;
         this.isBusiness = isBusiness;
-        this.resturantId = resturantId;
+        this.restaurantId = restaurantId;
         this.address = address;
     }
 
@@ -14,7 +14,7 @@ class User {
     }
 
     isBusinessOwner() {
-        return this.isBusiness && this.resturantId !== undefined;
+        return this.isBusiness && this.restaurantId !== undefined;
     }
 
     isValidUser() {
@@ -32,7 +32,7 @@ class User {
     }
 }
 
-class Resturant {
+class Restaurant {
     constructor(name, menu, ownerId, keywords) {
         this.name = name;
         this.menu = menu;
@@ -51,21 +51,21 @@ class Resturant {
             this.keywords !== undefined;
     }
 
-    equals(resturant) {
-        return resturant !== undefined &&
-                this.name === resturant.name && 
-                this.menu === resturant.menu && 
+    equals(restaurant) {
+        return restaurant !== undefined &&
+                this.name === restaurant.name && 
+                this.menu === restaurant.menu && 
                 this.ownerId === resturant.ownerId && 
                 this.keywords === resturant.keywords;
     }
 }
 
 class Review {
-    constructor(title, text, rating, resturantId, userId) {
+    constructor(title, text, rating, restaurantId, userId) {
         this.title = title;
         this.text = text;
         this.rating = rating;
-        this.resturantId = resturantId;
+        this.restaurantId = restaurantId;
         this.userId = userId;
     }
 
@@ -77,7 +77,7 @@ class Review {
         return  this.title !== undefined && 
                 this.text !== undefined && 
                 this.rating !== undefined && 
-                this.resturantId !== undefined && 
+                this.restaurantId !== undefined && 
                 this.userId !== undefined;
     }
 
@@ -86,14 +86,21 @@ class Review {
             this.title === review.title && 
             this.text === review.text && 
             this.rating === review.rating && 
-            this.resturantId === review.resturantId && 
+            this.restaurantId === review.restaurantId && 
             this.userId === review.userId;
     }
 }
 
-class ResturantPage {
-    constructor(resturant, photos) {
-        this.resturant = resturant;
+class RestaurantPage {
+    constructor(restaurantId, email, website, hours, address, contact, description, banner, photos) {
+        this.restaurantId = restaurantId;
+        this.email = email;
+        this.website = website;
+        this.hours = Array.isArray(hours) ? hours : undefined;
+        this.address = address;
+        this.contact = contact;
+        this.description = description;
+        this.banner = banner;
         this.photos = Array.isArray(photos) ? photos : undefined;
     }
 
@@ -102,14 +109,18 @@ class ResturantPage {
     }
 
     isValidResturantPage() {
-        return this.resturant !== undefined &&
-                this.photos !== undefined;
+        return this.restaurantId !== undefined;
     }
 
-    equals(resturantPage) {
-        return resturantPage !== undefined &&
-            this.resturant.equals(resturantPage.resturant) &&
-            resturantPage.photos.every((value, index) => value === this.photos[index]);
+    equals(restaurantPage) {
+        return restaurantPage !== undefined &&
+            this.restaurantId === restaurantPage.restaurantId &&
+            this.email === restaurantPage.email &&
+            this.website === restaurantPage.website &&
+            this.address === restaurantPage.address &&
+            this.contact === restaurantPage.contact &&
+            this.description === restaurantPage.description &&
+            this.banner === restaurantPage.banner;
     }
 }
 
@@ -196,4 +207,4 @@ class Event {
     }
 }
 
-export { User, Resturant, Review, ResturantPage, UserSettings, Post, Event };
+export { User, Restaurant, Review, RestaurantPage, UserSettings };
