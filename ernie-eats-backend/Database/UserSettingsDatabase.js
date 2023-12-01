@@ -28,18 +28,19 @@ async function findAllUserPages() {
     return { success: true, model: pages };
 }
 
-async function findUserSettingsPageById(id) {
-    if (id !== undefined || id !== null) {
-        const { resources } = await container.items.readAll().fetchAll();
-        for (const item of resources) {
-            if (item.userId === id) {
-                const model = new UserSettings(item.userId, item.bio, item.isDarkTheme, item.banner, item.profile);
-                model.setId(item.id);
-                return { success: true, model: model };
+async function findUserSettingsPageById(userId) {
+    let result = { success: false, model: UserSettings.NULL }
+    await findAllUserPages().then(pages => {
+        if (pages.success) { 
+            const found = pages.model.find(value => value.userId === userId);
+            if (found !== undefined) {
+                const model = new UserSettings(found.userId, found.bio, found.isDarkTheme, found.banner, found.profile);
+                model.setId(found.id);
+                result = { success: true, model: model };
             }
         }
-    }
-    return { success: false, model: UserSettings.NULL };
+    });
+    return result;
 }
 
 async function insertUserPage(userPage) {
@@ -75,13 +76,16 @@ async function insertUserPage(userPage) {
 
 async function updateUserPage(userPage) {
     let result = { success: false, model: UserSettings.NULL }
+    console.log(isValidUserSettingsPage(userPage));
     if (isValidUserSettingsPage(userPage)) {
         const { resources } = await container.items.readAll().fetchAll();
         for (const i of resources) {
+            console.log(userPage.id === i.id);
             if (userPage.id === i.id) {
                 const { item } = await container.item(i.id).replace(userPage);
-                let model = new UserSettings(item.userId, item.bio, item.isDarkTheme, item.banner, item.profile);
-                model.setId(item.id);
+                console.log(item);
+                let model = new UserSettings(userPage.userId, userPage.bio, userPage.isDarkTheme, userPage.banner, userPage.profile);
+                model.setId(userPage.id);
                 result = { success: true, model: model };
             }
         }

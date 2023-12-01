@@ -88,10 +88,11 @@ async function deleteRestaurant(restaurant) {
 }
 
 async function findRestaurantByOwnerId(id) {
-    let returnObject = { success: false, model: undefined };
+    let returnObject = { success: false, model: Restaurant.NULL };
     await findAllRestaurants().then(result => {
         if (result.success) {
             console.log(result.model);
+            console.log(id);
             const found = result.model.find((restaurant) => restaurant.ownerId === id);
             if (found !== undefined) {
                 returnObject = { success: true, model: found };

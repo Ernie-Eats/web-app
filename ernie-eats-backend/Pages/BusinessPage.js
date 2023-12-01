@@ -9,8 +9,8 @@ import { Review } from '../Database/models.js';
 
  
 const urlParams = new URLSearchParams(window.location.search);
-const page = urlParams.get("page").replace("%20", " ");
-const id = urlParams.get("restaurant").replace("%20", " ");
+const page = decodeURIComponent(urlParams.get("name"));
+const id = decodeURIComponent(urlParams.get("restaurant"));
 const reviewsDiv = document.getElementById("reviews");
 const rating = document.getElementById("rating");
 const stars = document.getElementById("stars");
@@ -20,6 +20,7 @@ const address = document.getElementById("address");
 const hours = document.getElementById("hours");
 const phone = document.getElementById("phone");
 const website = document.getElementById("website");
+const banner = document.querySelector(".restaurant-picture");
 
 document.getElementById("name").innerText = page;
 document.querySelector(".overlay-text").innerText = page;
@@ -28,6 +29,14 @@ document.getElementById("imageHeader").innerText = `More images of ${page}: `;
 
 let userId = "";
 let starAverage = 0;
+
+await Function.getAddress().then(address => {
+    UserDatabase.findUserByAddress(address).then(user => {
+        if (user.success) {
+            userId = user.model.id;
+        }
+    });
+});
 
 addReview.addEventListener("click", async () => {
     if (!document.querySelector(".container").classList.contains("blur")) {
@@ -120,14 +129,6 @@ await ReviewDatabase.findReviewsByRestaurantId(id).then(reviews => {
     }
 });
 
-await Function.getAddress().then(address => {
-    UserDatabase.findUserByAddress(address).then(user => {
-        if (user.success) {
-            userId = user.model.id;
-        }
-    });
-});
-
 function clickStar(ev, stars) {
     const starList = [...stars.children];
     starList.forEach(s => {
@@ -166,22 +167,28 @@ function clickStar(ev, stars) {
     });
 }
 
-await RestaurantDatabase.findAllRestaurants().then(restaurants => {
-    if (restaurants.success) {
-        const found = restaurants.model.find(r => r.ownerId == userId) !== undefined;
-        if (!found) {
+await RestaurantDatabase.findRestaurantByOwnerId(userId).then(restaurant => {
+    if (restaurant.success) {
+        console.log(restaurant);
+        console.log(restaurant.model.id === id);
+        if (restaurant.model.id === id) {
+            document.getElementById("add-review").style.display = "none";
+        } else {
             document.querySelector(".posting-section").style.display = "none";
             document.querySelector(".reviews-section").style.gridRowStart = 1;
             document.querySelector(".reviews-section").style.height = "810px"; 
-        } else {
-            document.getElementById("add-review").style.display = "none";
         }
+    } else {
+        document.querySelector(".posting-section").style.display = "none";
+        document.querySelector(".reviews-section").style.gridRowStart = 1;
+        document.querySelector(".reviews-section").style.height = "810px"; 
     }
 });
 
 await RestaurantPageDatabase.findRestaurantPageByRestaurantId(id).then(p => {
     if (p.success) {
         address.innerHTML = `${p.model.address} <br> Bridgewater, VA 22812`;
+        banner.src = p.model.banner;
         const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
         let html = '';
 
@@ -197,16 +204,20 @@ await RestaurantPageDatabase.findRestaurantPageByRestaurantId(id).then(p => {
                         starting = "12:00";
                     }
                     starting += "AM"
+                } else if (+(starting.slice(0, 2)) === 12) {
+                    starting += "PM"
                 } else {
                     starting = `${(+(starting.slice(0,2)) - 12).toString()}${starting.slice(2)}PM`
                 }
 
-                if (+(ending.slice(0, 2)) < 12) {
+                if (+(ending.slice(0, 2)) <= 12) {
                     if (+(ending.slice(0, 2)) == 0) {
                         ending = "12:00";
                     }
                     ending += "AM"
-                } else {
+                } else if (+(ending.slice(0, 2)) === 12) {
+                    ending += "PM"
+                }  else {
                     ending = `${(+(ending.slice(0,2)) - 12).toString()}${ending.slice(2)}PM`
                 }
 
@@ -221,6 +232,11 @@ await RestaurantPageDatabase.findRestaurantPageByRestaurantId(id).then(p => {
             pic.classList.add("pillar-food");
             pic.src = photo;
         });
+
+        website.href = p.model.website;
+        website.innerText = p.model.website;
+
+
     }
 });
 

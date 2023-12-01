@@ -1,3 +1,8 @@
+.dark-mode {
+  background-color: #111 !important;
+  color: #fff !important;
+}
+
 img.home-cover {
     width: 28%;
     height: 300px;
@@ -225,53 +230,53 @@ hr {
     flex-grow: 1;
 }
 
-.dark-theme review-slider{
+.dark-mode review-slider{
   background-color: #1a1a1a;
-  text-color: white;
+  color: white;
     color: #ffffff;
 }
 
-/* .dark-theme .container{
+/* .dark-mode .container{
   background-color: #1a1a1a;
-  text-color: white;
+  color: white;
     color: #ffffff;
 } */
 
-.dark-theme .top-restaurants-title {
+.dark-mode .top-restaurants-title {
   background-color: black;
 }
 
-.dark-theme .customer-event-section {
+.dark-mode .customer-event-section {
   background-color: #000000;
 }
 
 
-.dark-theme .customer-event-section .events {
+.dark-mode .customer-event-section .events {
   background-color: black;
 }
 
-.dark-theme .top-restaurants {
+.dark-mode .top-restaurants {
   background-color: rgb(0, 0, 0);
 }
 
-.dark-theme .event-section-title{
+.dark-mode .event-section-title{
   background-color: black;
 }
 
-.dark-theme .customer-event-section{
+.dark-mode .customer-event-section{
   background-color: black;
-  text-color: white;
+  color: white;
 }
-.dark-theme .body{
+.dark-mode .body{
   background-color: black;
-  text-color: white;
-}
-
-.dark-theme .customer-event{
-  background-color: black;
-  text-color: white;
+  color: white;
 }
 
-.dark-theme .event-section{
+.dark-mode .customer-event{
+  background-color: black;
+  color: white;
+}
+
+.dark-mode .event-section{
   background-color: #000000;
 }

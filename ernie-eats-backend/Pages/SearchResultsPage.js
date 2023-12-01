@@ -60,7 +60,7 @@ async function createSearchResult(restaurant) {
     const wrapper = results.appendChild(document.createElement("div"));
     wrapper.classList.add("search-results-wrapper");
     wrapper.onclick = () => {
-        window.open(`business-page.html?page=${encodeURI(restaurant.name)}&restaurant=${encodeURI(restaurant.id)}`);
+        window.open(`business-page.html?name=${encodeURIComponent(restaurant.name)}&restaurant=${encodeURI(restaurant.id)}`);
         window.close();
     };
 

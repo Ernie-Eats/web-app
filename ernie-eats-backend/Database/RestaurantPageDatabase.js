@@ -61,7 +61,7 @@ async function insertRestaurantPage(restaurantPage) {
 }
 
 async function updateRestaurantPage(restuarantPage) {
-    if (isValidUser(restuarantPage)) {
+    if (isValidRestaurantPage(restuarantPage)) {
         const { resources } = await container.items.readAll().fetchAll();
         for (const i of resources) {
             if (restuarantPage.id === i.id) {

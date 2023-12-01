@@ -6,10 +6,10 @@ import * as Model from '../Database/models.js';
 import * as Function from '../Database/functions.js';
 
 let activePage = "account";
-const account = { firstName: "", lastName: "", email: "", username: "", bio: "", profile: undefined, banner: undefined };
+const account = { firstName: "", lastName: "", email: "", username: "", bio: "", profile: "", banner: "" };
 const general = { darkTheme: false };
 const password = { currentPassword: "", newPassword: "", repeatPassword: "" };
-const business = { banner: undefined, name: "", email: "", website: "", address: "", contact: "", hours: new Array(14).fill(""), description: "", others: new Array()};
+const business = { banner: "", name: "", email: "", website: "", address: "", contact: "", hours: new Array(14).fill(""), description: "", others: new Array()};
 
 const contentDivs = [...document.getElementsByClassName("content")];
 contentDivs[0].style.display = "block";
@@ -94,6 +94,7 @@ const themeLabel = document.getElementById("theme-display");
 theme.onclick = () => {
     general.darkTheme = !general.darkTheme;
     document.body.classList.toggle("dark-mode");
+    localStorage.setItem('darkTheme', general.darkTheme);
     themeLabel.innerText = general.darkTheme ? "Dark Theme" : "Light Theme";
 };
 
@@ -212,10 +213,12 @@ await Function.getAddress().then(address => {
                 buisnessButton.style.display = "none";
             } else {
                 RestaurantDatabase.findRestaurantByOwnerId(result.model.id).then(rest => {
+                    console.log(rest);
                     if (rest.success) {
+                        bName.value = rest.model.name;
                         RestaurantPageDatabase.findRestaurantPageByRestaurantId(rest.model.id).then(page => {
+                            console.log(page);
                             if (page.success) {
-                                bName.value = rest.model.name;
                                 bEmail.value = page.model.email;
                                 bWebsite.value = page.model.website;
                                 bAddress.value = page.model.address;
@@ -290,11 +293,14 @@ async function save() {
                             result.model.email = account.email.length === 0 ? result.model.email : account.email;
                             UserDatabase.updateUser(result.model);
                             UserSettingsDatabase.findUserSettingsPageById(result.model.id).then(page => {
+                                console.log(page);
                                 if (page.success) {
+                                    console.log(account);
                                     page.model.bio = account.bio;
                                     page.model.profile = account.profile;
                                     page.model.banner = account.banner;
                                     UserSettingsDatabase.updateUserPage(page.model).then(r => {
+                                        console.log(r);
                                         if (r.success) {
                                             history.go();
                                         }
@@ -317,7 +323,7 @@ async function save() {
                             UserSettingsDatabase.findUserSettingsPageById(result.model.id).then(page => {
                                 if (page.success) {
                                     page.model.isDarkTheme = general.lightMode;
-                                    UserSettingsDatabase.updateUserPage(page.model);
+                                    UserSettingsDatabase.updateUserPage(page.model).then(p => history.go());
                                 }
                             });
                         }
@@ -353,7 +359,7 @@ async function save() {
                                         if (page.success) {
                                             page.model.email = business.email.length === 0 ? page.model.email : business.email;
                                             page.model.website = business.website.length === 0 ? page.model.website : business.website;
-                                            page.model.hours = business.hours.length;
+                                            page.model.hours = business.hours;
                                             page.model.address = business.address.length === 0 ? page.model.address : business.address;
                                             page.model.contact = business.contact.length === 0 ? page.model.contact : business.contact;
                                             page.model.description = business.description.length === 0 ? page.model.description : business.description;
