@@ -8,14 +8,14 @@
     background-color: white;
 }
 
-body.dark-mode {
+.dark-theme body {
     background-color: #1a1a1a;
     color: #ffffff;
 }
-.dark-mode .sidebar{
+/* .dark-mode .sidebar{
     background-color:white;
     color: #ffffff;
-}
+} */
 /* .dark-mode .save-button{
     background-color:white;
     color: #ffffff;

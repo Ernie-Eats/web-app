@@ -203,5 +203,27 @@ body {
       .dark-theme {
         background-color: #111;
         color: #fff;
-       
+
     }
+
+   .dark-theme .about-title {
+      color: rgb(255, 255, 255);
+      padding: 10px;
+  }
+
+  .dark-theme .about-info {
+    color: rgb(255, 255, 255);
+}
+
+.dark-theme.who-title {
+  color: rgb(255, 255, 255);
+}
+
+.dark-theme.who-info {
+  color: rgb(255, 255, 255);
+}
+
+.dark-theme .contact-title {
+    color: white;
+  
+}

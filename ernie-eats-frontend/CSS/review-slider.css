@@ -6,6 +6,15 @@
     padding-top: 100px;
 }
 
+.dark-theme .slider{
+    box-shadow: #111;
+    color: #fff;
+}
+.dark-theme {
+    background-color: #111;
+    color: #fff;
+}
+
 #slider input[type=radio] {
     display: none;
 }

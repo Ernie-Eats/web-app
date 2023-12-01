@@ -58,3 +58,15 @@ img.unfilled-star {
     border-radius: 80%;
     margin-top: 10px;
 }
+
+.dark-theme {
+    background-color: #111;
+    color: #fff;
+
+
+}
+
+.dark-theme .h3{
+    background-color: #ffffff;
+}
+   
