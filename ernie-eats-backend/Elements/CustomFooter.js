@@ -31,7 +31,7 @@ class CustomFooter extends HTMLElement {
                 </div>
 
                 <input type="hidden" name="_captcha" value="false">
-
+                <input type="hidden" name="_url" value="https://delightful-sand-023ffca10.3.azurestaticapps.net/index.html">
                 <input type="hidden" name="_next" value="https://delightful-sand-023ffca10.3.azurestaticapps.net/successpage.html">
 
                     <h2>Contact Us</h2>
