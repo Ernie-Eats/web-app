@@ -39,7 +39,7 @@ async function findUserSettingsPageById(id) {
             }
         }
     }
-    return { success: false, model: undefined };
+    return { success: false, model: UserSettings.NULL };
 }
 
 async function insertUserPage(userPage) {
@@ -74,7 +74,7 @@ async function insertUserPage(userPage) {
 }
 
 async function updateUserPage(userPage) {
-    let result = { success: false, model: undefined }
+    let result = { success: false, model: UserSettings.NULL }
     if (isValidUserSettingsPage(userPage)) {
         const { resources } = await container.items.readAll().fetchAll();
         for (const i of resources) {

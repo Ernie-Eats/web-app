@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <title> General Settings </title>
@@ -9,12 +10,13 @@
     <link rel="stylesheet" href="./ernie-eats-frontend/CSS/theme.css">
     <link rel="stylesheet" href="./ernie-eats-frontend/CSS/generalsettings.css">
 </head>
+
 <body>
     <navigation-bar></navigation-bar>
     <div class="body">
         <div class="sidebar">
-            <img class ="profileImg" src="./ernie-eats-frontend/Images/defaultLogin.png" />
-            <br><button id="account_button"> Account </button>
+            <img class="profileImg" src="./ernie-eats-frontend/Images/defaultLogin.png" />
+            <br><button id="account_button" class="active"> Account </button>
             <button id="general_button"> General </button>
             <button id="password_button"> Password </button>
             <button id="business_button"> Business </button>
@@ -24,26 +26,47 @@
 
         <div class="content" id="account">
             <h1> Account Settings </h1>
+            <div class="content-alignment">
+                <div class="form-group">
                     <label for="fname">First Name</label>
-                    <input type="text" id="fname" name="firstname" placeholder="Your name..">
-
+                    <input type="text" id="fname" name="firstname" placeholder="First name..">
+                </div>
+                <div class="form-group">
                     <label for="lname">Last Name</label>
-                    <input type="text" id="lname" name="lastname" placeholder="Your last name..">
-
+                    <input type="text" id="lname" name="lastname" placeholder="Last name..">
+                </div>
+                <div class="form-group">
                     <label for="Email">Email</label>
-                    <input type="text" id="email" name="email" placeholder="Your email..">
+                    <input type="text" id="email" name="email" placeholder="Email..">
+                </div>
 
+                <div class="form-group">
                     <label for="Username">Username</label>
-                    <input type="text" id="username" name="username" placeholder="Your username..">
-
-                    <label for="Bio">Bio</label>
-                    <input type="text" id="Bio" name="Bio" placeholder="Your Bio...">
-
+                    <input type="text" id="username" name="username" placeholder="Username..">
+                </div>
+                <div class="form-group" id="profilePicker">
                     <label for="profile"> Update Profile Picture </label>
                     <input type="file" id="profile" name="profile">
-                    <div class="profileImgSelection"> <img class="profileImg"/> </div>
-                    <button type="submit" class="save-button">Save</button>
-                    <button type="reset" class="cancel-button">Cancel</button>
+                    <div class="profileImgSelection"> <img class="profileImg" /> </div>
+                </div>
+                <div class="form-group" id="bannerPicker">
+                    <label for="banner"> Update Banner Picture </label>
+                    <input type="file" id="banner" name="banner">
+                    <div class="bannerImgSelection"> <img class="bannerImg" /> </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="Bio">Bio</label><br />
+                    <textarea id="Bio" placeholder="Bio..." rows="5" cols="10" id="aboutDescription"
+                              style="resize: none;"></textarea>
+                </div>
+
+
+            </div>
+
+            <button type="submit" class="save-button">Save</button>
+            <button type="reset" class="cancel-button">Cancel</button>
+
         </div>
 
         <div class="content" id="general">
@@ -51,15 +74,15 @@
             <div class="toggle-container">
                 <span class="toggle-label"></span>
                 <label class="theme-toggle" for="theme-switch">
-                   <input type="checkbox" id="theme-switch"> 
-                   <span class="theme-toggle-slider" id="themeLabel"></span>
+                    <input type="checkbox" id="theme-switch">
+                    <span class="theme-toggle-slider" id="themeLabel"></span>
                 </label>
-              </div>
-              <br> <br>
-              <div id="theme-display"> Light Theme </div>
-              <br> <br>
+            </div>
+            <br> <br>
+            <div id="theme-display"> Light Theme </div>
+            <br> <br>
 
-              <button type="submit" class="save-button">Save</button>
+            <button type="submit" class="save-button">Save</button>
             <button type="reset" class="cancel-button">Cancel</button>
 
 
@@ -67,24 +90,91 @@
 
         <div class="content" id="password">
             <h1> Password Settings </h1>
-
-            <label for="Current Password">Current Password</label>
-            <input type="text" id="cpassword" name="current password" placeholder="Your current password..">
-
-            <label for="New Password">New Password</label>
-            <input type="text" id="npassword" name="new password" placeholder="Your new password..">
-
-            <label for="Confirm New Password">Confirm New Password</label>
-            <input type="text" id="cnpassword" name="confirm new password" placeholder="Confirm new password...">
-
+            <div class="content-alignment">
+                <div class="form-group ">
+                    <label for="Current Password">Current Password</label>
+                    <input type="text" id="cpassword" name="current password" placeholder="Current password..">
+                </div>
+                <div class="form-group ">
+                    <label for="New Password">New Password</label>
+                    <input type="text" id="npassword" name="new password" placeholder="New password..">
+                </div>
+                <div class="form-group ">
+                    <label for="Confirm New Password">Confirm New Password</label>
+                    <input type="text" id="cnpassword" name="confirm new password"
+                           placeholder="Confirm new password...">
+                </div>
+            </div>
             <button type="submit" class="save-button">Save</button>
             <button type="reset" class="cancel-button">Cancel</button>
         </div>
 
         <div class="content" id="business">
             <h1> Business Settings Page </h1>
+            <label for="banner"> Update Business Banner </label>
+            <input type="file" id="banner" name="banner">
+            <div id="bannerSelection"> <img id="bannerImg" /> </div>
+
+            <label for="bname">Business Name</label>
+            <input type="text" id="bname" name="businessName" placeholder="Business name...">
+
+            <label for="bemail">Email</label>
+            <input type="text" id="bemail" name="bemail" placeholder="Business email...">
+
+            <label for="bwebsite"> Website </label>
+            <input type="text" id="bwebsite" name="bwebsite" placeholder="Business Website...">
+
+            <label for="hours"> Business Hours </label>
+            <div id="hours">
+                <label for="monday"> Monday: </label>
+                <input type="time" id="mondayOpen" name="monday" class="time"> -
+                <input type="time" id="mondayClose" name="monday" class="time">
+                <br>
+                <label for="tuesday"> Tuesday: </label>
+                <input type="time" id="tuesdayOpen" name="tuesday" class="time"> -
+                <input type="time" id="tuesdayClose" name="tuesday" class="time">
+                <br>
+                <label for="wednesday"> Wednesday: </label>
+                <input type="time" id="wednesdayOpen" name="wednesday" class="time"> -
+                <input type="time" id="wednesdayClose" name="wednesday" class="time">
+                <br>
+                <label for="thursday"> Thursday: </label>
+                <input type="time" id="thursdayOpen" name="thursday" class="time"> -
+                <input type="time" id="thursdayClose" name="thursday" class="time">
+                <br>
+                <label for="friday"> Friday: </label>
+                <input type="time" id="mondayOpen" name="friday" class="time"> -
+                <input type="time" id="mondayClose" name="friday" class="time">
+                <br>
+                <label for="saturday"> Saturday: </label>
+                <input type="time" id="saturdayOpen" name="saturday" class="time"> -
+                <input type="time" id="saturdayClose" name="saturday" class="time">
+                <br>
+                <label for="sunday"> Sunday: </label>
+                <input type="time" id="sundayOpen" name="sunday" class="time"> -
+                <input type="time" id="sundayClose" name="sunday" class="time">
+            </div>
+
+            <br>
+            <label for="address"> Business Address </label>
+            <input type="text" id="address" name="address" placeholder="Business Address">
+
+            <label for="phoneNumber"> Business Contact Info </label>
+            <input type="tel" id="phoneNumber" name="phoneNumber" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="123-456-7890">
+            <br>
+
+            <label for="bdescription">Description</label>
+            <textarea placeholder="Description.." rows="5" cols="10" id="bdescription" style="resize: none;"></textarea>
+
+            <label for="others"> Upload Other Photos </label>
+            <input type="file" id="others" name="others">
+            <div id="otherSelection"> </div>
+          
+            <button type="submit" class="save-button">Save</button>
+            <button type="reset" class="cancel-button">Cancel</button>
         </div>
     </div>
     <custom-footer></custom-footer>
 </body>
-</html> 
+
+</html>

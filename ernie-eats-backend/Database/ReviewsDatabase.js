@@ -21,7 +21,7 @@ async function findAllReviews() {
     let reviews = [];
     const { resources } = await container.items.readAll().fetchAll();
     for (const item of resources) {
-        let review = new Review(item.title, item.text, item.rating, item.resturantId, item.userId);
+        let review = new Review(item.title, item.text, item.rating, item.restaurantId, item.userId);
         review.setId(item.id);
         reviews.push(review);
     }
@@ -33,7 +33,7 @@ async function insertReview(review) {
         const { resources } = await container.items.readAll().fetchAll();
         for (const item of resources) {
             if (review.equals(item)) {
-                const model = new Review(item.title, item.text, item.rating, item.resturantId, item.userId);
+                const model = new Review(item.title, item.text, item.rating, item.restaurantId, item.userId);
                 model.setId(item.id);
                 return {
                     success: true,
@@ -44,7 +44,7 @@ async function insertReview(review) {
         }
 
         const { item } = await container.items.create(review);
-        const model = new Review(review.title, review.text, review.rating, review.resturantId, review.userId);
+        const model = new Review(review.title, review.text, review.rating, review.restaurantId, review.userId);
         model.setId(item.id);
         return { success: true, 
             message: "Created review in Database", 
@@ -64,7 +64,7 @@ async function deleteReview(review) {
             if (review.equals(i)) {
                 const { item } = await container.item(i.id).read();
                 await item.delete();
-                const model = new Review(review.title, review.text, review.rating, review.resturantId, review.userId);
+                const model = new Review(review.title, review.text, review.rating, review.restaurantId, review.userId);
                 model.setId(item.id);
                 return { success: true, 
                             message: "Deleted Review from Database", 
@@ -73,7 +73,7 @@ async function deleteReview(review) {
             } 
         }
 
-        const model = new Review(review.title, review.text, review.rating, review.resturantId, review.userId);
+        const model = new Review(review.title, review.text, review.rating, review.restaurantId, review.userId);
         model.setId(item.id);
         return { success: true, 
                     message: "Could not find Review in Database", 
@@ -102,7 +102,7 @@ async function findReviewsByResturantId(id) {
     let result = { success: false, model: Review.NULL };
     await findAllReviews().then(reviews => {
         if (reviews.success) {
-            const filtered = reviews.model.filter(value => value.resturantId === id);
+            const filtered = reviews.model.filter(value => value.restaurantId === id);
             result = { success: true, model: filtered };
         }
     });

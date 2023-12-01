@@ -1,4 +1,4 @@
-// https://cdn.jsdelivr.net/npm/@azure/cosmos@4.0.0/+esm @azure/cosmos
+// https://cdn.jsdelivr.net/npm/@azure/cosmos@4.0.0/+esm
 import { CosmosClient } from "https://cdn.jsdelivr.net/npm/@azure/cosmos@4.0.0/+esm";
 import { RestaurantPage } from './models.js';
 
@@ -22,7 +22,7 @@ async function findAllRestaurantPages() {
     let pages = [];
     const { resources } = await container.items.readAll().fetchAll();
     for (const item of resources) {
-        let restaurantPage = new RestaurantPage(item.resturantId, item.photos, item.website, item.posts, item.events);Id, item.photos, item.website, item.posts, item.);
+        let restaurantPage = new RestaurantPage(item.restaurantId, item.email, item.website, item.hours, item.address, item.contact, item.description, item.banner, item.photos);
         restaurantPage.setId(item.id);
         pages.push(restaurantPage);
     }
@@ -30,11 +30,11 @@ async function findAllRestaurantPages() {
 }
 
 async function insertRestaurantPage(restaurantPage) {
-    if (isValidRestaurantPage(restaurantPage)) {
+    if (isValidResturantPage(restaurantPage)) {
         const { resources } = await container.items.readAll().fetchAll();
         for (const item of resources) {
             if (restaurantPage.equals(item)) {
-                let model = new RestaurantPage(item.resturantId, item.photos, item.website, item.posts, item.events);, item.photos);
+                let model = new RestaurantPage(item.restaurantId, item.email, item.website, item.hours, item.address, item.contact, item.description, item.banner, item.photos);
                 model.setId(item.id);
                 return {
                     success: true,
@@ -45,7 +45,7 @@ async function insertRestaurantPage(restaurantPage) {
         }
 
         const { item } = await container.items.create(restaurantPage);
-        let model = new RestaurantPage(item.resturantId, item.photos, item.website, item.posts, item.events);, item.photos);
+        let model = new RestaurantPage(item.restaurantId, item.email, item.website, item.hours, item.address, item.contact, item.description, item.banner, item.photos);
         model.setId(item.id);
         return {
             success: true,
@@ -64,9 +64,9 @@ async function updateRestaurantPage(restuarantPage) {
     if (isValidUser(restuarantPage)) {
         const { resources } = await container.items.readAll().fetchAll();
         for (const i of resources) {
-            if (restuarantPage.equals(i)) {
+            if (restuarantPage.id === i.id) {
                 const { item } = await container.item(i.id).replace(restuarantPage);
-                let model = new RestaurantPage(item.resturantId, item.photos, item.website, item.posts, item.events);
+                let model = new RestaurantPage(item.restaurantId, item.email, item.website, item.hours, item.address, item.contact, item.description, item.banner, item.photos);
                 model.setId(item.id);
                 return { success: true, model: model };
             }
@@ -82,7 +82,7 @@ async function deleteRestuarantPage(restaurantPage) {
             if (restaurantPage.equals(i)) {
                 const { item } = await container.item(i.id).read();
                 await item.delete();
-                let model = new RestaurantPage(item.resturantId, item.photos, item.website, item.posts, item.events);
+                let model = new RestaurantPage(item.restaurantId, item.email, item.website, item.hours, item.address, item.contact, item.description, item.banner, item.photos);
                 model.setId(item.id);
                 return {
                     success: true,
@@ -92,7 +92,7 @@ async function deleteRestuarantPage(restaurantPage) {
             }
         }
 
-        let model = new RestaurantPage(restaurantPage.restaurant, restaurantPage.photos, restaurantPage.website, restaurantPage.posts, restaurantPage.events);
+        let model = new RestaurantPage(restaurantPage.restaurantId, restaurantPage.email, restaurantPage.website, restaurantPage.hours, restaurantPage.address, restaurantPage.contact, restaurantPage.description, restaurantPage.banner, restaurantPage.photos);
         model.setId(restaurantPage.id);
         return {
             success: true,
@@ -108,4 +108,17 @@ async function deleteRestuarantPage(restaurantPage) {
     };
 }
 
-export { deleteRestuarantPage, findAllRestaurantPages, insertRestaurantPage, updateRestaurantPage }
+async function findResturantPageByResturantId(id) {
+    let returnObject = { success: false, model: undefined };
+    await findAllRestaurantPages().then(result => {
+        if (result.success) {
+            const found = result.model.find((page) => page.restaurantId === id);
+            if (found !== undefined) {
+                returnObject = { success: true, model: found };
+            }
+        }
+    });
+    return returnObject;
+}
+
+export { deleteRestuarantPage, findAllResturantPages, findResturantPageByResturantId, insertResturantPage, updateResturantPage }

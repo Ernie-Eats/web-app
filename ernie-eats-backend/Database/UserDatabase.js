@@ -21,7 +21,7 @@ async function findAllUsers() {
     let users = [];
     const { resources } = await container.items.readAll().fetchAll();
     for (const item of resources) {
-        let user = new User(item.name, item.username, item.email, item.password, item.isBusiness, item.resturantId, item.address);
+        let user = new User(item.name, item.username, item.email, item.password, item.isBusiness, item.restaurantId, item.address);
         user.setId(item.id);
         users.push(user);
     }
@@ -34,7 +34,7 @@ async function insertUser(user) {
         for (const item of resources) {
             if (user.equals(item)) {
                 
-                let model = new User(item.name, item.username, item.email, item.password, item.isBusiness, item.resturantId, item.address);
+                let model = new User(item.name, item.username, item.email, item.password, item.isBusiness, item.restaurantId, item.address);
                 return { success: true, 
                     message: "User already in Database", 
                     model: model
@@ -43,7 +43,7 @@ async function insertUser(user) {
         }
 
         const { item } = await container.items.create(user);
-        let model = new User(user.name, user.username, user.email, user.password, user.isBusiness, user.resturantId, user.address);
+        let model = new User(user.name, user.username, user.email, user.password, user.isBusiness, user.restaurantId, user.address);
         model.setId(item.id);
 
         return { success: true, 
@@ -63,7 +63,7 @@ async function updateUser(user) {
         for (const i of resources) {
             if (user.id === i.id) {
                 const { item } = await container.item(i.id).replace(user);
-                let model = new User(user.name, user.username, user.email, user.password, user.isBusinessOwner, user.resturantId, user.address);
+                let model = new User(user.name, user.username, user.email, user.password, user.isBusinessOwner, user.restaurantId, user.address);
                 model.setId(user.id);
                 return { success: true, model: model};
             }
@@ -79,7 +79,7 @@ async function deleteUser(user) {
             if (user.equals(i)) {
                 const { item } = await container.item(i.id).read();
                 await item.delete();
-                let model = new User(user.name, user.username, user.email, user.password, user.isBusiness, user.resturantId, user.address);
+                let model = new User(user.name, user.username, user.email, user.password, user.isBusiness, user.restaurantId, user.address);
                 model.setId(user.id);
                 return { success: true, 
                             message: "Deleted User from Database", 
@@ -88,7 +88,7 @@ async function deleteUser(user) {
             } 
         }
       
-        let model = new User(user.name, user.username, user.email, user.password, user.isBusiness, user.resturantId, user.address);
+        let model = new User(user.name, user.username, user.email, user.password, user.isBusiness, user.restaurantId, user.address);
         model.setId(user.id);
         return { success: true, 
                     message: "Could not find User in Database", 
@@ -117,7 +117,7 @@ async function findUserByAddress(address) {
         if (users.success) { 
             const found = users.model.find(value => value.address === address);
             if (found !== undefined) {
-                const model = new User(found.name, found.username, found.email, found.password, found.isBusiness, found.resturantId, found.address);
+                const model = new User(found.name, found.username, found.email, found.password, found.isBusiness, found.restaurantId, found.address);
                 model.setId(found.id);
                 result = { success: true, model: model };
             }

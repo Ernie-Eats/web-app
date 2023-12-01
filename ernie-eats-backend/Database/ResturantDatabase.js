@@ -17,23 +17,23 @@ function isValidResturant(restaurant) {
     return false;
 }
 
-async function findAllResturants() {
+async function findAllRestaurants() {
     let restaurants = [];
     const { resources } = await container.items.readAll().fetchAll();
     for (const item of resources) {
-        let restaurant = new Restaurant(item.name, item.menu, item.owner, item.reviews);
-        restaurant.id = item.id
-        restaurants.push(restaurant);
+        let resturant = new Restaurant(item.name, item.menu, item.ownerId, item.keywords);
+        resturant.id = item.id
+        restaurants.push(resturant);
     }
     return { success: true, model: restaurants };
 }
 
-async function insertResturant(restaurant) {
+async function insertRestaurant(restaurant) {
     if (isValidResturant(restaurant)) {
         const { resources } = await container.items.readAll().fetchAll();
         for (const item of resources) {
-            if (restaurant.equals(item)) {
-                let model = new Restaurant(item.name, item.menu, item.owner, item.reviews);
+            if (resturant.equals(item)) {
+                let model = new Restaurant(item.name, item.menu, item.ownerId, item.keywords);
                 model.id = item.id
                 return {
                     success: true,
@@ -43,8 +43,8 @@ async function insertResturant(restaurant) {
             }
         }
 
-        const { item } = await container.items.create(restaurant);
-        let model = new Restaurant(item.name, item.menu, item.owner, item.reviews);
+        const { item } = await container.items.create(resturant);
+        let model = new Resturant(item.name, item.menu, item.ownerId, item.keywords);
         model.id = item.id
         return { success: true, 
             message: "Created restaurant in Database", 
@@ -57,14 +57,14 @@ async function insertResturant(restaurant) {
     };
 }
 
-async function deleteResturant(restaurant) {
+async function deleteRestaurant(restaurant) {
     if (isValidResturant(restaurant)) {
         const { resources } = await container.items.readAll().fetchAll();
         for (const i of resources) {
             if (restaurant.equals(i)) {
                 const { item } = await container.item(i.id).read();
                 await item.delete();
-                let model = new Restaurant(item.name, item.menu, item.owner, item.reviews);
+                let model = new Restaurant(item.name, item.menu, item.ownerId, item.keywords);
                 model.id = item.id
                 return { success: true, 
                             message: "Deleted Restaurant from Database", 
@@ -73,7 +73,7 @@ async function deleteResturant(restaurant) {
             } 
         }
 
-        let model = new Restaurant(restaurant.name, restaurant.menu, restaurant.owner, restaurant.reviews);
+        let model = new Restaurant(restaurant.name, restaurant.menu, restaurant.ownerId, restaurant.keywords);
         model.id = restaurant.id
         return { success: true, 
                     message: "Could not find Restaurant in Database", 
@@ -87,7 +87,21 @@ async function deleteResturant(restaurant) {
     };
 }
 
-async function deleteAllResturants() {
+async function findRestaurantByOwnerId(id) {
+    let returnObject = { success: false, model: undefined };
+    await findAllRestaurants().then(result => {
+        if (result.success) {
+            console.log(result.model);
+            const found = result.model.find((restaurant) => restaurant.ownerId === id);
+            if (found !== undefined) {
+                returnObject = { success: true, model: found };
+            }
+        }
+    });
+    return returnObject;
+}
+
+async function deleteAllRestaurants() {
     const { resources } = await container.items.readAll().fetchAll();
     for (const i of resources) {
         const { item } = await container.item(i.id).read();
@@ -96,4 +110,4 @@ async function deleteAllResturants() {
     return true;
 }
 
-export { insertResturant, findAllResturants, deleteResturant, deleteAllResturants }
+export { insertRestaurant, findAllRestaurants, findRestaurantByOwnerId, deleteRestaurant, deleteAllRestaurants }

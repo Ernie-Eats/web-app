@@ -1,11 +1,11 @@
 class User {
-    constructor(name, username, email, password, isBusiness, resturantId, address) {
+    constructor(name, username, email, password, isBusiness, restaurantId, address) {
         this.name = name;
         this.username = username;
         this.email = email;
         this.password = password;
         this.isBusiness = isBusiness;
-        this.resturantId = resturantId;
+        this.restaurantId = restaurantId;
         this.address = address;
     }
 
@@ -16,7 +16,7 @@ class User {
     }
 
     isBusinessOwner() {
-        return this.isBusiness && this.resturantId !== undefined;
+        return this.isBusiness && this.restaurantId !== undefined;
     }
 
     isValidUser() {
@@ -35,13 +35,11 @@ class User {
 }
 
 class Restaurant {
-    constructor(name, menu, ownerId, reviews) {
+    constructor(name, menu, ownerId, keywords) {
         this.name = name;
         this.menu = menu;
         this.ownerId = ownerId;
-        this.reviews = (Array.isArray(reviews)) 
-            ? reviews 
-            : undefined;
+        this.keywords = keywords;
     }
 
     static NULL = new Restaurant(undefined, undefined, undefined, undefined);
@@ -51,28 +49,27 @@ class Restaurant {
     }
 
     isValidResturant() {
-        return this.name !== undefined && 
-                this.menu !== undefined && 
-                this.ownerId !== undefined && 
-                this.reviews !== undefined;
+        return this.name !== undefined &&
+            this.menu !== undefined &&
+            this.ownerId !== undefined &&
+            this.keywords !== undefined;
     }
 
     equals(restaurant) {
         return restaurant !== undefined &&
                 this.name === restaurant.name && 
                 this.menu === restaurant.menu && 
-                this.ownerId.equals(restaurant.ownerId) && 
-                (Array.isArray(restaurant.reviews) && 
-                restaurant.reviews.every((value, index) => value.equals(this.reviews[index])));
+                this.ownerId === resturant.ownerId && 
+                this.keywords === resturant.keywords;
     }
 }
 
 class Review {
-    constructor(title, text, rating, resturantId, userId) {
+    constructor(title, text, rating, restaurantId, userId) {
         this.title = title;
         this.text = text;
         this.rating = rating;
-        this.resturantId = resturantId;
+        this.restaurantId = restaurantId;
         this.userId = userId;
     }
 
@@ -86,7 +83,7 @@ class Review {
         return  this.title !== undefined && 
                 this.text !== undefined && 
                 this.rating !== undefined && 
-                this.resturantId !== undefined && 
+                this.restaurantId !== undefined && 
                 this.userId !== undefined;
     }
 
@@ -95,19 +92,22 @@ class Review {
             this.title === review.title && 
             this.text === review.text && 
             this.rating === review.rating && 
-            this.resturantId === review.resturantId && 
+            this.restaurantId === review.restaurantId && 
             this.userId === review.userId;
     }
 }
 
 class RestaurantPage {
-
-    constructor(resturantId, photos, website, posts, events) {
-        this.resturantId = resturantId;
-        this.photos = Array.isArray(photos) ? photos : undefined;
+    constructor(restaurantId, email, website, hours, address, contact, description, banner, photos) {
+        this.restaurantId = restaurantId;
+        this.email = email;
         this.website = website;
-        this.posts = Array.isArray(posts) ? posts : undefined;
-        this.events = Array.isArray(events) ? events : undefined;
+        this.hours = Array.isArray(hours) ? hours : undefined;
+        this.address = address;
+        this.contact = contact;
+        this.description = description;
+        this.banner = banner;
+        this.photos = Array.isArray(photos) ? photos : undefined;
     }
 
     static NULL = new RestaurantPage(undefined, undefined, undefined, undefined, undefined);
@@ -116,19 +116,20 @@ class RestaurantPage {
         this.id = id;
     }
 
-    isValidRestaurantPage() {
-        return this.restaurant !== undefined &&
-            this.photos !== undefined &&
-            this.website !== undefined;
-
+    isValidResturantPage() {
+        return this.restaurantId !== undefined;
     }
 
     equals(restaurantPage) {
         return restaurantPage !== undefined &&
-            this.resturantId !== undefined &&
-            restaurantPage.photos.every((value, index) => value === this.photos[index]) &&
-            restaurantPage.posts.every((value, index) => value === this.posts[index]) &&
-            restaurantPage.events.every((value, index) => value === this.events[index]);
+            this.restaurantId === restaurantPage.restaurantId &&
+            this.email === restaurantPage.email &&
+            this.website === restaurantPage.website &&
+            this.address === restaurantPage.address &&
+            this.contact === restaurantPage.contact &&
+            this.description === restaurantPage.description &&
+            this.banner === restaurantPage.banner &&
+            restaurantPage.photos.every((value, index) => value === this.photos[index])
     }
 }
 
@@ -162,7 +163,59 @@ class UserSettings {
             this.banner === userSettings.banner &&
             this.profile === userSettings.profile;
     }
+}
 
+class Post {
+    constructor(title, description, restaurantId) {
+        this.title = title;
+        this.description = description;
+        this.restaurantId = restaurantId;
+    }
+
+    setId(id) {
+        this.id = id;
+    }
+
+    isValidPost() {
+        return this.title !== undefined &&
+            this.description !== undefined &&
+            this.restaurantId !== undefined;
+    }
+
+    equals(otherPost) {
+        return otherPost !== undefined &&
+            this.title === otherPost.title &&
+            this.description === otherPost.description &&
+            this.restaurantId === otherPost.restaurantId;
+    }
+}
+
+class Event {
+    constructor(title, description, dateTime, restauarntId) {
+        this.title = title;
+        this.description = description;
+        this.dateTime = dateTime;
+        this.restauarntId = restauarntId;
+    }
+
+    setId(id) {
+        this.id = id;
+    }
+
+    isValidEvent() {
+        return this.title !== undefined &&
+            this.description !== undefined &&
+            this.dateTime !== undefined &&
+            this.restauarntId !== undefined;
+    }
+
+    equals(otherEvent) {
+        return otherEvent !== undefined &&
+            this.title === otherEvent.title &&
+            this.description === otherEvent.description
+            this.dateTime === otherEvent.dateTime &&
+            this.restauarntId === otherEvent.restauarntId;
+    }
 }
 
 export { User, Restaurant, Review, RestaurantPage, UserSettings };
