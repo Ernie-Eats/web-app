@@ -7,13 +7,14 @@ import * as Function from '../Database/functions.js';
  
 const urlParams = new URLSearchParams(window.location.search);
 const page = urlParams.get("page").replace("%20", " ");
-const id = urlParams.get("restaurant").replace("%20", " ");
-document.getElementById("name").innerText = page;
+const id = urlParams.get("resturant").replace("%20", " ");
 const reviewsDiv = document.getElementById("reviews");
 const rating = document.getElementById("rating");
 const stars = document.getElementById("stars");
 let userId = "";
 let starAverage = 0;
+
+document.getElementById("name").innerText = page;
 
 await ReviewDatabase.findReviewsByResturantId(id).then(reviews => {
     if (reviews.success) {
@@ -101,14 +102,9 @@ function round(num) {
 
 function createStars(filledCount, wrapper) {
     for (let i = 0; i < 5; i++) {
-        if (i < Math.trunc(filledCount)) {
-            let star = wrapper.appendChild(document.createElement("img"));
-            star.src = "./ernie-eats-frontend/Images/filledStar.jpg";
-            star.setAttribute("class", "filled-star");
-        } else {
-            let star = wrapper.appendChild(document.createElement("img"));
-            star.src = "./ernie-eats-frontend/Images/unfilledStar.jpg";
-            star.setAttribute("class", "unfilled-star");
-        }
+        let star = wrapper.appendChild(document.createElement("img"));
+        star.src = i < Math.trunc(filledCount) ? "./ernie-eats-frontend/Images/filledStar.jpg"
+            : "./ernie-eats-frontend/Images/unfilledStar.jpg";
+        star.setAttribute("class", "filled-star");
     }
 }

@@ -108,4 +108,17 @@ async function deleteRestuarantPage(resturantPage) {
     };
 }
 
-export { deleteRestuarantPage, findAllResturantPages, insertResturantPage, updateResturantPage }
+async function findResturantPageByResturantId(id) {
+    let returnObject = { success: false, model: undefined };
+    await findAllResturantPages().then(result => {
+        if (result.success) {
+            const found = result.model.find((value) => value.resturant === id);
+            if (found !== undefined) {
+                returnObject = { success: true, model: found };
+            }
+        }
+    });
+    return returnObject;
+}
+
+export { deleteRestuarantPage, findAllResturantPages, insertResturantPage, updateResturantPage, findResturantPageByResturantId }
